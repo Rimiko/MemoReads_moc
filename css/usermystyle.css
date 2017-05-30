@@ -8,26 +8,30 @@ color: #999;
 
 
 .well.well-sm{width:400px;
-              margin-left: 300px;
+             
 }
 
 /*.amazon img{padding-top:60px;}*/
 
 
  body{background-image:url("../images/background.png");
-        z-index:1;
-/*    background-repeat:      no-repeat;
+       /* z-index:1;
+    background-repeat:      no-repeat;
     background-position:    top center;
     -moz-background-size:   cover;
-    background-size:        cover;*/
-    margin-bottom:0px;
+    background-size:        cover;
+    margin-bottom:0px;*/
     
     
   
     
     }
-/*.kabe{
-        background-color:rgba(255,255,255,0.5);}*/
+
+
+
+  /*{background-image:url("../images/2558160805_bbfa81ab3a_o_720.png"); }  */*/
+/*.kabe{*/
+        /*background-color:rgba(0,0,0,0.3);}*/
 
 /*.footer{
  padding-top:40px;
@@ -236,4 +240,18 @@ Licensed under MIT
  padding-top:40px;
 background:none;}
 .image-circle{ border-radius: 50%}
-}
+
+
+div.tabbox { margin: 0px; padding: 0px; width: 400px; }
+
+
+
+
+
+
+
+
+
+
+
+

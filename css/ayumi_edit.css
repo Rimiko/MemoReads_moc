@@ -279,7 +279,7 @@ background:none;}
   Menu and Navigation
 ============================ */
 .navigation  {
-  background-color: orange;
+  background-image: url("../images/Melamine-wood-004.png");: ;
   padding:0;
 }
 .header-rgba{
@@ -341,6 +341,63 @@ background:none;}
   -o-transition: all 0.3s ease-in-out;
 }
 
+
+/*----------------------
+        log in
+ ------------------------- */
+/*@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+/*body {
+  background-color:#fff;
+  -webkit-font-smoothing: antialiased;
+  font: normal 14px Roboto,arial,sans-serif;
+}*/
+
+ /*.container-login {
+    padding: 25px;
+    position: right;
+}*/
+
+/*.form-login {
+    background-color: #EDEDED;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color:#d2d2d2;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+}
+
+h4 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}*/
+#box{
+    border: 1px solid rgb(200, 200, 200);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+    /*background: #a2d3f6;*/
+    border-radius: 4px;
+    top:50px;
+}
+
+h2{
+    text-align:center;
+    color:#fff;
+}
+.input-group-addon{
+  background-color: #D9534F;
+}
 
 /*===========================
   slider
@@ -468,13 +525,13 @@ background:none;}
   padding:90px 40px 50px 40px;
   background-image: url("../images/background.png");
   
-    z-index:1;
-   /* background-repeat:      no-repeat;*/
+   /*z-index:1;
+    background-repeat:      no-repeat;
     background-position:    top center;
-    /*-moz-background-size:   cover;*/
-   /* background-size:        cover;*/
+    -moz-background-size:   cover;
+    background-size:        cover;
     margin-bottom:0px;
-    
+    */
     
 }
 .rgba{
@@ -1416,7 +1473,7 @@ color: #999;
   height: 170px;
   /*ランキングの位置調整*/
   margin-top: -20px;
-  border-color: grey;
+  border-color: black;
   border:solid 2px;
   background-color: white;
 }

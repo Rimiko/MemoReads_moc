@@ -91,7 +91,7 @@ function ChangeTab(tabname) {
            <div class="tabbox">
 
    <ul class="portfolio-filter text-center">
-                <li><a class="btn btn-default active" href="#tab1"
+                <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1"
                 onclick="ChangeTab('tab1');return false;">TOP</a></li>
 
                 <li><a class="btn btn-default" href="#tab2"
@@ -1775,7 +1775,7 @@ function ChangeTab(tabname) {
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
+                        <div><img class="image-circle" src="images/naru.JPG"></div>    
                         <h2>Naru<br> Nishimura</h2>
                         
                     </div>

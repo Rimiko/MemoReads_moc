@@ -169,7 +169,7 @@ list-style: none;
 
 /*バックグラウンド*/
 #background{
-    background-image:url("../images/background2.png");
+    background-image:url("../images/background.png");
     z-index:1;
     background-position:    top center;
     -moz-background-size:   cover;
