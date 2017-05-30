@@ -1,0 +1,49 @@
+    /*book_detail*/
+    .col-sm-4,.col-md-4 {
+        text-align: -webkit-center;
+    }
+    .container{
+        margin-top:30px;
+    }
+ .review{
+  }
+  .keyword{
+    font-size: 15px;
+
+  }
+  .time{
+    font-size: 10px;
+  }
+  .pro{
+    font-size: 13px;
+  }
+  .review{
+   width: 700px;
+   height:500px;
+   border: solid 1px ;
+   overflow: scroll;
+  }
+  h1{
+    margin-top: 0px;
+  }
+  h3 .star{
+    color:orange;
+
+  }
+  .book-detail{
+
+  }
+      #background{
+/*        background-image:url("../images/background.png");*/
+        z-index:1;
+    background-repeat:      no-repeat;
+    background-position:    top center;
+    -moz-background-size:   cover;
+    background-size:        cover;
+    margin-bottom:0px;
+    }
+    .back{
+        background-size: cover;
+        background-color:       rgba(255,255,255,0.5);
+    }
+

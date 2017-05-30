@@ -1,0 +1,143 @@
+/*ヘッダーとフッターのcss*/
+
+
+.navigation{
+background-image: url(../images/background.png);
+    }
+.navbar-default {
+    border-color: #333333;
+}
+.nav-tabs > li > a.active {
+    color: #fbd76f;
+}
+.btn-success {
+    background-color: #fbd76f;
+    border-color: #fbd76f;
+    }
+
+/*検索*/
+#custom-search-form {
+        margin:0;
+        margin-top: 5px;
+        padding: 0;
+    }
+ 
+#custom-search-form .search-query {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        margin-left: 50px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-transition: width  0.2s ease-in-out;
+    -moz-transition:width  0.2s ease-in-out;
+    -o-transition: width  0.2s ease-in-out;
+    transition: width  0.2s ease-in-out;
+    }
+ 
+    #custom-search-form button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 2px 5px;
+        margin-top: 2px;
+        position: relative;
+        left: -28px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    .search-query:focus + button {
+        z-index: 3;   
+    }   
+    .search-query:focus{
+        width: 260px;
+    }   
+
+
+/*フッター*/
+.footer{
+  padding-top:40px;
+background:none;}
+.image-circle{ border-radius: 50%}
+
+#partner {
+  color: #fff;
+  text-align: center;
+  padding:100px;
+}
+#partner {
+    background: url(../images/434098.jpg) 50% 50% no-repeat;
+    background-size: cover;
+}
+.footer {
+  background:none;
+  padding:15px 22px;
+}
+
+.developers h2{font-size: 40px;
+                font-color:white;
+}
+
+ul.social-network {
+  list-style:none;
+  margin-top:20px;  
+  padding:10px;
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+ul.social-network li {
+  display:inline;
+  margin: 0 18px; 
+  font-size:25px; 
+}
+
+ul.social-network li a {  
+  color:#d0d0d0;  
+}
+.social-network li:hover .fa-twitter {
+  color: #00abf0;
+}
+.social-network li:hover .fa-facebook {
+  color: #39579a;
+}
+.social-network li:hover .fa-google-plus {
+  color: #eb8984;
+}
+.social-network li:hover .fa-pinterest {
+  color: #c9171e; 
+}
+.social-network li:hover .fa-linkedin {
+  color: #0077b5; 
+}
+.social-network li:hover .fa-youtube-play {
+  color: #C84941; 
+}
+.social-network li:hover .fa-dribbble {
+  color: #EA4C89 ; 
+}
+.social-network li:hover .fa-pinterest-square {
+  color: #EA4B49; 
+}
+
+.copyright {
+  margin-top:30px;
+    text-align: right;
+}
+
+.copyright a {
+  color:#fff;
+  font-weight:600;
+  font-size:12px;
+  text-shadow:none;
+}

@@ -1,0 +1,137 @@
+/*日本語のフォント*/
+#top{
+   font-family:'メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans',sans-serif;
+   background-color: #FFFFFF;
+}
+
+/*body, input, textarea, select{font-family:Verdana, Geneva,'メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans', sans-serif;}
+h1, h2, h3, h4, h5, h6, .heading{font-family:Georgia, "Times New Roman", Times,'メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans', serif;}*/
+
+
+/*表示されるレビューの文字サイズ*/
+.review{
+    font-size: 1.2em;
+}
+
+/*本のタイトル*/
+.booktitie{
+    font-size: 15px;
+}
+/*    #contact-page{
+      background-image:url("../images/background2.png");
+     z-index:1;
+    background-repeat:      no-repeat;
+    background-position:    top center;
+    -moz-background-size:   cover;
+    background-size:        cover;
+    margin-bottom:0px;
+    }
+    .kabe{*/
+/*        background-color:       rgba(0,0,0,0.3);*/
+    }
+
+/*サイドバー*/
+/*.clear a{
+    margin: 0 20px;
+}
+
+.nickname strong{
+    margin-bottom: 5px;
+}
+
+.nickname{
+    padding: 0;
+}
+
+.avatar{
+    padding: 0;
+    margin:0 auto;
+}
+.sidebar {
+    text-align: center;
+    padding-top: 20px;
+    background-color: white;
+}
+.sidebar a{
+    color: #888888;
+}
+
+.sdb_holder2{
+    width: 100%;
+    margin-top: 5px;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.point{
+    display: inline-block;
+    float: left;
+    width: 50%;
+    border-right: 1px solid #EAEAEA;
+}
+
+.level{
+    display: inline-block;
+    width: 50%;
+}
+
+
+.page a{
+    box-shadow: 2px 2px 5px 1px gray;
+    width: 50%;
+    display: block;
+    margin: 0 auto;
+    margin-top:10px;
+    font-size: 10px;
+    padding:5px 0;
+    background-color: #EEC314;
+    border: 1px solid #EEC314;
+    color: white;
+}
+
+
+.three_quarter{
+    margin: 0 auto;
+}
+
+.sdb_holder1{
+    border-bottom: 1px solid;
+    border-color: #EAEAEA;
+    height: 154px;
+    padding-top: 20px;
+}
+
+.container{padding:10px 0;}
+
+.hoc{
+    margin: 0;
+}
+*/
+/*.username{
+    font-size: ;
+    font-color:;
+    font-size: ;
+
+}
+.bookname{
+    font-size: ;
+    font-color:;
+    font-size: ;
+}
+.box{
+
+}
+.title{
+
+}
+a {
+
+}
+p {
+
+}
+h1{
+
+ }
+.btn{
+
+}*/
