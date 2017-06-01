@@ -1,3 +1,41 @@
+<?php
+
+session_start();
+
+// bdconnect.php をよみこむ
+require('dbconnect.php');
+
+$comment = $_GET['search_word'];
+
+// dbから取得
+// $sql = 'SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books`';
+// $results = mysqli_query($db,$sql) or die (mysqli_error($db));
+// $result = mysqli_fetch_assoc($results);
+
+// キーワード検索
+if (isset($_GET['search_word']) && !empty($_GET['search_word'])){
+$sql = sprintf('SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books` LIKE "%%%s%%" ORDER BY `created`');
+$results = mysqli_query($db,$sql) or die (mysqli_error($db));
+$result = mysqli_fetch_assoc($results);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -112,16 +150,17 @@ function ChangeTab(tabname) {
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="<?php echo $result['icture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <h4>
-                            title:__________</h4>
+                            title:<?php echo $result['title'];?></h4>
                         <h4>
-                            著者;__________
+                            著者;<?php echo $result['author'];?>
                         </h4>
                         <h4>
-                            カテゴリー;_________
+                            <!-- カテゴリー;<?php echo $result[''];?> -->
+                        </h4>
                         </h4>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
