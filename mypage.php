@@ -1,3 +1,27 @@
+<?php
+session_start();
+require('dbconnect.php');
+
+//ログインしている人の情報を取得（名前の表示）
+
+//SQL実行し、ユーザーのデータを取得
+  $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='. $SESSION['login_user_id'];
+
+  $record = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $mypage = mysqli_fetch_assoc($record)
+
+
+
+// SELECT　表別名1.列名1,　表別名2.列名2,　表別名3.列名3, ．．．
+// FROM ( 表名1　表別名1　INNER　JOIN　表名2　表別名2　ON　表別名1.結合列名1　=　表別名2.結合列名2)
+// INNER　JOIN　表名3　表別名3　ON　表別名2.結合列名2　=　表別名3.結合列名3;
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,8 +51,6 @@
   <body>
   <?php include('header.php'); ?>
   <div id="background">
-
-
 	<div class="aboutus">
 		<div class="container">
 			<h3><i class="glyphicon glyphicon-user"></i> My Page</h3>
@@ -56,11 +78,11 @@
 	    </div>
 	    <div class="col-sm-7 well margin-well">
 		    <p>
-            Name : <strong>福光 理美子</strong>
+            Name : <strong><?php echo $member['name'];?></strong>
             <br>
-	   		Age : <strong>20</strong>
+	   		Age : <strong><?php echo $member['age'];?></strong>
 	        <br>
-	        Occupation :<strong>学生</strong>
+	        Occupation :<strong><?php echo $member['job'];?></strong>
 	        <br>
 	        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
 	        <br>
