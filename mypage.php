@@ -78,19 +78,19 @@ require('dbconnect.php');
 	    </div>
 	    <div class="col-sm-7 well margin-well">
 		    <p>
-            Name : <strong><?php echo $member['name'];?></strong>
+            Name : <strong><?php echo $mypage['name'];?></strong>
             <br>
-	   		Age : <strong><?php echo $member['age'];?></strong>
+	   		Age : <strong><?php echo $mypage['age'];?></strong>
 	        <br>
-	        Occupation :<strong><?php echo $member['job'];?></strong>
+	        Occupation :<strong><?php echo $mypage['job'];?></strong>
 	        <br>
 	        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
 	        <br>
-	        Favorite person : <strong>マザーテレサ</strong>
+	        Favorite person : <strong><?php echo $mypage['great_man'];?></strong>
             <br>
-	        Hobby :<strong>ピアノ、バイオリン</strong>
+	        Hobby :<strong><?php echo $mypage['hobby'];?></strong>
 	        <br>
-	        Free comment : <strong class="free">テキストテキストテキストテキストテキストテキストテキストテキストテキスト</strong>
+	        Free comment : <strong class="free"><?php echo $mypage['comment'];?></strong>
 	        </p>
 	        	  <!-- カレンダー -->
 <!--   <div class="calendar">
