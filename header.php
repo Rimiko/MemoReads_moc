@@ -19,14 +19,14 @@ session_start();
 
     <!-- Bootstrap -->
 <!--     <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-<!--     <link rel="stylesheet" href="css/font-awesome.min.css">
+   <!--  <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
-    <link href="css/memoreads.css" rel="stylesheet" /> -->
-<!--          <link href="css/edit.css" rel="stylesheet" /> -->
-        
+    <link href="css/memoreads.css" rel="stylesheet" />
+         <link href="css/edit.css" rel="stylesheet" />
+         -->
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -50,10 +50,10 @@ session_start();
 
                           <div class="row">
                             <div class="span12">
-                  <form id="custom-search-form" class="form-search form-horizontal pull-right" action="book_result.php" method="get">
+                  <form class="form-search form-horizontal pull-right" action="book_result.php" method="get">
                   <div class="input-append span12">
-                  <input type="text" name="search_word" class="search-query mac-style" placeholder="Search"><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> </a>
-                    <button type="submit" class="btn"><i class="icon-search"></i></button>
+                  <input type="text" name="search_word" class="search-query mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></button>
+                    <!-- <button type="submit" class="btn"><i class="icon-search"></i></button> -->
                        </div>
                                 </form>
                             </div>
