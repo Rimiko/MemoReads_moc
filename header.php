@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,9 +50,9 @@
 
                           <div class="row">
                             <div class="span12">
-                  <form id="custom-search-form" class="form-search form-horizontal pull-right">
+                  <form id="custom-search-form" class="form-search form-horizontal pull-right" action="book_result.php" method="get">
                   <div class="input-append span12">
-                  <input type="text" class="search-query mac-style" placeholder="Search"><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> </a>
+                  <input type="text" name="search_word" class="search-query mac-style" placeholder="Search"><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> </a>
                     <button type="submit" class="btn"><i class="icon-search"></i></button>
                        </div>
                                 </form>
