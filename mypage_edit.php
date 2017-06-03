@@ -1,3 +1,21 @@
+<?php
+session_start();
+require('dbconnect.php');
+
+if(isset($_POST) && !empty($_POST['name'])){
+$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`='. $_POST['name'];
+,
+    mysqli_real_escape_string($db,$_POST['tweet']),
+    mysqli_real_escape_string($db,$_POST['tweet_id']));
+    //SQL文実行
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+    //一覧に戻る
+    header("Location: index.php");
+    exit();
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,10 +46,8 @@
 	<div class="kabe">
 	<div class="container">
 			<div class="row main">
-			 
 				<div class="main-login main-center">
 					<form class="form-horizontal" method="post" action="#">
-						
 						<div class="form-group">
 						<h3>プロフィール編集</h3>
 							<label for="name" class="cols-sm-2 control-label">名前</label>
@@ -43,7 +59,6 @@
 							</div>
 						</div>
 
-						
 						<p>アバター選択</p>
 						<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
