@@ -2,16 +2,12 @@
 // session_start();
 require('dbconnect.php');
 
+
 //ログインしている人の情報を取得（名前の表示）
 
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_user_id']を入れること
   $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
-
-  // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
-  
-
-  // $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
 
   $books = mysqli_query($db,$sql) or die(mysqli_error($db));
   $books_array = array();
@@ -19,6 +15,15 @@ require('dbconnect.php');
   $books_array[]=$book;
   }
 
+
+
+ $_SESSION['book_start'] = $books_array[0]['start_date'];
+ $_SESSION['book_end'] = $books_array[0]['end_date'];
+
+
+
+
+ // var_dump($_SESSION);
   // var_dump($books_array);
 
 // SELECT　表別名1.列名1,　表別名2.列名2,　表別名3.列名3, ．．．
@@ -45,7 +50,7 @@ require('dbconnect.php');
 	<link rel="stylesheet" href="css/animate.css">
 	<link href="css/prettyPhoto.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet" />
-	<link href="css/mypage.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/mypage.css" />
 	<link href="css/memoreads.css" rel="stylesheet" />
 	<link href="css/header.css" rel="stylesheet" />
 <!-- 	<link href="css/header.css" rel="stylesheet" /> -->
@@ -172,8 +177,6 @@ require('dbconnect.php');
 	</div>
 	
 	<!-- <div class="our-team"> -->
-
-			
 				<div class="bookshelf">
 			      <img src="images/shelf.jpg" class="shelf">
 			      <div class="absolute">
