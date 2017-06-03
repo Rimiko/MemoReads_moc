@@ -74,17 +74,17 @@
 						<div class="col-xs-4">
         				<img src="images/background.png" class="img-responsive img-radio">
         				<button type="button" class="btn btn-primary btn-radio">lion</button>
-        				<input type="checkbox" id="left-item" class="hidden">
+        				<input type="radio" id="left-item" value="A">
         			</div>
         			        			<div class="col-xs-4">
         				<img src="images/background.png" class="img-responsive img-radio">
         				<button type="button" class="btn btn-primary btn-radio">cat</button>
-        				<input type="checkbox" id="middle-item" class="hidden">
+        				<input type="radio" id="middle-item" value="B">
         			</div>
         			<div class="col-xs-4">
         				<img src="images/background.png" class="img-responsive img-radio">
         				<button type="button" class="btn btn-primary btn-radio">dog</button>
-        				<input type="checkbox" id="right-item" class="hidden">
+        				<input type="radio" id="right-item" value="C">
         			</div>
                     </div>
                     </div>
