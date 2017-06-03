@@ -1,16 +1,25 @@
 <?php
-session_start();
+// session_start();
 require('dbconnect.php');
 
 //ログインしている人の情報を取得（名前の表示）
 
 //SQL実行し、ユーザーのデータを取得
-  $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='. $SESSION['login_user_id'];
+// user_idには. $SESSION['login_user_id']を入れること
+  $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
 
-  $record = mysqli_query($db,$sql) or die(mysqli_error($db));
-  $mypage = mysqli_fetch_assoc($record)
+  // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
+  
 
+  // $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
 
+  $books = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $books_array = array();
+  while ($book = mysqli_fetch_assoc($books)) {
+  $books_array[]=$book;
+  }
+
+  // var_dump($books_array);
 
 // SELECT　表別名1.列名1,　表別名2.列名2,　表別名3.列名3, ．．．
 // FROM ( 表名1　表別名1　INNER　JOIN　表名2　表別名2　ON　表別名1.結合列名1　=　表別名2.結合列名2)
@@ -78,19 +87,19 @@ require('dbconnect.php');
 	    </div>
 	    <div class="col-sm-7 well margin-well">
 		    <p>
-            Name : <strong><?php echo $mypage['name'];?></strong>
+            Name : <strong><?php echo $books_array[0]['name'];?></strong>
             <br>
-	   		Age : <strong><?php echo $mypage['age'];?></strong>
+	   		Age : <strong><?php echo $books_array[0]['age'];?></strong>
 	        <br>
-	        Occupation :<strong><?php echo $mypage['job'];?></strong>
+	        Occupation :<strong><?php echo $books_array[0]['job'];?></strong>
 	        <br>
 	        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
 	        <br>
-	        Favorite person : <strong><?php echo $mypage['great_man'];?></strong>
+	        Favorite person : <strong><?php echo $books_array[0]['great_man'];?></strong>
             <br>
-	        Hobby :<strong><?php echo $mypage['hobby'];?></strong>
+	        Hobby :<strong><?php echo $books_array[0]['hobby'];?></strong>
 	        <br>
-	        Free comment : <strong class="free"><?php echo $mypage['comment'];?></strong>
+	        Free comment : <strong class="free"><?php echo $books_array[0]['comment'];?></strong>
 	        </p>
 	        	  <!-- カレンダー -->
 <!--   <div class="calendar">
@@ -169,8 +178,10 @@ require('dbconnect.php');
 			      <img src="images/shelf.jpg" class="shelf">
 			      <div class="absolute">
 			      	<div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-			      <a href="#" class="detail"><img src="images/book1.jpg" class="best" ></a>
-			      <a href="#" class="detail"><img src="images/book2.jpg" class="favorite"></a>
+                  <?php foreach($books_array as $books_each){ ?>
+			      <a href="#" class="detail"><img src="images/<?php echo $books_each['picture_url']?>" ></a>
+                  <?php } ?>
+<!-- 			      <a href="#" class="detail"><img src="images/book2.jpg" class="favorite"></a>
 			      <a href="#" class="detail"><img src="images/book3.jpg" ></a>
 			      <a href="#" class="detail"><img src="images/book3.jpg" ></a>
 			      <a href="#" class="detail"><img src="images/book3.jpg" ></a>
@@ -184,7 +195,7 @@ require('dbconnect.php');
 			      <a href="#" class="detail"><img src="images/book2.jpg" ></a>
 			       <a href="#" class="detail"><img src="images/book1.jpg" ></a>
 			      <a href="#" class="detail"><img src="images/book3.jpg" ></a>
-			      <a href="#" class="detail"><img src="images/book2.jpg" ></a>
+			      <a href="#" class="detail"><img src="images/book2.jpg" ></a> -->
 			      </div>
 			      </div>
 				</div>
