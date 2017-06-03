@@ -1,3 +1,57 @@
+<?php 
+
+session_start();
+
+var_dump($_POST);
+// var_dump($_REQUEST);
+$name = '';
+$email = '';
+$password = '';
+$password_2 = '';
+$error[] = array();
+
+if(!empty($_POST)){
+
+    if(empty($_POST['name'])){
+        $error['name'] = 'blank';
+        echo 'a';
+    }else {
+        $name = $_POST['name'];
+    }
+
+    if(empty($_POST['email'])){
+        $error['email'] = 'blank';
+        echo 'a2';
+    }else{
+        $email = $_POST['email'];
+        echo 'a3';
+    }
+// パスワード
+if(empty($_POST['password'])){
+    $error['password'] = 'blank';
+    echo 'c';
+}elseif(strlen($_POST['password']) < 4){
+    $error['password'] = 'length';
+    echo "f";
+}else{
+    $password = $_POST['password'];
+    echo 'k';
+}
+// 確認用パスワード
+if(empty($_POST['password_2'])){
+    $error['password_2'] = 'blank';
+    echo 'd';
+}elseif($password !== $_POST['password_2']){
+    $error['password_2'] = 'notsame';
+    }else{
+        $password_2 = $_POST['password_2'];
+    
+    echo 'd2';
+}}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,185 +76,224 @@
     ======================================================= -->
   </head>
   <body>
+  
   <?php include('header.php'); ?>
-
+   
 	<section id="contact-page">
 	<div class="kabe">
-	<div class="container">
+        <div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
+					<form class="form-horizontal" method="post" action="">
 
-					<form class="form-horizontal" method="post" action="#">
 						<div class="form-group">
-						<h3>会員登録</h3>
+					       <h3>会員登録</h3>
+                            <!-- 名前 -->
 							<label for="name" class="cols-sm-2 control-label">名前</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
+                               
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your name"/>
+
+									<input type="name" class="form-control" name="name" id="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($name,ENT_QUOTES,'utf-8'); ?>">
+                                    <?php if(isset($error['name']) && $error['name'] == 'blank'): ?>
+                                        <p>名前を入力してください</p>
+                                    <?php endif; ?>
+                                    
+                                     
 								</div>
 							</div>
 						</div>
-                                                <div class="form-group">
+
+                        <!-- メールアドレス -->
+                        <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">メールアドレス</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="job"  placeholder="Enter your e-mail"/>
+                                    <?php if(isset($error['email']) && $error['email'] == 'blank'): ?>
+                                        <p>emailを入力してください</p>
+                                    <?php endif; ?>
+                                    <input type="email" name="email" value="<?php echo $email; ?>">
+                                    <?php if(isset($error['email']) && $error['email']=='blank'): ?>
+                                        <p>emailを入力してください</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
-                            <div class="form-group">
+
+                        <!-- パスワード -->
+                        <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">パスワード</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="job"  placeholder="Enter your password"/>
+                                    <input type="password" class="form-control" name="password" id="job"  placeholder="Enter your password" value="<?php echo $password; ?>">
+                                    <?php if(isset($error['password']) && $error['password'] == 'blank' ):?>
+                                     <p>パスワードが未入力です</p>
+                                    <?php elseif(isset($error['password']) && $error['password'] == 'length' ): ?>
+                                    <p>パスワードは４文字以上入力してください</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- パスワード確認 -->
                          <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">確認用パスワード</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="job"  placeholder="Enter your password"/>
+                                    <input type="password" class="form-control" name="password_2" id="job"  placeholder="Enter your password" value="<?php echo $password_2 ; ?>"><?php if(isset($error['password_2']) && $error['password_2'] == 'blank' ):  ?>
+                                        <p>確認用パスワードを入力してください</p>
+                                    <?php elseif(isset($error['password_2']) && 'notsame'): ?>
+                                        <p>パスワードが一致しません</p>
+                                    <?php endif; ?>
+        
                                 </div>
                             </div>
                         </div>
+
+                        <!-- アバター -->
                         <div class="form-group">
-                        <label for="avatar" class="cols-sm-2 control-label">アバター選択</label>
-                        <div class="cols-sm-12">
-						<div class="col-xs-4">
-        				<img src="images/background.png" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">lion</button>
-        				<input type="checkbox" id="left-item" class="hidden">
-        			</div>
-        			        			<div class="col-xs-4">
-        				<img src="images/background.png" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">cat</button>
-        				<input type="checkbox" id="middle-item" class="hidden">
-        			</div>
-        			<div class="col-xs-4">
-        				<img src="images/background.png" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">dog</button>
-        				<input type="checkbox" id="right-item" class="hidden">
-        			</div>
-                    </div>
-                    </div>
+                            <label for="avatar" class="cols-sm-2 control-label">アバター選択</label>
+                            <div class="cols-sm-12">
+        						<div class="col-xs-4">
+                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<button type="button" class="btn btn-primary btn-radio">lion</button>
+                    				<input name="avatar" type="radio" id="left-item" value="A">
+                                </div>
+            			        <div class="col-xs-4">
+                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<button type="button" class="btn btn-primary btn-radio">cat</button>
+                    				<input name="avatar" type="radio" id="middle-item" value="B">
+                    			</div>
+                    			<div class="col-xs-4">
+                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<button type="button" class="btn btn-primary btn-radio">dog</button>
+                    				<input name="avatar" type="radio" id="right-item" value="C">
+                    			</div>
+                            </div>
+                        </div>
 
 
-<form class="form-horizontal">
-<fieldset>
+<!-- <form class="form-horizontal"> -->
+                        <!-- <fieldset> -->
 
-<!-- Form Name -->
-
-
-<!-- Multiple Radios (inline) -->
-<div class="form-group">
-  <label class="col-md-12 control-label" for="ages">年代</label>
-  <div class="col-md-12"> 
-    <label class="radio-inline" for="ages-0">
-      <input type="radio" name="ages" id="ages-0" value="age10" checked="checked">
-      10代以下
-    </label> 
-    <label class="radio-inline" for="ages-1">
-      <input type="radio" name="ages" id="ages-1" value="age20">
-      20代
-    </label> 
-    <label class="radio-inline" for="ages-2">
-      <input type="radio" name="ages" id="ages-2" value="age30">
-      30代
-    </label> 
-    <label class="radio-inline" for="ages-3">
-      <input type="radio" name="ages" id="ages-3" value="age40">
-      40代
-    </label> 
-    <label class="radio-inline" for="ages-4">
-      <input type="radio" name="ages" id="ages-4" value="age50">
-      50代
-    </label> 
-    <label class="radio-inline" for="ages-5">
-      <input type="radio" name="ages" id="ages-5" value="age60">
-      60代以上
-    </label>
-  </div>
-</div>
+                        <!-- Form Name -->
 
 
-</fieldset>
-</form>
+                        <!-- Multiple Radios (inline) -->
 
-						<div class="form-group">
+                        <!-- 年代 -->
+                        <div class="form-group">
+                          <label class="col-md-12 control-label" for="ages">年代</label>
+                          <div class="col-md-12"> 
+                            <label class="radio-inline" for="ages-0">
+                              <input type="radio" name="ages" id="ages-0" value="age10" checked="checked">
+                              10代以下
+                            </label> 
+                            <label class="radio-inline" for="ages-1">
+                              <input type="radio" name="ages" id="ages-1" value="age20">
+                              20代
+                            </label> 
+                            <label class="radio-inline" for="ages-2">
+                              <input type="radio" name="ages" id="ages-2" value="age30">
+                              30代
+                            </label> 
+                            <label class="radio-inline" for="ages-3">
+                              <input type="radio" name="ages" id="ages-3" value="age40">
+                              40代
+                            </label> 
+                            <label class="radio-inline" for="ages-4">
+                              <input type="radio" name="ages" id="ages-4" value="age50">
+                              50代
+                            </label> 
+                            <label class="radio-inline" for="ages-5">
+                              <input type="radio" name="ages" id="ages-5" value="age60">
+                              60代以上
+                            </label>
+                          </div>
+                        </div>
+
+
+                        <!-- </fieldset> -->
+<!-- </form>
+ -->
+						<!-- 職業 -->
+                        <div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業（任意）</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="job"  placeholder="Enter your job"/>
+									<input type="text" class="form-control" name="occupaition" id="job"  placeholder="Enter your job"/>
 								</div>
 							</div>
 						</div>
-
+                        <!--趣味 -->
 						<div class="form-group">
 							<label for="hobby" class="cols-sm-2 control-label">趣味（任意）</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="hobby"  placeholder="Enter your hobby"/>
+									<input type="text" class="form-control" name="hobby" id="hobby"  placeholder="Enter your hobby"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 						</div>
-					
-					</form>
-				</div>
-				</div>
-			</div>
-		</div>
+    					
+    	            </form>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</section>
 
-		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    </section><!--/#contact-page-->
+
+	<script type="text/javascript" src="assets/js/bootstrap.js"></script><!--/#contact-page-->
 	<section id="partner">
         <div class="container">
             <div class="center wow fadeInDown">
                 <h2>Developers</h2>
                 <div class="footer">
-            <div class="container">
-                <!-- <div class="container"> -->
-            <div class="developers">
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
-                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
-                        <h2>Rimiko Fukumitsu</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
-                        <h2>Naru<br> Nishimura</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.png"></div>    
-                        <h2>Atsushi Miyamoto</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
-                        <h2>Ayumi <br>Maeda</h2>
-                        
-                    </div>
-                </div>
+                    <div class="container">
+                        <!-- <div class="container"> -->
+                        <div class="developers">
+                            <div class="col-md-3">
+                                <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
+                                    <div><img class="image-circle" src="images/rimiko.png"> </div>    
+                                    <h2>Rimiko Fukumitsu</h2>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
+                                    <div><img class="image-circle" src="images/naru.png"></div>    
+                                    <h2>Naru<br> Nishimura</h2>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
+                                    <div><img class="image-circle" src="images/atsushi.png"></div>    
+                                    <h2>Atsushi Miyamoto</h2>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
+                                    <div><img class="image-circle" src="images/IMG_1696.png"></div>    
+                                    <h2>Ayumi <br>Maeda</h2>
+                                </div>
+                            </div>
+                        </div>
+                </div>    
             </div>
         </div>
+    </section>
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery-2.1.1.min.js"></script>	
