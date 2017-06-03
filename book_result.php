@@ -7,6 +7,23 @@ require('dbconnect.php');
 
 $comment = $_GET['search_word'];
 
+
+ // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
+      $page = '';
+      // GET送信されてきたページ番号を取得
+      if (isset($_GET['page'])){
+        $page = $_GET['page'];
+      }
+      //ないときは1ページ目
+      if ($page == ''){
+        $page = 1;
+      }
+      // 1.表示する正しいページの数値を設定（Min）
+      $page = max($page,1);
+      // 2.必要なベージ数を計算
+      // 1ページに表示する行数
+      $row = 10;
+
 // dbから取得
 // $sql = 'SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books`';
 // $results = mysqli_query($db,$sql) or die (mysqli_error($db));
