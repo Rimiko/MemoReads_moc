@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require('dbconnect.php');
 
 //ログインしている人の情報を取得（名前の表示）
@@ -19,7 +19,7 @@ require('dbconnect.php');
   $books_array[]=$book;
   }
 
-  var_dump($books_array);
+  // var_dump($books_array);
 
 // SELECT　表別名1.列名1,　表別名2.列名2,　表別名3.列名3, ．．．
 // FROM ( 表名1　表別名1　INNER　JOIN　表名2　表別名2　ON　表別名1.結合列名1　=　表別名2.結合列名2)
