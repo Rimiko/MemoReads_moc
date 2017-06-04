@@ -47,7 +47,26 @@ if(empty($_POST['password_2'])){
         $password_2 = $_POST['password_2'];
     
     echo 'd2';
+
+    //職業
+    if(empty($_POST['job'])){
+        $error['job'] = 'blank';
+        echo 'j';
+    }else {
+        $name = $_POST['name'];
+    }
+
+    //趣味
+    if(empty($_POST['hobby'])){
+        $error['hobby'] = 'blank';
+        echo 'h';
+    }else {
+        $name = $_POST['hobby'];
+    }
 }}
+
+
+
 
 
 
@@ -114,7 +133,7 @@ if(empty($_POST['password_2'])){
                                     <?php if(isset($error['email']) && $error['email'] == 'blank'): ?>
                                         <p>emailを入力してください</p>
                                     <?php endif; ?>
-                                    <input type="email" name="email" value="<?php echo $email; ?>">
+                                    <input type="email" name="email" value="<?php htmlspecialchars($email,ENT_QUOTES,'utf-8'); ?>">
                                     <?php if(isset($error['email']) && $error['email']=='blank'): ?>
                                         <p>emailを入力してください</p>
                                     <?php endif; ?>
@@ -158,32 +177,30 @@ if(empty($_POST['password_2'])){
                         <div class="form-group">
                             <label for="avatar" class="cols-sm-2 control-label">アバター選択</label>
                             <div class="cols-sm-12">
+                             <?php
+                                
+                                $avatar = htmlspecialchars($_POST['avatar'],ENT_QUOTES);
+                             ?>
         						<div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
-                    				<button type="button" class="btn btn-primary btn-radio">lion</button>
+                    				<!-- <button type="button" class="btn btn-primary btn-radio">lion</button> -->
                     				<input name="avatar" type="radio" id="left-item" value="A">
                                 </div>
             			        <div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
-                    				<button type="button" class="btn btn-primary btn-radio">cat</button>
+                    				<!-- <button type="button" class="btn btn-primary btn-radio">cat</button> -->
                     				<input name="avatar" type="radio" id="middle-item" value="B">
                     			</div>
                     			<div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
-                    				<button type="button" class="btn btn-primary btn-radio">dog</button>
+                    				<!-- <button type="button" class="btn btn-primary btn-radio">dog</button> -->
                     				<input name="avatar" type="radio" id="right-item" value="C">
                     			</div>
                             </div>
                         </div>
 
 
-<!-- <form class="form-horizontal"> -->
-                        <!-- <fieldset> -->
 
-                        <!-- Form Name -->
-
-
-                        <!-- Multiple Radios (inline) -->
 
                         <!-- 年代 -->
                         <div class="form-group">
@@ -217,9 +234,7 @@ if(empty($_POST['password_2'])){
                         </div>
 
 
-                        <!-- </fieldset> -->
-<!-- </form>
- -->
+                       
 						<!-- 職業 -->
                         <div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業（任意）</label>
@@ -230,6 +245,8 @@ if(empty($_POST['password_2'])){
 								</div>
 							</div>
 						</div>
+                        
+
                         <!--趣味 -->
 						<div class="form-group">
 							<label for="hobby" class="cols-sm-2 control-label">趣味（任意）</label>
