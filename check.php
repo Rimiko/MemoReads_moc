@@ -1,21 +1,34 @@
 <?php 
- session_start();
+  session_start(); 
+     
 
  // dbconnect.phpを読み込む
  require('dbconnect.php');
-
+//セッションにデータがなかったらindex.phpへ移動する
  if (!isset($_SESSION['join'])) {
    header('Location: register.php');
    exit();
  }
 
  $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
+ $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
+ $password = htmlspecialchars($_SESSION['join']['password'],ENT_QUOTES,'UTF-8');
+ $avatar = htmlspecialchars($_SESSION['join']['avatar_id'],ENT_QUOTES,'UTF-8');
+ $ages = htmlspecialchars($_SESSION['join']['ages'],ENT_QUOTES,'UTF-8');
+ $job = htmlspecialchars($_SESSION['join']['job'],ENT_QUOTES,'UTF-8');
+ $hobby = htmlspecialchars($_SESSION['join']['hobby'],ENT_QUOTES,'UTF-8');
+
+ 
+ // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`) VALUES("%s");',
-    mysqli_real_escape_string($db,$_SESSION['join']['name'])
-    // mysqli_real_escape_string($db,$_SESSION['join']['email']),
-    // mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
-    // mysqli_real_escape_string($db,$_SESSION['join'][''])
+  $sql = sprintf('INSERT INTO `users`(`name`,`email`, `password`, `avatar_id`, `age`, `hobby`,`job`,) VALUES("%s","%s","%s",%d,%d,"%s","%s");',
+    mysqli_real_escape_string($db,$_SESSION['join']['name']),
+    mysqli_real_escape_string($db,$_SESSION['join']['email']),
+    mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
+    mysqli_real_escape_string($db,$_SESSION['join']['avatar_id']),
+    mysqli_real_escape_string($db,$_SESSION['join']['age']),
+    mysqli_real_escape_string($db,$_SESSION['join']['hobby']),
+    mysqli_real_escape_string($db,$_SESSION['join']['job'])
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
   header("Location: thanks.php");
@@ -69,13 +82,13 @@
                          <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">メールアドレス</label>
                             <div class="cols-sm-10">
-                             <p>rfadfs@fff-gmail.com</p>
+                             <p><?php echo $email; ?></p>
                             </div>
                         </div>
                             <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">パスワード</label>
                             <div class="cols-sm-10">
-                            ●●●●●●●●●●●●●
+                            パスワードは表示されません
                             </div>
                         </div>
                         <div class="form-group">
@@ -83,7 +96,7 @@
                         <div class="cols-sm-12">
                         <div class="col-xs-4">
                         <img src="images/background.png" class="img-responsive img-radio">
-                        <p>dog</p>
+                        <p><?php echo $avatar; ?></p>
                         <input type="checkbox" id="right-item" class="hidden">
                     </div>
                     </div>
@@ -101,7 +114,7 @@
                             <label for="name" class="cols-sm-2 control-label">年代</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>20代</p>
+                                  <p><?php echo $ages ?></p>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +125,7 @@
                             <label for="name" class="cols-sm-2 control-label">職業</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>学生</p>
+                                  <p><?php echo $job; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -121,14 +134,14 @@
                             <label for="name" class="cols-sm-2 control-label">趣味</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>ピアノ、バイオリン</p>
+                                  <p><?php echo $hobby; ?></p>
                                 </div>
                             </div>
                         </div>
                         </fieldset>
 </form>
-<a href="#" class="rewrite">書き直す</a>
-<a href="#" class="btn btn-success">OK</a>
+<a href="register.php?action=rewrite" class="rewrite">書き直す</a>
+<a href="thanks.php" class="btn btn-success">OK</a>
 <!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 
             <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->
@@ -197,7 +210,7 @@
                     <div class="copyright">
                         &copy; Company Theme. All Rights Reserved.
                         <div class="credits">
-                            <!-- 
+                            <!- 
                                 All the links in the footer should remain intact. 
                                 You can delete the links only if you purchased the pro version.
                                 Licensing information: https://bootstrapmade.com/license/

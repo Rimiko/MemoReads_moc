@@ -1,6 +1,9 @@
 <?php 
 
-session_start();
+ 
+// session_start(); 
+
+
 
 var_dump($_POST);
 
@@ -11,7 +14,7 @@ $password = '';
 $password_2 = '';
 $job= '';
 $hobby = '';
-$error[] = array();
+//$error[] = array();
 
 if(!empty($_POST)){
 
@@ -20,6 +23,7 @@ if(!empty($_POST)){
         echo 'a';
     }else {
         $name = $_POST['name'];
+        echo 'm';
     }
 
     if(empty($_POST['email'])){
@@ -53,11 +57,12 @@ if(empty($_POST['password_2'])){
     }
 
     //アバター
-     if(empty($_POST['avatar'])){
-        $error['avatar'] = 'blank';
+   
+     if(empty($_POST['avatar_id'])){
+        $error['avatar_id'] = 'blank';
         echo 'P';
     }else {
-        $avatar = $_POST['avatar'];
+        $avatar = $_POST['avatar_id'];
         echo 'Q';
     }
 
@@ -70,40 +75,42 @@ if(empty($_POST['password_2'])){
         echo 'T';
     }
 
-    //職業
-    if(empty($_POST['job'])){
-        $error['job'] = 'blank';
-        echo 'j';
-    }else {
+    // //職業
+    // if(empty($_POST['job'])){
+    //     $error['job'] = 'blank';
+    //     echo 'j';
+    // }else {
         $job = $_POST['job'];
         echo 'u';
-    }
+    
 
     //趣味
-    if(empty($_POST['hobby'])){
-        $error['hobby'] = 'blank';
-        echo 'h';
-    }else {
+    // if(empty($_POST['hobby'])){
+    //     $error['hobby'] = 'blank';
+    //     echo 'h';
+    // }else {
         $hobby = $_POST['hobby'];
         echo 'r';
-    }
+    
 
     //エラーがない場合
     if (empty($error)){
       // セッションに値を保存
-      $_SESSION['join'] = $_POST;
-      // $_SESSION['join']['picture_path'] = $picture_path; 
-      // リダイレクト処理を実行する関数header()
-       header('Location: check.php');
-     }
+     $_SESSION['join'] = $_POST;
+
+      //$_SESSION['join']['picture_path'] = $picture_path; 
+      //リダイレクト処理を実行する関数header()
+       header("Location:check.php");
+       exit();
+      }
  }
 
      //書き直し
-//      if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
-//         $_POST = $_SESSION['join'];
-//         $error['rewrite'] = true;
+     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'rewrite') {
+        $_POST = $_SESSION['join'];
+        $error['rewrite'] = true;
 
-// }
+ }
 
 
 
@@ -218,27 +225,27 @@ if(empty($_POST['password_2'])){
         						<div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">lion</button> -->
-                    				<input name="avatar" type="radio" id="left-item" value="A">
+                    				<input name="avatar_id" type="radio" id="left-item" value="1">
                                     <p>アバターA</p>
                                 </div>
             			        <div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">cat</button> -->
-                    				<input name="avatar" type="radio" id="middle-item" value="B">
+                    				<input name="avatar_id" type="radio" id="middle-item" value="2">
                                     <p>アバターB</p>
                     			</div>
                     			<div class="col-xs-4">
                     				<img src="images/background.png" class="img-responsive img-radio">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">dog</button> -->
-                    				<input name="avatar" type="radio" id="right-item" value="C">
+                    				<input name="avatar_id" type="radio" id="right-item" value="3">
                                     <p>アバターC</p>
                     			</div>
 
                                 <?php
 
-                                    if(isset($_POST['avatar']) && ($_POST['avatar']=='A' || $_POST['avatar']=='B' || $_POST['avatar']=='C')){
-                                     $avatar = $_POST['avatar'];
-                                     echo 'アバター:'. $_POST['avatar'];
+                                    if(isset($_POST['avatar_id']) && ($_POST['avatar_id']=='1' || $_POST['avatar_id']=='2' || $_POST['avatar_id']=='3')){
+                                     $avatar = $_POST['avatar_id'];
+                                     echo 'アバター:'. $_POST['avatar_id'];
                                      
                                     }else{
                                      echo 'アバターを選んでください';
@@ -255,27 +262,27 @@ if(empty($_POST['password_2'])){
                           <label class="col-md-12 control-label" for="ages">年代</label>
                           <div class="col-md-12"> 
                             <label class="radio-inline" for="ages-0">
-                              <input type="radio" name="ages" id="ages-0" value="10代以下" >
+                              <input type="radio" name="ages" id="ages-0" value="10" >
                               10代以下
                             </label> 
                             <label class="radio-inline" for="ages-1">
-                              <input type="radio" name="ages" id="ages-1" value="20代">
+                              <input type="radio" name="ages" id="ages-1" value="20">
                               20代
                             </label> 
                             <label class="radio-inline" for="ages-2">
-                              <input type="radio" name="ages" id="ages-2" value="30代">
+                              <input type="radio" name="ages" id="ages-2" value="30">
                               30代
                             </label> 
                             <label class="radio-inline" for="ages-3">
-                              <input type="radio" name="ages" id="ages-3" value="40代">
+                              <input type="radio" name="ages" id="ages-3" value="40">
                               40代
                             </label> 
                             <label class="radio-inline" for="ages-4">
-                              <input type="radio" name="ages" id="ages-4" value="50代">
+                              <input type="radio" name="ages" id="ages-4" value="50">
                               50代
                             </label> 
                             <label class="radio-inline" for="ages-5">
-                              <input type="radio" name="ages" id="ages-5" value="60代以上">
+                              <input type="radio" name="ages" id="ages-5" value="60">
                               60代以上
                             </label>
                                 <?php
@@ -317,7 +324,7 @@ if(empty($_POST['password_2'])){
 						</div>
 
 						<div class="form-group ">
-							<button type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">確認画面へ</button>
+							<input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="確認画面へ">
 						</div>
     					
     	            </form>
