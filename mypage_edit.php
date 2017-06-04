@@ -15,7 +15,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
     //SQL文実行
     mysqli_query($db,$sql) or die(mysqli_error($db));
     //一覧に戻る
-    header("Location: mypage.php");
+    header("Location:mypage.php");
     exit();
 
 }
@@ -52,7 +52,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 	<div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+					<form class="form-horizontal" method="post" action="">
 						<div class="form-group">
 						<h3>プロフィール編集</h3>
 							<label for="name" class="cols-sm-2 control-label">名前</label>
@@ -64,26 +64,23 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							</div>
 						</div>
 
-						<p>アバター選択</p>
-                        <form method="get" action="">
+						<p><strong>アバター選択</strong></p>
+<!--                         <form method="get" action=""> -->
 						<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">lion</button>
-        				<input type="radio" id="left-item" class="hidden">
+        				<input name="avatar_id" type="radio" value="1" />monkey<br />
         			</div>
         			  <div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">cat</button>
-        				<input  type="radio" id="middle-item" class="hidden">
+        				<input name="avatar_id" type="radio" value="2" />dog<br />
         			</div>
         			<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">dog</button>
-        				<input type="radio" id="right-item" class="hidden">
+        				<input name="avatar_id" type="radio" value="3" />dog<br />
         			</div>
-                    </form>
 
-						<div class="form-group">
+
+<!-- 						<div class="form-group">
 							<label for="bestbook" class="cols-sm-2 control-label">ベスト本</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
@@ -91,7 +88,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 									<input type="text" class="form-control" name="email" id="bestbook"  placeholder="Enter your favorite"/>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業</label>
@@ -112,7 +109,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 								</div>
 							</div>
 						</div>
-												<div class="form-group">
+<!-- 												<div class="form-group">
 							<label for="like" class="cols-sm-2 control-label">好きな作家</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
@@ -120,19 +117,15 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 									<input type="text" class="form-control" name="author" id="like"  placeholder="Enter your like"/>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group">
-                   
-
-						
 							<label for="password" class="cols-sm-2 control-label">尊敬している偉人</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="great_man" id="password"  placeholder="Enter your respect"/>
+									<input type="text" class="form-control" name="great_man" id="password"  placeholder="Enter your respect"/>
 								</div>
 							</div>
-						
  </div>
 						<div class="form-group ">
 					<label for="comment" class="cols-sm-2 control-label">ひとこと</label>
@@ -140,15 +133,14 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
                 </div>
 
 					<div class="form-group ">
-               <input type="hidden" name="user_id">
-				<button type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">変更</button>
+				<input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更">
 						</div>
 					
 					</form>
-				</div>
+<!-- 				</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
     </section><!--/#contact-page-->
