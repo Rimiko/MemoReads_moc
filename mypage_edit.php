@@ -2,15 +2,20 @@
 session_start();
 require('dbconnect.php');
 
-if(isset($_POST) && !empty($_POST['name'])){
-$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`='. $_POST['name'];
-,
-    mysqli_real_escape_string($db,$_POST['tweet']),
-    mysqli_real_escape_string($db,$_POST['tweet_id']));
+if(isset($_POST) && !empty($_POST)){
+$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`=1',
+    mysqli_real_escape_string($db,$_POST['name']),
+    mysqli_real_escape_string($db,$_POST['avatar_id']),
+    mysqli_real_escape_string($db,$_POST['hobby']),
+    mysqli_real_escape_string($db,$_POST['job']),
+    mysqli_real_escape_string($db,$_POST['great_man']),
+    mysqli_real_escape_string($db,$_POST['comment']),
+    mysqli_real_escape_string($db,$_POST['point'])
+    );
     //SQL文実行
     mysqli_query($db,$sql) or die(mysqli_error($db));
     //一覧に戻る
-    header("Location: index.php");
+    header("Location: mypage.php");
     exit();
 
 }
@@ -60,21 +65,23 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`ho
 						</div>
 
 						<p>アバター選択</p>
+                        <form method="get" action="">
 						<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">lion</button>
-        				<input type="checkbox" id="left-item" class="hidden">
+        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">lion</button>
+        				<input type="radio" id="left-item" class="hidden">
         			</div>
-        			        			<div class="col-xs-4">
+        			  <div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">cat</button>
-        				<input type="checkbox" id="middle-item" class="hidden">
+        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">cat</button>
+        				<input  type="radio" id="middle-item" class="hidden">
         			</div>
         			<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<button type="button" class="btn btn-primary btn-radio">dog</button>
-        				<input type="checkbox" id="right-item" class="hidden">
+        				<button type="button" name="avatar_id" class="btn btn-primary btn-radio">dog</button>
+        				<input type="radio" id="right-item" class="hidden">
         			</div>
+                    </form>
 
 						<div class="form-group">
 							<label for="bestbook" class="cols-sm-2 control-label">ベスト本</label>
@@ -91,7 +98,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`ho
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="job"  placeholder="Enter your job"/>
+									<input type="text" class="form-control" name="job" id="job"  placeholder="Enter your job"/>
 								</div>
 							</div>
 						</div>
@@ -101,7 +108,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`ho
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="hobby"  placeholder="Enter your hobby"/>
+									<input type="text" class="form-control" name="hobby" id="hobby"  placeholder="Enter your hobby"/>
 								</div>
 							</div>
 						</div>
@@ -110,7 +117,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`ho
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="like"  placeholder="Enter your like"/>
+									<input type="text" class="form-control" name="author" id="like"  placeholder="Enter your like"/>
 								</div>
 							</div>
 						</div>
@@ -122,19 +129,19 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`email`="%s",`avatar_id`=%d,`ho
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your respect"/>
+									<input type="password" class="form-control" name="great_man" id="password"  placeholder="Enter your respect"/>
 								</div>
 							</div>
 						
  </div>
 						<div class="form-group ">
 					<label for="comment" class="cols-sm-2 control-label">ひとこと</label>
-                    <textarea class="form-control" id="comment" rows="3" placeholder="comment" required></textarea>
+                    <textarea class="form-control" id="comment" rows="3" placeholder="comment" name="comment" required></textarea>
                 </div>
 
-							
-						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">変更</button>
+					<div class="form-group ">
+               <input type="hidden" name="user_id">
+				<button type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">変更</button>
 						</div>
 					
 					</form>
