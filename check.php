@@ -1,3 +1,28 @@
+<?php 
+ session_start();
+
+ // dbconnect.phpを読み込む
+ require('dbconnect.php');
+
+ if (!isset($_SESSION['join'])) {
+   header('Location: register.php');
+   exit();
+ }
+
+ $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
+ if (!empty($_POST)) {
+  $sql = sprintf('INSERT INTO `users`(`name`) VALUES("%s");',
+    mysqli_real_escape_string($db,$_SESSION['join']['name'])
+    // mysqli_real_escape_string($db,$_SESSION['join']['email']),
+    // mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
+    // mysqli_real_escape_string($db,$_SESSION['join'][''])
+    );
+  mysqli_query($db,$sql) or die(mysqli_error($db));
+  header("Location: thanks.php");
+  exit();
+     
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,7 +62,7 @@
                             <label for="name" class="cols-sm-2 control-label">名前</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>福光　理美子</p>
+                                  <p><?php echo $name; ?></p>
                                 </div>
                             </div>
                         </div>
