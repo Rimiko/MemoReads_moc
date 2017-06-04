@@ -4,24 +4,36 @@
  // dbconnect.phpを読み込む
  require('dbconnect.php');
 
+//セッションにデータがなかったらindex.phpへ移動
  if (!isset($_SESSION['join'])) {
    header('Location: register.php');
    exit();
  }
 
  $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
+ $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
+ $password = htmlspecialchars($_SESSION['join']['password'],ENT_QUOTES,'UTF-8');
+ $avatar = htmlspecialchars($_SESSION['join']['avatar'],ENT_QUOTES,'UTF-8');
+ $ages = htmlspecialchars($_SESSION['join']['ages'],ENT_QUOTES,'UTF-8');
+ $job = htmlspecialchars($_SESSION['join']['job'],ENT_QUOTES,'UTF-8');
+ $hobby = htmlspecialchars($_SESSION['join']['hobby'],ENT_QUOTES,'UTF-8');
+
+ 
+ // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`) VALUES("%s");',
-    mysqli_real_escape_string($db,$_SESSION['join']['name'])
-    // mysqli_real_escape_string($db,$_SESSION['join']['email']),
-    // mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
-    // mysqli_real_escape_string($db,$_SESSION['join'][''])
+  $sql = sprintf('INSERT INTO `users`(`name`,`email`, `password`, `avatar_id`, ``, `modified`) VALUES("%s", "%s", "%s","%s", now(),now());',
+    mysqli_real_escape_string($db,$_SESSION['join']['name']),
+    mysqli_real_escape_string($db,$_SESSION['join']['email']),
+    mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
+    mysqli_real_escape_string($db,$_SESSION['join'][''])
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
   header("Location: thanks.php");
   exit();
      
  }
+
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">

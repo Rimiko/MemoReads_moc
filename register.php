@@ -94,7 +94,7 @@ if(empty($_POST['password_2'])){
       $_SESSION['join'] = $_POST;
       // $_SESSION['join']['picture_path'] = $picture_path; 
       // リダイレクト処理を実行する関数header()
-       header('Location: check.php');
+       header('Location:check.php');
      }
  }
 
