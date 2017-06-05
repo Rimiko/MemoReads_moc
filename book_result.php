@@ -5,38 +5,112 @@ session_start();
 // bdconnect.php をよみこむ
 require('dbconnect.php');
 
-$comment = $_GET['search_word'];
+// $_REQUEST['search_word'];
 
 
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
-      $page = '';
-      // GET送信されてきたページ番号を取得
-      if (isset($_GET['page'])){
-        $page = $_GET['page'];
-      }
-      //ないときは1ページ目
-      if ($page == ''){
-        $page = 1;
-      }
-      // 1.表示する正しいページの数値を設定（Min）
-      $page = max($page,1);
-      // 2.必要なベージ数を計算
-      // 1ページに表示する行数
-      $row = 10;
+     //  $page = '';
+     //  // GET送信されてきたページ番号を取得
+     //  if (isset($_GET['page'])){
+     //    $page = $_GET['page'];
+     //  }
+     //  //ないときは1ページ目
+     //  if ($page == ''){
+     //    $page = 1;
+     //  }
+     //  // 1.表示する正しいページの数値を設定（Min）
+     //  $page = max($page,1);
+     //  // 2.必要なベージ数を計算
+     //  // 1ページに表示する行数
+     //  $row = 10;
+
+     // // 投稿数取得
+     //  if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+     //    $sql = sprintf('SELECT COUNT(*) as cnt FROM `books` WHERE `title`,`category`,`picture_url`,`author`,`detail` LIKE "%%%s%%" ORDER BY `created` DESC',
+     //      mysqli_real_escape_string($db,$_GET['search_word']));
+
+     //    }else{ $sql = 'SELECT COUNT(*) as cnt FROM `books` WHERE `book_id` ORDER BY `created` DESC';
+     //    }
+     //  $record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+     //  $table_cnt = mysqli_fetch_assoc($record_cnt);
+     //  // ceil() :切り上げする関数
+     //  $maxPage = ceil($table_cnt['cnt'] / $row);
+ 
+     //  // 3.表示する正しいページ数の数値を設定（Max）
+     //  $page = min($page,$maxPage);
+     //  // 4.ページに表示する件数だけ取得
+     //  $start = ($page -1) * $row;
 
 // dbから取得
 // $sql = 'SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books`';
 // $results = mysqli_query($db,$sql) or die (mysqli_error($db));
 // $result = mysqli_fetch_assoc($results);
 
-// キーワード検索
-if (isset($_GET['search_word']) && !empty($_GET['search_word'])){
-$sql = sprintf('SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books` LIKE "%%%s%%" ORDER BY `created`');
-$results = mysqli_query($db,$sql) or die (mysqli_error($db));
-$result = mysqli_fetch_assoc($results);
+// フリーキーワード検索
 
-}
+if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));
 
+ $tops = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+
+ $tops_array = array();
+ while ($top = mysqli_fetch_assoc($tops)){
+
+$tops_array[] = $top;
+
+
+}}
+  var_dump($tops_array);
+
+// 本キーワード検索
+if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+$sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created`',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+   
+   $books = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+   $books_array = array();
+   while ($book = mysqli_fetch_assoc($books)){
+
+   $books_array[] = $book;
+
+
+}}
+
+
+  var_dump($books_array);
+// ユーザー検索
+if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%"',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+   
+   $users = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+   $users_array = array();
+   while ($user = mysqli_fetch_assoc($users)){
+   $users_array[] = $user;
+
+}}
+
+
+var_dump($users_array);
 
 
 
@@ -155,28 +229,34 @@ function ChangeTab(tabname) {
                 onclick="ChangeTab('tab3');return false;">ユーザー</a></li>
                 <!-- <li><a class="btn btn-default" href="#">キーワード</a></li> -->
             </ul><!--/#portfolio-filter-->
+
    <div id="tab1" class="tab">
       <p>
 		
 		<div class="container">
             <div class="">
+            
                 <div class="portfolio-items" style="left: 270px;">
+               
+             <?php foreach ($tops_array as $top_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="<?php echo $result['icture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="book_detail.html?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $result['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
+                    
                     <div class="col-sm-6 col-md-6">
                         <h4>
-                            title:<?php echo $result['title'];?></h4>
+                            title:<?php echo $top_each['title'];?></h4>
                         <h4>
-                            著者;<?php echo $result['author'];?>
+                            著者;<?php echo $top_each['author'];?>
                         </h4>
                         <h4>
-                            <!-- カテゴリー;<?php echo $result[''];?> -->
+                           カテゴリー;<?php echo $top_each['category'];?>
                         </h4>
                         </h4>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -218,8 +298,8 @@ function ChangeTab(tabname) {
                             </div>
                         </div>
                     </div><!--/.portfolio-item-->
-
-                    <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+<?php } ?>
+                   <!--  <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -229,13 +309,13 @@ function ChangeTab(tabname) {
                     </div>
                     <div class="col-sm-6 col-md-6">
                     <h4>
-                            title:__________</h4>
+                           </h4>
                         <h4>
-                            著者;__________
+                            著者;
                         </h4>
                         <h4>
-                            カテゴリー;_________
-                        </h4>
+                            カテゴリー
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4> -->
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -261,25 +341,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                        <div class="recent-work-wrap">
+    </div> -->
+                        <!-- <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                    <!--  <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div><!-/.portfolio-item-->
 
-                    <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm" >
@@ -289,13 +369,13 @@ function ChangeTab(tabname) {
                     </div>
                     <div class="col-sm-6 col-md-6">
                     <h4>
-                            title:__________</h4>
+                            </h4>
                         <h4>
-                            著者;__________
+                            著者;
                         </h4>
                         <h4>
-                            カテゴリー;_________
-                        </h4>
+                           カテゴリー;
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -321,25 +401,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3> -->
                                     <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>        
-                    </div><!--/.portfolio-item-->
+                    </div><!/.portfolio-item--> 
 
-                    <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                   <!--  <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -355,7 +435,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -381,25 +461,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                        <div class="recent-work-wrap">
+    </div> -->
+                       <!--  <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                               <!--  </div> 
                             </div>
                         </div>           
-                    </div><!--/.portfolio-item-->
-          
-                    <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    </div><!/.portfolio-item-->
+           
+                   <!--  <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -415,7 +495,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                        <!--  <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -441,25 +521,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
 <!--                                     <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                               <!--  </div> 
                             </div>
                         </div>      
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -475,7 +555,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -501,25 +581,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                        <div class="recent-work-wrap">
+    </div> --><!-- 
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>         
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -535,7 +615,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -561,25 +641,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -595,7 +675,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -621,25 +701,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                        <div class="recent-work-wrap">
+    </div> -->
+                        <!-- <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                          <!--   <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -655,7 +735,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -681,29 +761,29 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
 
-    <div class="recent-work-wrap">
+   <!--  <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                           <!--  <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -719,7 +799,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -746,16 +826,17 @@ function ChangeTab(tabname) {
                             </ul>
                         </div>
                     </div> -->
-                    <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                     <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                 </div>
             </div>
         </div>
     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         
-    </section><!--/#portfolio-item-->
+</section>
+    <!-- <!/#portfolio-item -->
 </p>
    </div></div>
    <div class="kabe">
@@ -763,28 +844,30 @@ function ChangeTab(tabname) {
         <div class="container">
             <div class="center">
                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt</p> -->
-            </div>
+            <!-- </div> -->
    <div id="tab2" class="tab">
       <p><div class="container">
             <div class="">
                 <div class="portfolio-items" style="left: 270px;">
+                <?php foreach ($books_array as $book_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="book_detail.html?book_id=<?php echo $book_each['book_id'];?>"title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <h4>
-                            title:__________</h4>
+                            title:<?php echo $book_each['title'];?></h4>
                         <h4>
-                            著者;__________
+                            著者;<?php echo $book_each['author'];?>
                         </h4>
                         <h4>
-                            カテゴリー;_________
+                            カテゴリー;<?php echo $book_each['category'];?>
                         </h4>
+
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
                         <!-- <p>
@@ -813,6 +896,8 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
+  
+                    
                         <div class="recent-work-wrap">
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item1.png" alt=""> -->
                             <div class="overlay">
@@ -823,9 +908,11 @@ function ChangeTab(tabname) {
                                 </div> 
                             </div>
                         </div>
-                    </div><!--/.portfolio-item-->
+                    </div>
+                      <?php } ?><!--/.portfolio-item-->
+                    
 
-                    <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -841,7 +928,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4> -->
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -867,25 +954,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                           <!--  <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                    <!--  <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -901,7 +988,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -927,25 +1014,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                        <div class="recent-work-wrap">
+    </div> -->
+                       <!--  <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                           <!--  <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3> -->
                                     <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>        
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -961,7 +1048,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -987,25 +1074,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>           
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
           
-                    <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1021,7 +1108,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                        <!--  <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1047,25 +1134,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
 <!--                                     <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>      
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -1081,7 +1168,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1107,25 +1194,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>         
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1141,7 +1228,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1167,25 +1254,25 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                   <!--  <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -1201,7 +1288,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1227,24 +1314,24 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
-
+                    </div> --><!--/.portfolio-item-->
+<!-- 
                     <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -1261,7 +1348,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1287,7 +1374,7 @@ function ChangeTab(tabname) {
                                 <li><a href="#">Github</a></li>
                             </ul>
                         </div> -->
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                     </div>
                 </div>
             </div>
@@ -1297,19 +1384,19 @@ function ChangeTab(tabname) {
 
 
 
-    <div class="recent-work-wrap">
+    <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
+                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm">
@@ -1325,7 +1412,7 @@ function ChangeTab(tabname) {
                         </h4>
                         <h4>
                             カテゴリー;_________
-                        </h4>
+                        </h4> -->
                         <!-- <h4>
                             title:__________</h4>
                         <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -1352,19 +1439,21 @@ function ChangeTab(tabname) {
                             </ul>
                         </div>
                     </div> -->
-                    <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
+                    <!-- p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
                 </div>
             </div>
         </div>
     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
+        </div> -->
+        <!-- <div class="container">
         <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10">
-   <!--  <a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span> 次へ</a> --></div></div></div>
-    </section><!--/#portfolio-item-->
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10"> -->
+   <!--  <a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span> 次へ</a> --><!-- </div></div></div> -->
+   </section>
+   <!--/#portfolio-item-->
+
     </p>
    </div>
    <div class="kabe">
@@ -1376,25 +1465,26 @@ function ChangeTab(tabname) {
    <div id="tab3" class="tab">
       <p><div class="container">
                 <div class="portfolio-items" style="left:270px;">
+                <?php foreach ($users_array as $user_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="mypage.php?user_id=<?php echo $user_each['user_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $user_each['avater_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
                     <div class="col-sm-2 col-md-2">
                         <h4>
-                            名前:__________</h4>
+                            名前:<?php echo $user_each['name'];?></h4>
                         <h4>
-                            年代;__________
+                            年代;<?php echo $user_each['age'];?>
                         </h4>
                         <h4>
-                            趣味;__________
+                            趣味;<?php echo $user_each['hobby'];?>
                         </h4>
                         <h4>
-                            職業;__________
+                            職業;<?php echo $user_each['job'];?>
                         </h4></div>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
@@ -1437,8 +1527,9 @@ function ChangeTab(tabname) {
                             </div>
                         </div>
                     </div><!--/.portfolio-item-->
+                    <?php } ?>
 
-                    <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px;">
                     <div class="row" style="width: 0px;">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm" style="
@@ -1467,19 +1558,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                    <!--  <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                               <!--  </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1507,19 +1598,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3> -->
                                     <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                               <!--  </div> 
                             </div>
                         </div>        
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm" style="
@@ -1548,19 +1639,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                               <!--  </div> 
                             </div>
                         </div>           
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
           
-                    <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1588,19 +1679,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
 <!--                                     <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>      
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm" style="
@@ -1629,19 +1720,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>         
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1669,19 +1760,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                   <!--  <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
             <div class="well well-sm" style="
@@ -1711,19 +1802,19 @@ function ChangeTab(tabname) {
             </div>
         </div>
     </div>
-                        <div class="recent-work-wrap">
+                        <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
+                    </div> --><!--/.portfolio-item-->
 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
+                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="well well-sm">
@@ -1757,18 +1848,18 @@ function ChangeTab(tabname) {
 
 
 
-    <div class="recent-work-wrap">
+    <div class="recent-work-wrap"> -->
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <div class="overlay">
-                                <div class="recent-work-inner">
+                            <!-- <div class="overlay">
+                                <div class="recent-work-inner"> -->
                                     <!-- <h3><a href="#">Business theme</a></h3>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
                                     <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                </div> 
+                                <!-- </div> 
                             </div>
                         </div>          
-                    </div><!--/.portfolio-item-->
-                   <div class="container">
+                    </div> --><!--/.portfolio-item-->
+                   <!-- <div class="container">
                     <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
@@ -1803,7 +1894,7 @@ function ChangeTab(tabname) {
     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         
     </section><!--/#portfolio-item-->
     </p>
