@@ -36,7 +36,7 @@
                         <div class="form-group">
                         <label for="avatar" class="cols-sm-2 control-label">本選択</label>
                         <div class="row">
-                        <div class="cols-sm-12">
+                        <div class="cols-sm-6">
                         <div class="col-xs-4">
                         <img src="images/background.png" class="img-responsive img-radio">
                         <button type="button" class="btn btn-primary btn-radio">lion</button>
@@ -51,7 +51,7 @@
                     </div>
                     </div>
                     <div class="row">
-                    <div class="cols-sm-12">
+                    <div class="cols-sm-6">
                         <div class="col-xs-4">
                         <img src="images/background.png" class="img-responsive img-radio">
                         <button type="button" class="btn btn-primary btn-radio">lion</button>
@@ -66,7 +66,7 @@
                     </div>
                     </div>
                     <div class="row">
-                      <div class="cols-sm-12">
+                      <div class="cols-sm-6">
                         <div class="col-xs-4">
                         <img src="images/background.png" class="img-responsive img-radio">
                         <button type="button" class="btn btn-primary btn-radio">lion</button>
