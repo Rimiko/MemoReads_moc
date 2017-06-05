@@ -16,19 +16,21 @@
  $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
  $password = htmlspecialchars($_SESSION['join']['password'],ENT_QUOTES,'UTF-8');
  $avatar = htmlspecialchars($_SESSION['join']['avatar_id'],ENT_QUOTES,'UTF-8');
- $ages = htmlspecialchars($_SESSION['join']['ages'],ENT_QUOTES,'UTF-8');
+ $age = htmlspecialchars($_SESSION['join']['age'],ENT_QUOTES,'UTF-8');
+ $gender = htmlspecialchars($_SESSION['join']['gender'],ENT_QUOTES,'UTF-8');
  $job = htmlspecialchars($_SESSION['join']['job'],ENT_QUOTES,'UTF-8');
  $hobby = htmlspecialchars($_SESSION['join']['hobby'],ENT_QUOTES,'UTF-8');
 
  
  // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`,`email`,`password`,`avatar_id`,`age`,`hobby`,`job`,) VALUES("%s","%s","%s",%d,%d,"%s","%s");',
+  $sql = sprintf('INSERT INTO `users`(`name`,`email`,`password`,`avatar_id`,`age`,`gender`,`hobby`,`job`) VALUES("%s","%s","%s",%d,%d,%d,"%s","%s");',
     mysqli_real_escape_string($db,$_SESSION['join']['name']),
     mysqli_real_escape_string($db,$_SESSION['join']['email']),
     mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
     mysqli_real_escape_string($db,$_SESSION['join']['avatar_id']),
     mysqli_real_escape_string($db,$_SESSION['join']['age']),
+    mysqli_real_escape_string($db,$_SESSION['join']['gender']),
     mysqli_real_escape_string($db,$_SESSION['join']['hobby']),
     mysqli_real_escape_string($db,$_SESSION['join']['job'])
     );
@@ -71,7 +73,7 @@
             <div class="row main">
                 <div class="main-login main-center">
                     <form class="form-horizontal" method="post" action="">
-                        
+                        <input type="hidden" name="action" valur="submit">
                         <div class="form-group">
                         <h3>確認ページ</h3>
                             <label for="name" class="cols-sm-2 control-label">名前</label>
@@ -116,7 +118,16 @@
                             <label for="name" class="cols-sm-2 control-label">年代</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p><?php echo $ages ?></p>
+                                  <p><?php echo $age; ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">性別</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                  <p><?php echo $gender; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -164,29 +175,29 @@
                 <!-- <div class="container"> -->
             <div class="developers">
                 <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
-                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
+                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="image/rimiko.png">
+                        <div><img class="image-circle" src="image/rimiko.png"> </div>    
                         <h2>Rimiko Fukumitsu</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
+                        <div><img class="image-circle" src="image/naru.png"></div>    
                         <h2>Naru<br> Nishimura</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.png"></div>    
+                        <div><img class="image-circle" src="image/atsushi.png"></div>    
                         <h2>Atsushi Miyamoto</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
+                        <div><img class="image-circle" src="image/IMG_1696.png"></div>    
                         <h2>Ayumi <br>Maeda</h2>
                         
                     </div>
