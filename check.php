@@ -7,8 +7,10 @@
 //セッションにデータがなかったらindex.phpへ移動する
  if (!isset($_SESSION['join'])) {
    header('Location: register.php');
-   exit();
+   exit
+   ();
  }
+ var_dump($_SESSION['join']);
 
  $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
  $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
@@ -21,7 +23,7 @@
  
  // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`,`email`, `password`, `avatar_id`, `age`, `hobby`,`job`,) VALUES("%s","%s","%s",%d,%d,"%s","%s");',
+  $sql = sprintf('INSERT INTO `users`(`name`,`email`,`password`,`avatar_id`,`age`,`hobby`,`job`,) VALUES("%s","%s","%s",%d,%d,"%s","%s");',
     mysqli_real_escape_string($db,$_SESSION['join']['name']),
     mysqli_real_escape_string($db,$_SESSION['join']['email']),
     mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
@@ -31,7 +33,7 @@
     mysqli_real_escape_string($db,$_SESSION['join']['job'])
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
-  header("Location: thanks.php");
+  header("Location:thanks.php");
   exit();
      
  }
@@ -68,7 +70,7 @@
     <div class="container">
             <div class="row main">
                 <div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
+                    <form class="form-horizontal" method="post" action="">
                         
                         <div class="form-group">
                         <h3>確認ページ</h3>
@@ -103,7 +105,7 @@
                     </div>
 
 
-<form class="form-horizontal">
+<!-- <form class="form-horizontal"> -->
 <fieldset>
 
 <!-- Form Name -->
@@ -121,7 +123,7 @@
 
 
 
-  <div class="form-group">
+                        <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">職業</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
@@ -130,7 +132,7 @@
                             </div>
                         </div>
 
-                    <div class="form-group">
+                        <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">趣味</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
@@ -139,9 +141,9 @@
                             </div>
                         </div>
                         </fieldset>
-</form>
-<a href="register.php?action=rewrite" class="rewrite">書き直す</a>
-<a href="thanks.php" class="btn btn-success">OK</a>
+<!-- </form> -->
+                    <a href="register.php?action=rewrite" class="rewrite">書き直す</a>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="OK">
 <!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 
             <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->
@@ -151,7 +153,7 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+       <!--  <script type="text/javascript" src="assets/js/bootstrap.js"></script> -->
     </section><!--/#contact-page-->
     <section id="partner">
         <div class="container">
@@ -228,15 +230,15 @@
     </footer>  -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.1.1.min.js"></script>  
+   <!--  <script src="js/jquery-2.1.1.min.js"></script>   -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="js/functions.js"></script>
     <script src="contactform/contactform.js"></script>
-    
+     -->
 </body>
 </html>
