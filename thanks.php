@@ -1,3 +1,9 @@
+<?php 
+session_start();
+
+// 会員登録が済んだのでSESSION変数に保存していた入力値を削除
+unset($_SESSION['join']);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,8 +46,8 @@
                             </div>
                         </div>
 
-<a href="#" class="rewrite">TOPに戻る</a>
-<a href="#" class="btn btn-success">マイページへ</a>
+<a href="user_top.php" class="rewrite">TOPに戻る</a>
+<a href="mypage.php" class="btn btn-success">マイページへ</a>
 <!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 
             <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->

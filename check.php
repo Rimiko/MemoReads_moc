@@ -1,24 +1,41 @@
 <?php 
- session_start();
+  session_start(); 
+     
 
  // dbconnect.phpを読み込む
  require('dbconnect.php');
-
+//セッションにデータがなかったらindex.phpへ移動する
  if (!isset($_SESSION['join'])) {
    header('Location: register.php');
-   exit();
+   exit
+   ();
  }
+ var_dump($_SESSION['join']);
 
  $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
+ $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
+ $password = htmlspecialchars($_SESSION['join']['password'],ENT_QUOTES,'UTF-8');
+ $avatar = htmlspecialchars($_SESSION['join']['avatar_id'],ENT_QUOTES,'UTF-8');
+ $age = htmlspecialchars($_SESSION['join']['age'],ENT_QUOTES,'UTF-8');
+ $gender = htmlspecialchars($_SESSION['join']['gender'],ENT_QUOTES,'UTF-8');
+ $job = htmlspecialchars($_SESSION['join']['job'],ENT_QUOTES,'UTF-8');
+ $hobby = htmlspecialchars($_SESSION['join']['hobby'],ENT_QUOTES,'UTF-8');
+
+ 
+ // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`) VALUES("%s");',
-    mysqli_real_escape_string($db,$_SESSION['join']['name'])
-    // mysqli_real_escape_string($db,$_SESSION['join']['email']),
-    // mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
-    // mysqli_real_escape_string($db,$_SESSION['join'][''])
+  $sql = sprintf('INSERT INTO `users`(`name`,`email`,`password`,`avatar_id`,`age`,`gender`,`hobby`,`job`) VALUES("%s","%s","%s",%d,%d,%d,"%s","%s");',
+    mysqli_real_escape_string($db,$_SESSION['join']['name']),
+    mysqli_real_escape_string($db,$_SESSION['join']['email']),
+    mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
+    mysqli_real_escape_string($db,$_SESSION['join']['avatar_id']),
+    mysqli_real_escape_string($db,$_SESSION['join']['age']),
+    mysqli_real_escape_string($db,$_SESSION['join']['gender']),
+    mysqli_real_escape_string($db,$_SESSION['join']['hobby']),
+    mysqli_real_escape_string($db,$_SESSION['join']['job'])
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
-  header("Location: thanks.php");
+  header("Location:thanks.php");
   exit();
      
  }
@@ -55,8 +72,8 @@
     <div class="container">
             <div class="row main">
                 <div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
-                        
+                    <form class="form-horizontal" method="post" action="">
+                        <input type="hidden" name="action" valur="submit">
                         <div class="form-group">
                         <h3>確認ページ</h3>
                             <label for="name" class="cols-sm-2 control-label">名前</label>
@@ -69,13 +86,13 @@
                          <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">メールアドレス</label>
                             <div class="cols-sm-10">
-                             <p>rfadfs@fff-gmail.com</p>
+                             <p><?php echo $email; ?></p>
                             </div>
                         </div>
                             <div class="form-group">
                             <label for="job" class="cols-sm-2 control-label">パスワード</label>
                             <div class="cols-sm-10">
-                            ●●●●●●●●●●●●●
+                            パスワードは表示されません
                             </div>
                         </div>
                         <div class="form-group">
@@ -83,52 +100,57 @@
                         <div class="cols-sm-12">
                         <div class="col-xs-4">
                         <img src="images/background.png" class="img-responsive img-radio">
-                        <p>dog</p>
+                        <p><?php echo $avatar; ?></p>
                         <input type="checkbox" id="right-item" class="hidden">
                     </div>
                     </div>
                     </div>
 
 
-<form class="form-horizontal">
+<!-- <form class="form-horizontal"> -->
 <fieldset>
 
-<!-- Form Name -->
-
-
-<!-- Multiple Radios (inline) -->
                         <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">年代</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>20代</p>
+                                  <p><?php echo $age; ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">性別</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                  <p><?php echo $gender; ?></p>
                                 </div>
                             </div>
                         </div>
 
 
 
-  <div class="form-group">
+                        <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">職業</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>学生</p>
+                                  <p><?php echo $job; ?></p>
                                 </div>
                             </div>
                         </div>
 
-                    <div class="form-group">
+                        <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">趣味</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p>ピアノ、バイオリン</p>
+                                  <p><?php echo $hobby; ?></p>
                                 </div>
                             </div>
                         </div>
                         </fieldset>
-</form>
-<a href="#" class="rewrite">書き直す</a>
-<a href="#" class="btn btn-success">OK</a>
+<!-- </form> -->
+                    <a href="register.php?action=rewrite" class="rewrite">書き直す</a>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="OK">
 <!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 
             <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->
@@ -138,7 +160,7 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+       <!--  <script type="text/javascript" src="assets/js/bootstrap.js"></script> -->
     </section><!--/#contact-page-->
     <section id="partner">
         <div class="container">
@@ -149,29 +171,29 @@
                 <!-- <div class="container"> -->
             <div class="developers">
                 <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
-                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
+                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="image/rimiko.png">
+                        <div><img class="image-circle" src="image/rimiko.png"> </div>    
                         <h2>Rimiko Fukumitsu</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
+                        <div><img class="image-circle" src="image/naru.png"></div>    
                         <h2>Naru<br> Nishimura</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.png"></div>    
+                        <div><img class="image-circle" src="image/atsushi.png"></div>    
                         <h2>Atsushi Miyamoto</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
+                        <div><img class="image-circle" src="image/IMG_1696.png"></div>    
                         <h2>Ayumi <br>Maeda</h2>
                         
                     </div>
@@ -197,7 +219,7 @@
                     <div class="copyright">
                         &copy; Company Theme. All Rights Reserved.
                         <div class="credits">
-                            <!-- 
+                            <!- 
                                 All the links in the footer should remain intact. 
                                 You can delete the links only if you purchased the pro version.
                                 Licensing information: https://bootstrapmade.com/license/
@@ -215,15 +237,15 @@
     </footer>  -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.1.1.min.js"></script>  
+   <!--  <script src="js/jquery-2.1.1.min.js"></script>   -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="js/functions.js"></script>
     <script src="contactform/contactform.js"></script>
-    
+     -->
 </body>
 </html>
