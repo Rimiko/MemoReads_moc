@@ -110,10 +110,6 @@
 <!-- <form class="form-horizontal"> -->
 <fieldset>
 
-<!-- Form Name -->
-
-
-<!-- Multiple Radios (inline) -->
                         <div class="form-group">
                             <label for="name" class="cols-sm-2 control-label">年代</label>
                             <div class="cols-sm-10">

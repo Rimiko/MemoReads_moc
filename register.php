@@ -25,7 +25,7 @@ if(!empty($_POST)){
         $name = $_POST['name'];
         echo 'm';
     }
-
+    
     if(empty($_POST['email'])){
         $error['email'] = 'blank';
         echo 'a2';
