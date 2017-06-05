@@ -6,18 +6,25 @@ require('dbconnect.php');
 
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_user_id']を入れること
-  $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
+
 
   // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
-  
 
-  // $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=1';
+
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }else{
+      $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=3';
+  }
 
   $books = mysqli_query($db,$sql) or die(mysqli_error($db));
   $books_array = array();
   while ($book = mysqli_fetch_assoc($books)) {
   $books_array[]=$book;
   }
+  var_dump($book);
+  var_dump($books_array);
+
 
   // var_dump($books_array);
 
@@ -87,19 +94,19 @@ require('dbconnect.php');
 	    </div>
 	    <div class="col-sm-7 well margin-well">
 		    <p>
-            Name : <strong><?php echo $books_array[0]['name'];?></strong>
+            Name : <strong><?php echo $book['name'];?></strong>
             <br>
-	   		Age : <strong><?php echo $books_array[0]['age'];?></strong>
+	   		Age : <strong><?php echo $book['age'];?></strong>
 	        <br>
-	        Occupation :<strong><?php echo $books_array[0]['job'];?></strong>
+	        Occupation :<strong><?php echo $book['job'];?></strong>
 	        <br>
 	        <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
 	        <br>
-	        Favorite person : <strong><?php echo $books_array[0]['great_man'];?></strong>
+	        Favorite person : <strong><?php echo $book['great_man'];?></strong>
             <br>
-	        Hobby :<strong><?php echo $books_array[0]['hobby'];?></strong>
+	        Hobby :<strong><?php echo $book['hobby'];?></strong>
 	        <br>
-	        Free comment : <strong class="free"><?php echo $books_array[0]['comment'];?></strong>
+	        Free comment : <strong class="free"><?php echo $book['comment'];?></strong>
 	        </p>
 	        	  <!-- カレンダー -->
 <!--   <div class="calendar">
