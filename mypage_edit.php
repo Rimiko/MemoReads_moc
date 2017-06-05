@@ -79,17 +79,6 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
         				<input name="avatar_id" type="radio" value="3" />dog<br />
         			</div>
 
-
-<!-- 						<div class="form-group">
-							<label for="bestbook" class="cols-sm-2 control-label">ベスト本</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="bestbook"  placeholder="Enter your favorite"/>
-								</div>
-							</div>
-						</div> -->
-
 						<div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業</label>
 							<div class="cols-sm-10">
@@ -109,15 +98,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 								</div>
 							</div>
 						</div>
-<!-- 												<div class="form-group">
-							<label for="like" class="cols-sm-2 control-label">好きな作家</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="author" id="like"  placeholder="Enter your like"/>
-								</div>
-							</div>
-						</div> -->
+                        
 						<div class="form-group">
 							<label for="password" class="cols-sm-2 control-label">尊敬している偉人</label>
 							<div class="cols-sm-10">
