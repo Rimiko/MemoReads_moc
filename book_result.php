@@ -9,38 +9,74 @@ require('dbconnect.php');
 
 
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
-     //  $page = '';
-     //  // GET送信されてきたページ番号を取得
-     //  if (isset($_GET['page'])){
-     //    $page = $_GET['page'];
-     //  }
-     //  //ないときは1ページ目
-     //  if ($page == ''){
-     //    $page = 1;
-     //  }
-     //  // 1.表示する正しいページの数値を設定（Min）
-     //  $page = max($page,1);
-     //  // 2.必要なベージ数を計算
-     //  // 1ページに表示する行数
-     //  $row = 10;
+      $page = '';
+      // GET送信されてきたページ番号を取得
+      if (isset($_REQUEST['page'])){
+        $page = $_REQUEST['page'];
+      }
+      //ないときは1ページ目
+      if ($page == ''){
+        $page = 1;
+      }
+      // 1.表示する正しいページの数値を設定（Min）
+      $page = max($page,1);
+      // 2.必要なベージ数を計算
+      // 1ページに表示する行数
+      $row = 5;
 
-     // // 投稿数取得
-     //  if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-     //    $sql = sprintf('SELECT COUNT(*) as cnt FROM `books` WHERE `title`,`category`,`picture_url`,`author`,`detail` LIKE "%%%s%%" ORDER BY `created` DESC',
-     //      mysqli_real_escape_string($db,$_GET['search_word']));
+     // // 投稿数取得 top
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word']) && isset($_REQUEST['top'])){
+         $sql = sprintf('SELECT COUNT(DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author`) as cnt FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`DESC',mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']));}
+         else{
+        $sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title`ORDER BY `books`.`created` DESC';
+      }
 
-     //    }else{ $sql = 'SELECT COUNT(*) as cnt FROM `books` WHERE `book_id` ORDER BY `created` DESC';
-     //    }
-     //  $record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
-     //  $table_cnt = mysqli_fetch_assoc($record_cnt);
-     //  // ceil() :切り上げする関数
-     //  $maxPage = ceil($table_cnt['cnt'] / $row);
+      $record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $table_cnt = mysqli_fetch_assoc($record_cnt);
+      // ceil() :切り上げする関数
+      $maxPage = ceil($table_cnt['cnt'] / $row);
  
-     //  // 3.表示する正しいページ数の数値を設定（Max）
-     //  $page = min($page,$maxPage);
-     //  // 4.ページに表示する件数だけ取得
-     //  $start = ($page -1) * $row;
+      // 3.表示する正しいページ数の数値を設定（Max）
+      $page = min($page,$maxPage);
+      // 4.ページに表示する件数だけ取得
+      $start = ($page -1) * $row;
 
+
+
+  // 投稿数取得 book
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])&& isset($_REQUEST['book'])){
+$sql = sprintf('SELECT count(*) as cnt FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created`',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));}
+else{$sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title`ORDER BY `books`.`created` DESC';}
+
+
+$record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $table_cnt = mysqli_fetch_assoc($record_cnt);
+      // ceil() :切り上げする関数
+      $maxPage = ceil($table_cnt['cnt'] / $row);
+ 
+      // 3.表示する正しいページ数の数値を設定（Max）
+      $page = min($page,$maxPage);
+      // 4.ページに表示する件数だけ取得
+      $start = ($page -1) * $row;
+
+// 投稿数取得 user
+if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])&& isset($_REQUEST['user'])){
+$sql = sprintf('SELECT count(*) as cnt FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%"',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));}
+else{$sql = 'SELECT  COUNT(*) as cnt FROM `users` WHERE `user_id` ORDER BY `users`.`created` DESC';}
+
+
+
+$record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $table_cnt = mysqli_fetch_assoc($record_cnt);
+      // ceil() :切り上げする関数
+      $maxPage = ceil($table_cnt['cnt'] / $row);
+ 
+      // 3.表示する正しいページ数の数値を設定（Max）
+      $page = min($page,$maxPage);
+      // 4.ページに表示する件数だけ取得
+      $start = ($page -1) * $row;
 // dbから取得
 // $sql = 'SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books`';
 // $results = mysqli_query($db,$sql) or die (mysqli_error($db));
@@ -49,13 +85,8 @@ require('dbconnect.php');
 // フリーキーワード検索
 
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`DESC LIMIT 0,5',mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
+    
 
  $tops = mysqli_query($db,$sql) or die(mysqli_error($db));
 
@@ -67,16 +98,16 @@ $tops_array[] = $top;
 
 
 }}
-  var_dump($tops_array);
+  // var_dump($tops_array);
 
 // 本キーワード検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created`',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+$sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT 0,5',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
    
    $books = mysqli_query($db,$sql) or die(mysqli_error($db));
 
@@ -89,17 +120,17 @@ $sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM 
 }}
 
 
-  var_dump($books_array);
+  // var_dump($books_array);
 // ユーザー検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%"',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),
-    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" LIMIT 0,5',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
    
    $users = mysqli_query($db,$sql) or die(mysqli_error($db));
 
@@ -110,7 +141,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 }}
 
 
-var_dump($users_array);
+// var_dump($users_array);
 
 
 
@@ -220,21 +251,31 @@ function ChangeTab(tabname) {
            <div class="tabbox">
 
    <ul class="portfolio-filter text-center">
-                <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1"
+                <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1?top=<?php echo $_REQUEST['search_word']; ?>"
                 onclick="ChangeTab('tab1');return false;">TOP</a></li>
 
-                <li><a class="btn btn-default" href="#tab2"
+                <li><a class="btn btn-default" href="#tab2?book=<?php echo $_REQUEST['search_word']; ?>"
                 onclick="ChangeTab('tab2');return false;">BOOK</a></li>
-                <li><a class="btn btn-default" href="#tab3"
+                <li><a class="btn btn-default" href="#tab3?user=<?php echo $_REQUEST['search_word']; ?>"
                 onclick="ChangeTab('tab3');return false;">ユーザー</a></li>
                 <!-- <li><a class="btn btn-default" href="#">キーワード</a></li> -->
             </ul><!--/#portfolio-filter-->
 
    <div id="tab1" class="tab">
       <p>
+
+
+<div class="container">
+        
+
+ 
 		
-		<div class="container">
+	
+
             <div class="">
+
+
+
             
                 <div class="portfolio-items" style="left: 270px;">
                
@@ -298,546 +339,16 @@ function ChangeTab(tabname) {
                             </div>
                         </div>
                     </div><!--/.portfolio-item-->
+
+
 <?php } ?>
-                   <!--  <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                           </h4>
-                        <h4>
-                            著者;
-                        </h4>
-                        <h4>
-                            カテゴリー
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4> -->
-                        <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small> -->
-                        <!-- <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> --> 
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-                        <!-- <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                   <!--  <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div><!-/.portfolio-item-->
+</p>
 
-                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm" >
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            </h4>
-                        <h4>
-                            著者;
-                        </h4>
-                        <h4>
-                           カテゴリー;
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3> -->
-                                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>        
-                    </div><!/.portfolio-item--> 
-
-                   <!--  <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-                       <!--  <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                               <!--  </div> 
-                            </div>
-                        </div>           
-                    </div><!/.portfolio-item-->
-           
-                   <!--  <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                       <!--  <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-<!--                                     <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                               <!--  </div> 
-                            </div>
-                        </div>      
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --><!-- 
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>         
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-                        <!-- <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                          <!--   <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-
-
-
-   <!--  <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                           <!--  <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div>
-                    </div> -->
-                     <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-                </div>
-            </div>
-        </div> -->
-        
+                   
 </section>
     <!-- <!/#portfolio-item -->
-</p>
+    
+
    </div></div>
    <div class="kabe">
     <section id="portfolio">    
@@ -846,7 +357,10 @@ function ChangeTab(tabname) {
                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt</p> -->
             <!-- </div> -->
    <div id="tab2" class="tab">
-      <p><div class="container">
+      <p>
+
+
+      <div class="container">
             <div class="">
                 <div class="portfolio-items" style="left: 270px;">
                 <?php foreach ($books_array as $book_each) { ?>
@@ -912,547 +426,10 @@ function ChangeTab(tabname) {
                       <?php } ?><!--/.portfolio-item-->
                     
 
-                    <!-- <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4> -->
-                        <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small> -->
-                        <!-- <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> --> 
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                           <!--  <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                   <!--  <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-                       <!--  <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                           <!--  <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3> -->
-                                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>        
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>           
-                    </div> --><!--/.portfolio-item-->
-          
-                    <!-- <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                       <!--  <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                       <!--  <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-<!--                                     <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>      
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>         
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                   <!--  <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-<!-- 
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div> -->
-                        <!-- <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                    <h4>
-                            title:__________</h4>
-                        <h4>
-                            著者;__________
-                        </h4>
-                        <h4>
-                            カテゴリー;_________
-                        </h4> -->
-                        <!-- <h4>
-                            title:__________</h4>
-                        <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
-                        </i></cite></small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>email@example.com
-                            <br />
-                            <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
-                            <br />
-                            <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p> -->
-                        <!-- Split button -->
-                        <!-- <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Social</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div>
-                    </div> -->
-                    <!-- p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="container">
-        <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10"> -->
-   <!--  <a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span> 次へ</a> --><!-- </div></div></div> -->
+                    
    </section>
    <!--/#portfolio-item-->
+
 
     </p>
    </div>
@@ -1463,7 +440,26 @@ function ChangeTab(tabname) {
                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt</p> -->
             </div>
    <div id="tab3" class="tab">
-      <p><div class="container">
+      <p>
+
+
+
+
+
+
+
+
+
+      <div class="container">  
+
+
+
+
+
+
+
+
+
                 <div class="portfolio-items" style="left:270px;">
                 <?php foreach ($users_array as $user_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px">
@@ -1527,383 +523,46 @@ function ChangeTab(tabname) {
                             </div>
                         </div>
                     </div><!--/.portfolio-item-->
+
                     <?php } ?>
 
-                    <!-- <div class="portfolio-item joomla bootstrap col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px;">
-                    <div class="row" style="width: 0px;">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm" style="
-    margin-left: 0px;">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item2.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                   <!--  <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item2.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                               <!--  </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                       <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item3.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3> -->
-                                    <!-- <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item3.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                               <!--  </div> 
-                            </div>
-                        </div>        
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item joomla wordpress apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm" style="
-    margin-left: 0px;">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                   <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item4.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item4.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                               <!--  </div> 
-                            </div>
-                        </div>           
-                    </div> --><!--/.portfolio-item-->
-          
-                    <!-- <div class="portfolio-item joomla html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                       <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item5.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-<!--                                     <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item5.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>      
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm" style="
-    margin-left: 0px;">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item6.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item6.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>         
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item7.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                    <a class="preview" href="images/portfolio/full/item7.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                   <!--  <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm" style="
-    margin-left: 0px;">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        
-                       <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-                        <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-
-                    <!-- <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________
-                        </h4></div>
-                        
-                        <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-            
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
-
-
-    <div class="recent-work-wrap"> -->
-                            <!-- <img class="img-responsive" src="images/portfolio/recent/item8.png" alt=""> -->
-                            <!-- <div class="overlay">
-                                <div class="recent-work-inner"> -->
-                                    <!-- <h3><a href="#">Business theme</a></h3>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority</p> -->
-                                    <!-- <a class="preview" href="images/portfolio/full/item8.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
-                                <!-- </div> 
-                            </div>
-                        </div>          
-                    </div> --><!--/.portfolio-item-->
-                   <!-- <div class="container">
-                    <div class="portfolio-item wordpress html bootstrap col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px;">
-                    <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6" style="margin-left:20px;">
-            <div class="well well-sm" style="
-    margin-left: 0px;">
-                <div class="row">
-                    <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
-                    <div class="col-sm-2 col-md-2">
-                    <h4>
-                            名前:__________</h4>
-                        <h4>
-                            年代;__________
-                        </h4>
-                        <h4>
-                            趣味;__________
-                        </h4>
-                        <h4>
-                            職業;__________  
-                        </h4>
-                        
-                        
+<div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10">
+        
+  
                     
-                </div>
-                <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px;></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p>
-            </div>
-        </div>
-        </div>
-    </div>
-                </div>
-            </div>
-        </div> -->
         
     </section><!--/#portfolio-item-->
+
+
     </p>
+
    
 </div></div>
+
+
     <div class="container">
         <div class="row">
+
+
         <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10">
-    <a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span> 次へ</a></div></div></div>
+        <?php $word = '';
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
+<?php if ($page < $maxPage){ ?>
+     <a href="book_result.php?page=<?php echo $page+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+
+<?php }else{ ?>
+<a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+
+<?php } ?>
+
+
+        
+
+        </div></div></div>
+    
 	
 	<section id="partner">
        <div class="container">
