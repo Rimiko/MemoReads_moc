@@ -35,6 +35,7 @@
     mysqli_real_escape_string($db,$_SESSION['join']['job'])
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
+  $sql= sprintf('SELECT LAST_INSERT_ID() AS id');
   header("Location:thanks.php");
   exit();
      

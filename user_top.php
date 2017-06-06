@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+   var_dump($_SESSION['login_member_id']); ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,13 +44,13 @@
                         <div class="profile-sidebar" style="background-color: white;">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
-                                <img src="images/IMG_1696.jpg" class="img-responsive" alt="">
+                                <img src="<?php echo $_SESSION['join']['password']?>" class="img-responsive" alt="">
                             </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
-                                    Rimiko Fukumitsu
+                                    <?php echo $_SESSION['join']['name'] ?>
                                 </div>
                  <div class="container">
                     <div class="row ptlv" style="margin-left: 15px;">

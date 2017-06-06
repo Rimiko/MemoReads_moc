@@ -1,3 +1,65 @@
+<?php
+  session_start();
+ require('dbconnect.php');
+
+ //自動ログいん処理
+ if (isset($_COOKIE['email']) && !empty($_COOKIE['email'])) {
+    // 読むときはグローバル変数でできる,emailが入っているということはパスワードも入っていると認識される
+    // COOKIEに保存されているログイン情報が入力されてPOST送信されてきたかのように$_POSTに値を代入
+      $_POST['email'] = $_COOKIE['email'];
+      $_POST['password'] = $_COOKIE['password'];
+      $_POST['save'] = 'on';
+  } 
+
+
+// post送信されていたら、emailとパスワードの入力チェックを行い、どちらかがor 両方が未入力の場合「メールアドレスとパスワードをご記入ください」とパスワード入力欄の下に表示
+// $error['login']にblankという文字をセットして判別できるようにすること
+if (!empty($_POST)) {
+  if(empty($_POST['email'])){
+    $error['login'] = 'blank';
+  }
+
+
+if(empty($_POST['password'])){
+ $error['login'] = 'blank';
+  }
+
+if(empty($error)){
+  // login処理
+  // 入力されたemail,passwordでDBから会員情報を取得できたら、正常ログイン。取得できなかったら、$error['login']に　faildを代入して、パスワードの下に「ログインに失敗しました。正しくご記入ください」
+  $sql = sprintf('SELECT `user_id`,`password`, `user_id` FROM `users` WHERE  `email` = "%s" AND `password` = "%s"',
+ mysqli_real_escape_string($db,$_POST['email']),
+ mysqli_real_escape_string($db,sha1($_POST['password']))
+  );
+    
+  //SELECT分を記述！
+  // sql実行
+  $record = mysqli_query($db,$sql) or die(mysqli_error($db));
+  if ($table = mysqli_fetch_assoc($record)){
+     //login 成功
+
+    // SESSION変数に会員IDを保存
+      $_SESSION['login_user_id'] = $table['user_id'];
+    // SESSION変数にログイン時間を保存
+      $_SESSION['time'] = time();
+      // 自動ログインをオンにしてたらcookieにログイン情報を保存する
+      if($_POST['save']=='on'){
+        // setcookie(保存するキー,保存する値,保存する期間（秒）)
+        setcookie('email',$_POST['email'],time() + 60*60*24*14);
+        setcookie('password',$_POST['password'],time() + 60*60*24*14);
+
+      }
+
+    // ログイン後のindex.php（ドップページ）に遷移
+      header("Location: user_top.php");
+      exit();
+  }else{
+    //login 失敗
+    $error['login'] = 'faild';
+  }
+} 
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -91,8 +153,8 @@
                        
                             <hr>
                            
-
-                                <form class="form-horizontal" action=" " method="" id="contact_form">
+                            <!-- ログイン -->
+                                <form class="form-horizontal" action=" " method="post" id="contact_form">
                                     <fieldset>
                                         <!-- Form Name -->
 
@@ -104,7 +166,7 @@
                                             <div class="col-md-12">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input name="first_name" placeholder="Username" class="form-control" type="text">
+                                                    <input name="email" placeholder="email" class="form-control" type="text">
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +179,7 @@
                                             <div class="col-md-12">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                    <input name="email" placeholder="Password" class="form-control" type="text">
+                                                    <input name="password" placeholder="Password" class="form-control" type="password">
                                                 </div>
                                             </div>
                                         </div>
@@ -128,6 +190,12 @@
                                         <div class="form-group">
 
                                             <div class="col-md-12">
+                                                 <?php if(isset($error['login']) && $error['login'] == 'blank'){ ?>
+                                                          <p class ="error">*メールアドレスとパスワードをご記入ください</p>
+                                                    <?php } ?>
+                                                    <?php if(isset($error['login']) && $error['login'] == 'faild'){ ?>
+                                                          <p class ="error">＊ログイン失敗しました。正しくご記入ください。</p>
+                                                 <?php } ?>
                                                 <button type="submit" class="btn btn-md btn-danger pull-right">Login </button>
                                             </div>
                                         </div>
