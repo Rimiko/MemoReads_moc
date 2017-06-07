@@ -2,7 +2,7 @@
     session_start();
     require('dbconnect.php');
    var_dump($_SESSION['login_member_id']);
-   var_dump($_SESSION['join']['name']); 
+   // var_dump($_SESSION['join']['name']); 
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
     $member = mysqli_fetch_assoc($login);
