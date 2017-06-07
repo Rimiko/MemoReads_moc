@@ -46,8 +46,8 @@ unset($_SESSION['join']);
                             </div>
                         </div>
 
-<a href="user_top.php" class="rewrite">TOPに戻る</a>
-<a href="mypage.php" class="btn btn-success">マイページへ</a>
+<a href="top.php" class="rewrite">TOPに戻る</a>
+<!-- <a href="top.php" class="btn btn-success">マイページへ</a> -->
 <!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
 
             <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->

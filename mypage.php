@@ -6,13 +6,13 @@ require('dbconnect.php');
 //ログインしている人の情報を取得（名前の表示）
 
 //SQL実行し、ユーザーのデータを取得
-// user_idには. $SESSION['login_user_id']を入れること
+// user_idには. $SESSION['login_member_id']を入れること
   $sql ='SELECT * FROM `users` WHERE `user_id` ='.$_SESSION['login_member_id'];
 
   $record = mysqli_query($db,$sql) or die(mysqli_error($db));
   $member = mysqli_fetch_assoc($record);
 
-  var_dump($member);
+  var_dump($_SESSION['login_member_id']);
 
   // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
 
