@@ -5,78 +5,157 @@ session_start();
 // bdconnect.php をよみこむ
 require('dbconnect.php');
 
-// $_REQUEST['search_word'];
+
+$_REQUEST['search_word'];
 
 
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
-      $page = '';
+      $toppage = '';
       // GET送信されてきたページ番号を取得
       if (isset($_REQUEST['page'])){
-        $page = $_REQUEST['page'];
+        $toppage = $_REQUEST['page'];
       }
       //ないときは1ページ目
-      if ($page == ''){
-        $page = 1;
+      if ($toppage == ''){
+        $toppage = 1;
       }
       // 1.表示する正しいページの数値を設定（Min）
-      $page = max($page,1);
+      $toppage = max($toppage,1);
       // 2.必要なベージ数を計算
       // 1ページに表示する行数
-      $row = 5;
+      $toprow = 2;
+
+
+
 
      // // 投稿数取得 top
-      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word']) && isset($_REQUEST['top'])){
-         $sql = sprintf('SELECT COUNT(DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author`) as cnt FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`DESC',mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']));}
-         else{
-        $sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title`ORDER BY `books`.`created` DESC';
-      }
+  if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+     $sql = sprintf('SELECT COUNT(*) as cnt FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC',mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']));}
+     else{
+    $sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title` ORDER BY `books`.`created` DESC';
+  }
+// var_dump($sql);
+      $top_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-      $record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $table_cnt = mysqli_fetch_assoc($record_cnt);
+      $tops_cnt = mysqli_fetch_assoc($top_cnt);
+      
+
       // ceil() :切り上げする関数
-      $maxPage = ceil($table_cnt['cnt'] / $row);
- 
-      // 3.表示する正しいページ数の数値を設定（Max）
-      $page = min($page,$maxPage);
-      // 4.ページに表示する件数だけ取得
-      $start = ($page -1) * $row;
+      $topmaxPage = ceil($tops_cnt['cnt'] / $toprow);
 
+      
+   
+      // 3.表示する正しいページ数の数値を設定（Max）
+      $toppage = min($toppage,$topmaxPage);
+      // 4.ページに表示する件数だけ取得
+
+      if ($toppage >= 1) {
+        $topstart = ($toppage -1) * $toprow;
+      }else{$topstart = ($toppage +1) * $toprow;};
+     
+      
+
+
+
+
+
+// 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
+      $bookpage = '';
+      // GET送信されてきたページ番号を取得
+      if (isset($_REQUEST['page'])){
+        $bookpage = $_REQUEST['page'];
+      }
+      //ないときは1ページ目
+      if ($bookpage == ''){
+        $bookpage = 1;
+      }
+      // 1.表示する正しいページの数値を設定（Min）
+      $bookpage = max($bookpage,1);
+      // 2.必要なベージ数を計算
+      // 1ページに表示する行数
+      $bookrow = 2;
 
 
   // 投稿数取得 book
-      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])&& isset($_REQUEST['book'])){
-$sql = sprintf('SELECT count(*) as cnt FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created`',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']));}
-else{$sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title`ORDER BY `books`.`created` DESC';}
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+$sql = sprintf('SELECT count(*) as cnt FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created` DESC',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']));
+
+}
+// else{$sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title`ORDER BY `books`.`created` DESC';}
+ 
+$book_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $books_cnt = mysqli_fetch_assoc($book_cnt);
 
 
-$record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $table_cnt = mysqli_fetch_assoc($record_cnt);
+
       // ceil() :切り上げする関数
-      $maxPage = ceil($table_cnt['cnt'] / $row);
+      $bookmaxPage = ceil($books_cnt['cnt'] / $bookrow);
+      // var_dump($sql);
  
       // 3.表示する正しいページ数の数値を設定（Max）
-      $page = min($page,$maxPage);
+      $bookpage = min($bookpage,$bookmaxPage);
       // 4.ページに表示する件数だけ取得
-      $start = ($page -1) * $row;
+     if ($bookpage >= 1) {
+        $bookstart = ($bookpage -1) * $bookrow;
+      }else{$bookstart = ($bookpage +1) * $bookrow;};
+// var_dump($bookstart);
+
+
+
+
+
+
+// 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
+      $userpage = '';
+      // GET送信されてきたページ番号を取得
+      if (isset($_REQUEST['page'])){
+        $userpage = $_REQUEST['page'];
+      }
+      //ないときは1ページ目
+      if ($userpage == ''){
+        $userpage = 1;
+      }
+      // 1.表示する正しいページの数値を設定（Min）
+      $userpage = max($userpage,1);
+      // 2.必要なベージ数を計算
+      // 1ページに表示する行数
+      $userrow = 2;
 
 // 投稿数取得 user
-if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])&& isset($_REQUEST['user'])){
-$sql = sprintf('SELECT count(*) as cnt FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%"',
+if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
+$sql = sprintf('SELECT count(*) as cnt FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `created`DESC',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']));}
-else{$sql = 'SELECT  COUNT(*) as cnt FROM `users` WHERE `user_id` ORDER BY `users`.`created` DESC';}
+// else{$sql = 'SELECT  COUNT(*) as cnt FROM `users` WHERE `user_id` ORDER BY `users`.`created` DESC';}
 
 
 
-$record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $table_cnt = mysqli_fetch_assoc($record_cnt);
+$user_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $users_cnt = mysqli_fetch_assoc($user_cnt);
+
       // ceil() :切り上げする関数
-      $maxPage = ceil($table_cnt['cnt'] / $row);
- 
+      $usermaxPage = ceil($users_cnt['cnt'] / $userrow);
+
+ // var_dump($usermaxPage);
       // 3.表示する正しいページ数の数値を設定（Max）
-      $page = min($page,$maxPage);
+      $userpage = min($userpage,$usermaxPage);
+
+
       // 4.ページに表示する件数だけ取得
-      $start = ($page -1) * $row;
+     if ($userpage >= 1) {
+        $userstart = ($userpage -1) * $userrow;
+      }else{$userstart = ($userpage +1) * $userrow;};
+ 
+
+
 // dbから取得
 // $sql = 'SELECT `book_id`, `title`, `picture_url`, `author`, `detail`, `created`, `modified` FROM `books`';
 // $results = mysqli_query($db,$sql) or die (mysqli_error($db));
@@ -85,8 +164,9 @@ $record_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 // フリーキーワード検索
 
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created`DESC LIMIT 0,5',mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
-    
+$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` LEFT JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` LEFT JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC LIMIT %d,%d',
+  mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),$topstart,$toprow);
+   
 
  $tops = mysqli_query($db,$sql) or die(mysqli_error($db));
 
@@ -95,19 +175,22 @@ $sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`catego
  while ($top = mysqli_fetch_assoc($tops)){
 
 $tops_array[] = $top;
-
+ 
+ // var_dump($tops_array);
 
 }}
   // var_dump($tops_array);
 
 // 本キーワード検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT 0,5',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
+$sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT %d,%d',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$bookstart,$bookrow);
+    
+    
+
+
    
    $books = mysqli_query($db,$sql) or die(mysqli_error($db));
 
@@ -115,6 +198,7 @@ $sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM 
    while ($book = mysqli_fetch_assoc($books)){
 
    $books_array[] = $book;
+   // var_dump($books_array);
 
 
 }}
@@ -123,21 +207,22 @@ $sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM 
   // var_dump($books_array);
 // ユーザー検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" LIMIT 0,5',
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row,
-    mysqli_real_escape_string($db,$_REQUEST['search_word']),$start,$row);
-   
+$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT %d,%d',
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),
+    mysqli_real_escape_string($db,$_REQUEST['search_word']),$userstart,$userrow);
+    
    $users = mysqli_query($db,$sql) or die(mysqli_error($db));
 
    $users_array = array();
    while ($user = mysqli_fetch_assoc($users)){
    $users_array[] = $user;
-
+   var_dump($users_array);
+  
 }}
 
 
@@ -251,18 +336,49 @@ function ChangeTab(tabname) {
            <div class="tabbox">
 
    <ul class="portfolio-filter text-center">
-                <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1?top=<?php echo $_REQUEST['search_word']; ?>"
+                <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1"
                 onclick="ChangeTab('tab1');return false;">TOP</a></li>
 
-                <li><a class="btn btn-default" href="#tab2?book=<?php echo $_REQUEST['search_word']; ?>"
+                <li><a class="btn btn-default" href="#tab2"
                 onclick="ChangeTab('tab2');return false;">BOOK</a></li>
-                <li><a class="btn btn-default" href="#tab3?user=<?php echo $_REQUEST['search_word']; ?>"
+                <li><a class="btn btn-default" href="#tab3"
                 onclick="ChangeTab('tab3');return false;">ユーザー</a></li>
                 <!-- <li><a class="btn btn-default" href="#">キーワード</a></li> -->
             </ul><!--/#portfolio-filter-->
 
    <div id="tab1" class="tab">
       <p>
+
+
+      <!-- <div class="container">
+        <div class="row"> -->
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;"> 
+     
+        <?php $word = '';
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
+
+
+
+<?php if ($toppage > 1){ ?>
+<a href="book_result.php?page=<?php echo $toppage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<?php }else{ ?>
+  前
+<?php } ?>
+
+
+<?php if ($toppage < $topmaxPage){ ?>
+     <a href="book_result.php?page=<?php echo $toppage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+
+<?php }else{ ?>
+次へ
+
+<?php } ?>
+
+
+        
+
+        </div>
+        <!-- </div></div> -->
 
 
 <div class="container">
@@ -336,12 +452,33 @@ function ChangeTab(tabname) {
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
                                     <a class="preview" href="images/portfolio/full/item1.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
                                 </div> 
+
+
+
                             </div>
                         </div>
+
+
+
+
+
+
+
                     </div><!--/.portfolio-item-->
 
 
+
+
+
 <?php } ?>
+ 
+
+
+ 
+        
+        
+
+        
 </p>
 
                    
@@ -358,6 +495,42 @@ function ChangeTab(tabname) {
             <!-- </div> -->
    <div id="tab2" class="tab">
       <p>
+
+<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10"
+        style="bottom: 300px;position: absolute;"> 
+     
+        <?php $word = '';
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
+
+
+
+<?php if ($bookpage > 1){ ?>
+<a href="book_result.php?page=<?php echo $bookpage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<?php }else{ ?>
+  前
+<?php } ?>
+
+
+<?php if ($bookpage < $bookmaxPage){ ?>
+     <a href="book_result.php?page=<?php echo $bookpage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+
+<?php }else{ ?>
+次へ
+
+<?php } ?>
+
+
+        
+
+        </div>
+
+
+
+
+
+
+
+
 
 
       <div class="container">
@@ -443,23 +616,34 @@ function ChangeTab(tabname) {
       <p>
 
 
+<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10"
+        style="bottom: 330px;position: absolute;"> 
+         
+        <?php $word = '';
+      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
 
 
 
+<?php if ($userpage > 1){ ?>
+<a href="book_result.php?page=<?php echo $userpage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<?php }else{ ?>
+  前
+<?php } ?>
 
 
+<?php if ($userpage < $usermaxPage){ ?>
+     <a href="book_result.php?page=<?php echo $userpage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+
+<?php }else{ ?>
+次へ
+
+<?php } ?>
 
 
+        
+
+        </div>
       <div class="container">  
-
-
-
-
-
-
-
-
-
                 <div class="portfolio-items" style="left:270px;">
                 <?php foreach ($users_array as $user_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px">
@@ -543,25 +727,7 @@ function ChangeTab(tabname) {
 </div></div>
 
 
-    <div class="container">
-        <div class="row">
-
-
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10">
-        <?php $word = '';
-      if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
-<?php if ($page < $maxPage){ ?>
-     <a href="book_result.php?page=<?php echo $page+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
-
-<?php }else{ ?>
-<a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
-
-<?php } ?>
-
-
-        
-
-        </div></div></div>
+   
     
 	
 	<section id="partner">
