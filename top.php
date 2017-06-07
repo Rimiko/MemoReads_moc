@@ -4,7 +4,7 @@
 
  //自動ログいん処理
  if (isset($_COOKIE['email']) && !empty($_COOKIE['email'])) {
-    // 読むときはグローバル変数でできる,emailが入っているということはパスワードも入っていると認識される
+    // 読むときはグローバル変数でできる,emailが入っているということはパスワードも入っていると「認識される
     // COOKIEに保存されているログイン情報が入力されてPOST送信されてきたかのように$_POSTに値を代入
       $_POST['email'] = $_COOKIE['email'];
       $_POST['password'] = $_COOKIE['password'];
@@ -27,7 +27,7 @@ if(empty($_POST['password'])){
 if(empty($error)){
   // login処理
   // 入力されたemail,passwordでDBから会員情報を取得できたら、正常ログイン。取得できなかったら、$error['login']に　faildを代入して、パスワードの下に「ログインに失敗しました。正しくご記入ください」
-  $sql = sprintf('SELECT `user_id`,`password`, `user_id` FROM `users` WHERE  `email` = "%s" AND `password` = "%s"',
+  $sql = sprintf('SELECT `user_id`,`password`, `user_id` FROM `users` WHERE `email` = "%s" AND `password` = "%s"',
  mysqli_real_escape_string($db,$_POST['email']),
  mysqli_real_escape_string($db,sha1($_POST['password']))
   );
@@ -39,7 +39,7 @@ if(empty($error)){
      //login 成功
 
     // SESSION変数に会員IDを保存
-      $_SESSION['login_user_id'] = $table['user_id'];
+      $_SESSION['login_member_id'] = $table['user_id'];
     // SESSION変数にログイン時間を保存
       $_SESSION['time'] = time();
       // 自動ログインをオンにしてたらcookieにログイン情報を保存する
@@ -218,7 +218,7 @@ if(empty($error)){
                         </div>
                     </div>
 
-                    <a href="#" class="btn btn-lg btn-warning col-md-offset-9"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
+                    <a href="register.php" class="btn btn-lg btn-warning col-md-offset-9"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
                 </div><!--/.item-->             
             </div><!--/.carousel-inner-->
         </div><!--/.carousel-->

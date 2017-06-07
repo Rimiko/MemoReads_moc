@@ -1,6 +1,12 @@
 <?php 
     session_start();
-   var_dump($_SESSION['login_member_id']); ?>
+    require('dbconnect.php');
+   var_dump($_SESSION['login_member_id']);
+   var_dump($_SESSION['join']['name']); 
+   $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
+    $login = mysqli_query($db,$sql) or die(mysqli_error($db));
+    $member = mysqli_fetch_assoc($login);
+   ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,13 +50,13 @@
                         <div class="profile-sidebar" style="background-color: white;">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
-                                <img src="<?php echo $_SESSION['join']['password']?>" class="img-responsive" alt="">
+                                <img src="<?php echo $member['avatar_path']?>" class="img-responsive" alt="">
                             </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
-                                    <?php echo $_SESSION['join']['name'] ?>
+                                    <?php echo $member['name']; ?>
                                 </div>
                  <div class="container">
                     <div class="row ptlv" style="margin-left: 15px;">
