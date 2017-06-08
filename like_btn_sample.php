@@ -2,14 +2,14 @@
 session_start();
 require('dbconnect.php');
 
-// 本当はwhileの中で回す
+// 本当はwhileの中で回す$_SESSION['login_member_id']
 
-  $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` = 2 AND `user_id` = 1';
+  $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` = 1 AND `user_id` = 2';
   $likes = mysqli_query($db,$sql) or die(mysqli_error($db));
   $like = mysqli_fetch_assoc($likes);
 
-  //いいね数獲得
-  $sql = 'SELECT COUNT(*) as `like_count` FROM `likes` WHERE `user_id` =1';
+  //いいね数獲得本当はレビューを表示させる際に抜き出したrecord_id(ex.$record_each['record_id']など)をいれる
+  $sql = 'SELECT COUNT(*) as `like_count` FROM `likes` WHERE `record_id` =1';
 
   $likes_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
   $like_cnt = mysqli_fetch_assoc($likes_cnt);
@@ -61,10 +61,17 @@ require('dbconnect.php');
                         <small>主人公の○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○</small>
                                 </div>
                                 <!-- <?php echo $record_each['record_id']; ?> -->
-             <a href="like_sample.php?record_id=2" class="btn btn-warning"><span class="glyphicon glyphicon-thumbs-up"></span> LIKE</a>
+
+                <?php if ($record['like_flag'] ==1 ){?>
+              <!-- 既にいいねされているときなので[いいねを取り消す] -->
+              <a href="unlike.php?record_id=1"><small>LIKEを取り消す</small></a>
+
+              <?php }else{ ?>
+              <!-- まだいいねがおされていないので[いいね] -->
+             <a href="like.php?record_id=1" class="btn btn-warning"><span class="glyphicon glyphicon-thumbs-up"></span> LIKE</a>
+            <?php } ?>
              いいね数:<?php echo $record['like_count']; ?>
                             </div>
-
                         </div>
 
 
