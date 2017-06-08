@@ -78,7 +78,7 @@ $_REQUEST['search_word'];
 
   // 投稿数取得 book
       if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT count(*) as cnt FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `created` DESC',
+$sql = sprintf('SELECT count(*) as cnt FROM `books` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" ORDER BY `books`.`created` DESC',
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']));
@@ -403,7 +403,7 @@ function ChangeTab(tabname) {
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $result['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $result['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
                     
                     <div class="col-sm-6 col-md-6">
@@ -543,8 +543,8 @@ function ChangeTab(tabname) {
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.html?book_id=<?php echo $book_each['book_id'];?>"title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
-                    </div>
+                        <a class="iframe" href="book_detail.php?book_id=<?php echo $book_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                    </div>   
                     <div class="col-sm-6 col-md-6">
                         <h4>
                             title:<?php echo $book_each['title'];?></h4>
