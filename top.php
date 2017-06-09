@@ -23,49 +23,7 @@
   </head>
   <body>
   <?php include('header.php'); ?>
-<!--    <div class="back-rgba"> 
-    <header style="position: absolute;">
-        <div class="header-rgba">        
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="navigation">
-                <div class="container">                 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse.collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <div class="navbar-brand">
 
-                          <div class="row">
-                            <div class="span12">
-                                <form id="custom-search-form" class="form-search form-horizontal pull-right">
-                                    <div class="input-append span12">
-                                        <input type="text" class="search-query mac-style" placeholder="Search"><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> </a>
-                    <button type="submit" class="btn"><i class="icon-search"></i></button>
-                       </div>
-                                </form>
-                            </div>
-                          </div>
-
-                        </div>
-                    </div>
-
-                    <div class="navbar-collapse collapse">
-                        <div class="menu">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"><a href="index.html">Home</a></li>
-                                <li role="presentation"><a href="about.html" class="active">My Page</a></li>
-                                <li role="presentation"><a href="services.html">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        </div>
-    </header> -->
     
     <section id="main-slider" class="no-margin">
         <div class="carousel slide">      
@@ -79,67 +37,59 @@
                                     <p class="animation animated-item-2" style="color: #F9A843;">Read Review Relate</p>
                                     <!-- <a class="btn-slide animation animated-item-3" href="#">Read More</a> -->
                                 </div>
-
-
                             </div>
-                                 <div class="container-fluid">
-                <div class="row-fluid" >
+                            <div class="container-fluid">
+                                <div class="row-fluid" >
                    
                       
-                     <div class="col-md-offset-3 col-md-3" id="box">
-                      <h2>Login</h2>
+                                    <div class="col-md-offset-3 col-md-3" id="box">
+                                    <h2>Login</h2>
                        
-                            <hr>
+                                    <hr>
                            
 
-                                <form class="form-horizontal" action=" " method="" id="contact_form">
-                                    <fieldset>
-                                        <!-- Form Name -->
+                                        <form class="form-horizontal" action=" " method="" id="contact_form">
+                                            <fieldset>
 
+                                                <div class="form-group">
 
-                                        <!-- Text input-->
-
-                                        <div class="form-group">
-
-                                            <div class="col-md-12">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                    <input name="first_name" placeholder="Username" class="form-control" type="text">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                            <input name="first_name" placeholder="Username" class="form-control" type="text">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
 
-                                  
-                                        <!-- Text input-->
-                                        <div class="form-group">
+                                          
+                                                <!-- Text input-->
+                                                <div class="form-group">
 
-                                            <div class="col-md-12">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                    <input name="email" placeholder="Password" class="form-control" type="text">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                                            <input name="email" placeholder="Password" class="form-control" type="text">
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
 
-                                    
-                                   
-                                        <div class="form-group">
+                                            
+                                           
+                                                <div class="form-group">
 
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-md btn-danger pull-right">Login </button>
-                                            </div>
-                                        </div>
+                                                    <div class="col-md-12">
+                                                        <button type="submit" class="btn btn-md btn-danger pull-right">Login </button>
+                                                    </div>
+                                                </div>
 
-                                    </fieldset>
-                                </form>
-
-                    </div> 
+                                            </fieldset>
+                                        </form>
                         
                         <!-- <a href="#" class="btn btn-primary btn-warning col-md-offset-9">SIGN UP HERE!!</a> -->
                                 
-                            </div>
+                                    </div>
 
                             <div class="col-sm-6 hidden-xs animation animated-item-4">
                                 <div class="slider-img">
@@ -147,8 +97,8 @@
                                 </div>
                             </div>
 
+                            </div>
                         </div>
-                    </div>
 
                     <a href="#" class="btn btn-lg btn-warning col-md-offset-9"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
                 </div><!--/.item-->             
