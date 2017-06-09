@@ -2,8 +2,14 @@
 session_start();
 require('dbconnect.php');
 
+if(isset($_SESSION['login_member_id'])){
+    $sql = 'SELECT * FROM `users`u WHERE `user_id`='.$_SESSION['login_member_id'];
+    $detail = mysqli_query($db,$sql) or die(mysqli_error($db));
+    $detail_table = mysqli_fetch_assoc($detail);
+}
+
 if(isset($_POST) && !empty($_POST)){
-$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`=1',
+$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`='.$_SESSION['login_member_id'],
     mysqli_real_escape_string($db,$_POST['name']),
     mysqli_real_escape_string($db,$_POST['avatar_id']),
     mysqli_real_escape_string($db,$_POST['hobby']),
@@ -59,7 +65,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your name"/>
+									<input type="text" class="form-control" name="name" id="name" value="<?php echo $detail_table['name']; ?>" />
 								</div>
 							</div>
 						</div>
@@ -80,22 +86,12 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
         			</div>
 
 
-<!-- 						<div class="form-group">
-							<label for="bestbook" class="cols-sm-2 control-label">ベスト本</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="bestbook"  placeholder="Enter your favorite"/>
-								</div>
-							</div>
-						</div> -->
-
 						<div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="job" id="job"  placeholder="Enter your job"/>
+									<input type="text" class="form-control" name="job" id="job" value="<?php echo $detail_table['job']; ?>"/>
 								</div>
 							</div>
 						</div>
@@ -105,31 +101,23 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="hobby" id="hobby"  placeholder="Enter your hobby"/>
+									<input type="text" class="form-control" name="hobby" id="hobby" value="<?php echo $detail_table['hobby']; ?>" />
 								</div>
 							</div>
 						</div>
-<!-- 												<div class="form-group">
-							<label for="like" class="cols-sm-2 control-label">好きな作家</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="author" id="like"  placeholder="Enter your like"/>
-								</div>
-							</div>
-						</div> -->
+
 						<div class="form-group">
 							<label for="password" class="cols-sm-2 control-label">尊敬している偉人</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="great_man" id="password"  placeholder="Enter your respect"/>
+									<input type="text" class="form-control" name="great_man" id="password" value="<?php echo $detail_table['great_man']; ?>" />
 								</div>
 							</div>
  </div>
 						<div class="form-group ">
 					<label for="comment" class="cols-sm-2 control-label">ひとこと</label>
-                    <textarea class="form-control" id="comment" rows="3" placeholder="comment" name="comment" required></textarea>
+                    <textarea class="form-control" id="comment" rows="3" value="<?php echo $detail_table['comment']; ?>" name="comment" required></textarea>
                 </div>
 
 					<div class="form-group ">
