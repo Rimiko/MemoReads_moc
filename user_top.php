@@ -1,7 +1,7 @@
 <?php 
     session_start();
     require('dbconnect.php');
-   var_dump($_SESSION['login_member_id']);
+   // var_dump($_SESSION['login_member_id']);
    // var_dump($_SESSION['join']['name']); 
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
@@ -50,7 +50,7 @@
                         <div class="profile-sidebar" style="background-color: white;">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
-                                <img src="<?php echo $member['avatar_path']?>" class="img-responsive" alt="">
+                                <img src="images/<?php echo $member['avatar_path']?>" class="img-responsive" alt="">
                             </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
@@ -78,8 +78,8 @@
                             <!-- END SIDEBAR USER TITLE -->
                             <!-- SIDEBAR BUTTONS -->
                             <div class="profile-userbuttons">
-                                <button type="button" class="btn btn-success btn-sm">編集ページ</button>
-                                <button type="button" class="btn btn-danger btn-sm">記録ページ</button>
+                                <a href="mypage_edit.php"><button type="button" class="btn btn-success btn-sm">編集ページ</button></a>
+                                <a href="record.php"><button type="button" class="btn btn-danger btn-sm">記録ページ</button></a>
                             </div>
                             <!-- END SIDEBAR BUTTONS -->
                             <!-- SIDEBAR MENU -->
