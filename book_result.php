@@ -207,7 +207,7 @@ $sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM 
   // var_dump($books_array);
 // ユーザー検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avater_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT %d,%d',
+$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avatar_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT %d,%d',
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']),

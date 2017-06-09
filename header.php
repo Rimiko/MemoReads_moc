@@ -65,9 +65,12 @@
                     <div class="navbar-collapse collapse">
                         <div class="menu">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"><a href="index.html">Home</a></li>
-                                <li role="presentation"><a href="about.html" class="active">My Page</a></li>
-                                <li role="presentation"><a href="services.html">Logout</a></li>
+                            <?php if(isset($_SESSION['login_member_id'])){?>
+                                <li role="presentation"><a href="user_top.php"><?php }else{?><li role="presentation"><a href="top.php"><?php }?>Home</a></li>
+                                <?php if(isset($_SESSION['login_member_id'])){?>
+                                <li role="presentation"><a href="mypage.php" class="active">My Page</a></li>
+                                <li role="presentation"><a href="logout.php">Logout</a></li>
+                                <?php }else{} ?>
                             </ul>
                         </div>
                     </div>

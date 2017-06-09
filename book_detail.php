@@ -21,7 +21,7 @@ if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 // ユーザー表示
 if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 
-$sql = 'SELECT DISTINCT`avatar`.`avater_path`,`users`.`name`,`users`.`age`,`users`.`gender`,`users`.`hobby`,`users`.`job`,`records`.`review`,`records`.`created`,`books`.`book_id`FROM `avatar` INNER JOIN `users` on `avatar`.`avatar_id` = `users`.`avatar_id` INNER JOIN `records` ON `users`.`user_id`= `records`.`user_id`INNER JOIN `books`ON `records`.`book_id` = `books`.`book_id` INNER JOIN `book_keywords` ON `books`.`book_id`= `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `books`.`book_id` ='.$_REQUEST['book_id'];
+$sql = 'SELECT DISTINCT`avatar`.`avatar_path`,`users`.`name`,`users`.`age`,`users`.`gender`,`users`.`hobby`,`users`.`job`,`records`.`review`,`records`.`created`,`books`.`book_id`FROM `avatar` INNER JOIN `users` on `avatar`.`avatar_id` = `users`.`avatar_id` INNER JOIN `records` ON `users`.`user_id`= `records`.`user_id`INNER JOIN `books`ON `records`.`book_id` = `books`.`book_id` INNER JOIN `book_keywords` ON `books`.`book_id`= `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `books`.`book_id` ='.$_REQUEST['book_id'];
 
  $users = mysqli_query($db,$sql) or die(mysqli_error($db));
 var_dump($users);
