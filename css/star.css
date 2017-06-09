@@ -1,2 +1,27 @@
-#stars { color: #ee8b2d;}
-/*#hearts-existing { color: #ee8b2d;}*/
+/*#stars { color: #ee8b2d;}
+#hearts-existing { color: #ee8b2d;}
+*/
+
+/*======================*/
+
+.input-range {
+  display: none;
+}
+.range-group {
+  position: relative;
+}
+.range-group > a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.range-group > a:before {
+  content: "\f3ae";
+  font-family: "Ionicons";
+  font-size: 20px;
+  color: #aaa;
+}
+.range-group > a.on:before {
+  content: "\f2fc";
+  color: #fc3;
+}
