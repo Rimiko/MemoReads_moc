@@ -3,9 +3,36 @@
     require('dbconnect.php');
    // var_dump($_SESSION['login_member_id']);
    // var_dump($_SESSION['join']['name']); 
+
+    
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
     $member = mysqli_fetch_assoc($login);
+
+
+ 
+  // require('dbconnect.php');
+
+// 星５つの本のid,タイトル、著者を取得する。
+    
+        $sql = sprintf('SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`, COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC'
+        
+    );
+
+  $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $book_ranking1 = mysqli_fetch_assoc($b_rank);
+  $book_ranking2 = mysqli_fetch_assoc($b_rank);
+  $book_ranking3 = mysqli_fetch_assoc($b_rank);
+  $book_ranking4 = mysqli_fetch_assoc($b_rank);
+  $book_ranking5 = mysqli_fetch_assoc($b_rank);
+
+ 
+ // var_dump($book_ranking1);
+ // var_dump($book_ranking2);
+ // var_dump($book_ranking3);
+
+?>
+
    ?>
 
 <!DOCTYPE html>
@@ -120,9 +147,9 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-8" style="float: left;">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者</p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $book_ranking1['title']; ?></h4>
+                                                    <p><?php echo $book_ranking1['author']; ?></p>
+                                                    <P><?php echo $book_ranking1['review']; ?></P>
 
                                                     
                                                 </div>
@@ -188,10 +215,10 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
+                                                        <?php echo $book_ranking2['title']; ?></h4>
+                                                    <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking2['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -244,10 +271,10 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
+                                                        <?php echo $book_ranking3['title']; ?></h4>
+                                                    <p><?php echo $book_ranking3['title']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking3['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -302,11 +329,11 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
+                                                        <?php echo $book_ranking4['title']; ?></h4>
                                                     <p>
-                                                        著者
+                                                        <?php echo $book_ranking4['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking4['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -362,11 +389,11 @@
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
+                                                        <?php echo $book_ranking5['title']; ?></h4>
                                                     <p>
-                                                        著者
+                                                        <?php echo $book_ranking5['author']; ?>
                                                     </p>
-                                                    <P></P>
+                                                    <P><?php echo $book_ranking5['review']; ?></P>
                                                     
                                                 </div>
                                             </div>

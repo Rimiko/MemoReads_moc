@@ -59,6 +59,33 @@ if(empty($error)){
   }
 } 
 } 
+
+// ----------BOOK RANKING取得------------------
+
+
+ // session_start();
+ 
+  require('dbconnect.php');
+
+// 星５つの本のid,タイトル、著者を取得する。
+    
+        $sql = sprintf('SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`, COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC'
+        
+    );
+
+  $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $book_ranking1 = mysqli_fetch_assoc($b_rank);
+  $book_ranking2 = mysqli_fetch_assoc($b_rank);
+  $book_ranking3 = mysqli_fetch_assoc($b_rank);
+  $book_ranking4 = mysqli_fetch_assoc($b_rank);
+  $book_ranking5 = mysqli_fetch_assoc($b_rank);
+
+ 
+ // var_dump($book_ranking1);
+ // var_dump($book_ranking2);
+ // var_dump($book_ranking3);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,49 +112,7 @@ if(empty($error)){
   </head>
   <body>
   <?php include('header.php'); ?>
-<!--    <div class="back-rgba"> 
-    <header style="position: absolute;">
-        <div class="header-rgba">        
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="navigation">
-                <div class="container">                 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse.collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <div class="navbar-brand">
 
-                          <div class="row">
-                            <div class="span12">
-                                <form id="custom-search-form" class="form-search form-horizontal pull-right">
-                                    <div class="input-append span12">
-                                        <input type="text" class="search-query mac-style" placeholder="Search"><a href="#" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> </a>
-                    <button type="submit" class="btn"><i class="icon-search"></i></button>
-                       </div>
-                                </form>
-                            </div>
-                          </div>
-
-                        </div>
-                    </div>
-
-                    <div class="navbar-collapse collapse">
-                        <div class="menu">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"><a href="index.html">Home</a></li>
-                                <li role="presentation"><a href="about.html" class="active">My Page</a></li>
-                                <li role="presentation"><a href="services.html">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        </div>
-    </header> -->
     
     <section id="main-slider" class="no-margin">
         <div class="carousel slide">      
@@ -253,10 +238,10 @@ if(empty($error)){
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
+                                                        <?php echo $book_ranking1['title']; ?></h4>
+                                                    <p><?php echo $book_ranking1['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking1['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -321,10 +306,10 @@ if(empty($error)){
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
+                                                        <?php echo $book_ranking2['title']; ?></h4>
+                                                    <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking2['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -377,10 +362,10 @@ if(empty($error)){
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
+                                                        <?php echo $book_ranking3['title']; ?></h4>
+                                                    <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking1['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -435,11 +420,11 @@ if(empty($error)){
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
+                                                        <?php echo $book_ranking4['title']; ?></h4>
                                                     <p>
-                                                        著者
+                                                        <?php echo $book_ranking4['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking4['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -495,11 +480,11 @@ if(empty($error)){
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
+                                                        <?php echo $book_ranking5['title']; ?></h4>
                                                     <p>
-                                                        著者
+                                                        <?php echo $book_ranking5['author']; ?>
                                                     </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
+                                                    <P><?php echo $book_ranking5['review']; ?></P>
                                                     
                                                 </div>
                                             </div>
