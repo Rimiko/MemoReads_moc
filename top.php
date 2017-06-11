@@ -241,7 +241,7 @@ if(empty($error)){
                                                         <?php echo $book_ranking1['title']; ?></h4>
                                                     <p><?php echo $book_ranking1['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking1['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking1['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -309,7 +309,7 @@ if(empty($error)){
                                                         <?php echo $book_ranking2['title']; ?></h4>
                                                     <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking2['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking2['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -365,7 +365,7 @@ if(empty($error)){
                                                         <?php echo $book_ranking3['title']; ?></h4>
                                                     <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking1['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking1['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -424,7 +424,7 @@ if(empty($error)){
                                                     <p>
                                                         <?php echo $book_ranking4['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking4['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking4['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -484,7 +484,7 @@ if(empty($error)){
                                                     <p>
                                                         <?php echo $book_ranking5['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking5['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking5['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>

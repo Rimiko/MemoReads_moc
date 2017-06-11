@@ -15,7 +15,7 @@
 
 // 星５つの本のid,タイトル、著者を取得する。
     
-        $sql = sprintf('SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`, COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC'
+        $sql = sprintf('SELECT `records`.`book_id`,`books`.`picture_url`,`books`. `title`,`books`.`author`, COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC'
         
     );
 
@@ -143,13 +143,13 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive"  />
+                                                    <img src="<?php $book_ranking1['picture_url']; ?>" alt="" class="img-rounded img-responsive"  />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8" style="float: left;">
                                                     <h4>
                                                         <?php echo $book_ranking1['title']; ?></h4>
                                                     <p><?php echo $book_ranking1['author']; ?></p>
-                                                    <P><?php echo $book_ranking1['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking1['cnt']; ?></P>
 
                                                     
                                                 </div>
@@ -177,7 +177,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="#" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -211,14 +211,14 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $book_ranking2['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $book_ranking2['title']; ?></h4>
                                                     <p><?php echo $book_ranking2['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking2['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking2['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -267,14 +267,14 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $book_ranking3['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $book_ranking3['title']; ?></h4>
                                                     <p><?php echo $book_ranking3['title']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking3['review']; ?></P>
+                                                    <P>お気に位入り登録数：<?php echo $book_ranking3['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -325,7 +325,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $book_ranking4['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -333,7 +333,7 @@
                                                     <p>
                                                         <?php echo $book_ranking4['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking4['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking4['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -385,7 +385,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $book_ranking5['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -393,7 +393,7 @@
                                                     <p>
                                                         <?php echo $book_ranking5['author']; ?>
                                                     </p>
-                                                    <P><?php echo $book_ranking5['review']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $book_ranking5['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -434,329 +434,9 @@
                     </div>
                 </div>
             </div>
-        
-          <!-- テーマ別ランキング -->
-
-          <div class="text-center">
-                <div class="text-center" >
-                <img src="images/cooltext245444717219161.png" >
-            </div>
-
-                <!-- <div class="theme-rank">
-                    <p>今週のテーマ：〇〇〇〇ランキング</p>
-                </div> -->
-                <div class="col-lg-6">
-                        
-                    
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                      <div><img src="images/cooltext245006766393490.png"></div> 
-                      <div><img src="images/gold.JPG" style="margin-right:440px;"></div>
-                        
-
-                        <!-- book部門１位 -->
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank" style="margin-top: -30px;">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-
-
-                <!-- ユーザー部門１位 -->
-
-                <div class="col-lg-6 user-rank">
-                    
-                    
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                     <div><img src="images/cooltext245006698732627.png"></div>
-                        <div><img src="images/gold.JPG" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        
-                    </div>
-                </div>
-
-                <!-- book部門２位 -->
-                <div class="col-lg-6">
-                    
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                    <div><img src="images/silver.JPG" style="margin-right:440px; "></div>
-                        <div class="container">
-
-
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-                <!-- ユーザー部門２位 -->
-                <div class="col-lg-6 user-rank">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/silver.JPG" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-                <!-- book部門３位 -->
-                <div class="col-lg-6">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    </div>
-                </div>
-
-                <!-- ユーザー部門３位 -->
-                <div class="col-lg-6 user-rank">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-                    <!-- book部門４位 -->
-                <div class="col-lg-6">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right:440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    </div>
-                </div>
-
-                    <!-- ユーザー部門４位 -->
-                <div class="col-lg-6 user-rank">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    </div>
-                </div>
-
-                 <!-- book部門５位 -->
-                <div class="col-lg-6">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px; "></div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                    </div>
-                </div>
-
-                 <!-- ユーザー部門５位 -->
-                <div class="col-lg-6 user-rank">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                     <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px;"></div>
-                        <div class="container">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm up-rank">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
-                                                </div>
-                                                <div class="col-sm-6 col-md-8">
-                                                    <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>TEXTTEXTTEXTTEXT.....</P>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        
-
-       </div>
-
-       </div>
+        </div>
+</div>        
+         
 
 
        <section id="partner">
