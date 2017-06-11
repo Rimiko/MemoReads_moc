@@ -15,23 +15,28 @@
 
 // 星５つの本のid,タイトル、著者を取得する。
     
-        $sql = sprintf('SELECT `records`.`book_id`,`books`.`picture_url`,`books`. `title`,`books`.`author`, COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC'
+         $sql = 'SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`,`books`.`picture_url`,COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC';
+
+
+
+       
+
+        $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
+        $a = array();
+        while ($book_ranking = mysqli_fetch_assoc($b_rank)) {
+            $a[] = $book_ranking;
+        }
+
+        // var_dump($a);
         
-    );
+ // ユーザーランキング情報取得
+        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
 
-  $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
-  $book_ranking1 = mysqli_fetch_assoc($b_rank);
-  $book_ranking2 = mysqli_fetch_assoc($b_rank);
-  $book_ranking3 = mysqli_fetch_assoc($b_rank);
-  $book_ranking4 = mysqli_fetch_assoc($b_rank);
-  $book_ranking5 = mysqli_fetch_assoc($b_rank);
-
- 
- // var_dump($book_ranking1);
- // var_dump($book_ranking2);
- // var_dump($book_ranking3);
-
-?>
+        $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
+        $u = array();
+        while($user_ranking = mysqli_fetch_assoc($u_rank)){
+            $u[] = $user_ranking;
+        }
 
    ?>
 
@@ -143,13 +148,13 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <img src="<?php $book_ranking1['picture_url']; ?>" alt="" class="img-rounded img-responsive"  />
+                                                    <img src="<?php $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"  />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8" style="float: left;">
                                                     <h4>
-                                                        <?php echo $book_ranking1['title']; ?></h4>
-                                                    <p><?php echo $book_ranking1['author']; ?></p>
-                                                    <P>お気に入り登録数：<?php echo $book_ranking1['cnt']; ?></P>
+                                                        <?php echo $a[0]['title']; ?></h4>
+                                                    <p><?php echo $a[0]['author']; ?></p>
+                                                    <P>お気に入り登録数：<?php echo $a[0]['cnt']; ?></P>
 
                                                     
                                                 </div>
@@ -177,14 +182,14 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="#" alt="" class="img-rounded img-responsive" />
+                                                    <img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $u[0]['name']; ?></h4>
+                                                    
+                                        
+                                                    <P><?php echo $u[0]['point']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -211,14 +216,14 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <img src="<?php $book_ranking2['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $a[1]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        <?php echo $book_ranking2['title']; ?></h4>
-                                                    <p><?php echo $book_ranking2['author']; ?>
+                                                        <?php echo $a[1]['title']; ?></h4>
+                                                    <p><?php echo $a[1]['author']; ?>
                                                     </p>
-                                                    <P>お気に入り登録数：<?php echo $book_ranking2['cnt']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $a[1]['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -239,14 +244,13 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $u[1]['name']; ?></h4>
+                                                    
+                                                    <P><?php echo $u[1]['point']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -267,14 +271,14 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $book_ranking3['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $a[2]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        <?php echo $book_ranking3['title']; ?></h4>
-                                                    <p><?php echo $book_ranking3['title']; ?>
+                                                        <?php echo $a[2]['title']; ?></h4>
+                                                    <p><?php echo $a[2]['author']; ?>
                                                     </p>
-                                                    <P>お気に位入り登録数：<?php echo $book_ranking3['cnt']; ?></P>
+                                                    <P>お気に位入り登録数：<?php echo $a[2]['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -296,15 +300,13 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="images/<?php echo $u[2]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $u[2]['name']; ?></h4>
+                                                    
+                                                    <P><?php echo $u[2]['point']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -325,15 +327,15 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $book_ranking4['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $a[3]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        <?php echo $book_ranking4['title']; ?></h4>
+                                                        <?php echo $a[3]['title']; ?></h4>
                                                     <p>
-                                                        <?php echo $book_ranking4['author']; ?>
+                                                        <?php echo $a[3]['author']; ?>
                                                     </p>
-                                                    <P>お気に入り登録数：<?php echo $book_ranking4['cnt']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $a[3]['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -355,15 +357,13 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="images/<?php echo $u[3]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $u[3]['name']; ?></h4>
+                                                   
+                                                    <P><?php echo $u[3]['point']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -385,15 +385,15 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $book_ranking5['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <img src="<?php $a[4]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        <?php echo $book_ranking5['title']; ?></h4>
+                                                        <?php echo $a[4]['title']; ?></h4>
                                                     <p>
-                                                        <?php echo $book_ranking5['author']; ?>
+                                                        <?php echo $a[4]['author']; ?>
                                                     </p>
-                                                    <P>お気に入り登録数：<?php echo $book_ranking5['cnt']; ?></P>
+                                                    <P>お気に入り登録数：<?php echo $a[4]['cnt']; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -415,15 +415,13 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/ダウンロード.jpeg" alt="" class="img-rounded img-responsive" />
+                                                    <img src="images/<?php echo $u[4]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
-                                                        BOOK TITLE</h4>
-                                                    <p>
-                                                        著者
-                                                    </p>
-                                                    <P>🌟🌟🌟🌟🌟</P>
+                                                        <?php echo $u[4]['name']; ?></h4>
+                                                    
+                                                    <P><?php echo $u[4]['point']; ?></P>
                                                     
                                                 </div>
                                             </div>
