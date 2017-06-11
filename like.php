@@ -4,7 +4,7 @@ require('dbconnect.php');
 
 if(isset($_REQUEST['record_id'])){
     // SQL文作成（likesテーブルのINSERT文）ほんとは.$_SESSION['login_member_id']
-$sql = 'INSERT INTO `likes` (`like_id`, `user_id`, `record_id`) VALUES (NULL, 2,'.$_REQUEST['record_id'].')';
+$sql = 'INSERT INTO `likes` (`like_id`, `user_id`, `record_id`) VALUES (NULL, 5,'.$_REQUEST['record_id'].')';
 //SQL文実行
 mysqli_query($db,$sql) or die(mysqli_error($db));
 
