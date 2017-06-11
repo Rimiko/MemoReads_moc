@@ -4,12 +4,12 @@ require('dbconnect.php');
 
 // 本当はwhileの中で回す$_SESSION['login_member_id']
 
-  $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` = 1 AND `user_id` = 2';
+  $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` = 2 AND `user_id` = 5';
   $likes = mysqli_query($db,$sql) or die(mysqli_error($db));
   $like = mysqli_fetch_assoc($likes);
 
   //いいね数獲得本当はレビューを表示させる際に抜き出したrecord_id(ex.$record_each['record_id']など)をいれる
-  $sql = 'SELECT COUNT(*) as `like_count` FROM `likes` WHERE `record_id` =1';
+  $sql = 'SELECT COUNT(*) as `like_count` FROM `likes` WHERE `record_id` =2';
 
   $likes_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
   $like_cnt = mysqli_fetch_assoc($likes_cnt);
