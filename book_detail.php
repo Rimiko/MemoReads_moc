@@ -1,8 +1,16 @@
 <?php  
+session_start();
 
 require('dbconnect.php');
+require('like.php');
+require('unlike.php');
 // 本詳細
-$_REQUEST['book_id'];
+
+
+
+
+
+
 
 
 if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
@@ -22,13 +30,38 @@ if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 // ユーザー表示
 if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 
-$sql = 'SELECT a.`avater_path`,u.*,r.* FROM (`users`u INNER JOIN `avatar`a ON u.`avatar_id` = a.`avatar_id`) INNER JOIN `records`r ON u.`user_id` = r.`user_id` WHERE r.`book_id`='.$_REQUEST['book_id'];
+$sql = 'SELECT a.`avatar_path`,u.*,r.* FROM (`users`u INNER JOIN `avatar`a ON u.`avatar_id` = a.`avatar_id`) INNER JOIN `records`r ON u.`user_id` = r.`user_id` WHERE r.`book_id`='.$_REQUEST['book_id'];
 
  $users = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 
  $users_array = array();
+
  while ($user = mysqli_fetch_assoc($users)){
+
+
+
+
+
+// いいね
+
+$sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` ='.$user['record_id'].' AND `user_id` = '.$_SESSION['login_member_id'];
+  $likes = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $like = mysqli_fetch_assoc($likes);
+
+  //いいね数獲得本当はレビューを表示させる際に抜き出したrecord_id(ex.$record_each['record_id']など)をいれる
+  $sql = 'SELECT COUNT(*) as `like_count` FROM `likes` WHERE `record_id` ='.$user['record_id'];
+
+  $likes_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $like_cnt = mysqli_fetch_assoc($likes_cnt);
+
+ 
+
+
+
+    
+
+  // kキーワード表示
 
 
     $sql = 'SELECT`keywords`.`keyword` FROM `keywords` INNER JOIN `records_keywords` on `keywords`.`keyword_id` = `records_keywords`.`keyword_id` INNER JOIN `records` on `records`.`record_id` = `records_keywords`.`record_id` WHERE `records`.`record_id`='.$user['record_id'];
@@ -44,17 +77,28 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
 
 
  $user['keyword'] = $keywords_array;
+  $user['like_flag'] = $like['like_flag'];
+  $user['like_count']=$like_cnt['like_count'];
 
- $users_array[] = $user; }
+ $users_array[] = $user; 
+
+
+
+
+
+
+
+}
 // var_dump($users_array);
         # code...
    
 }
 
+// var_dump($users_array);
 
 
 
-// SELECT `users`.`user_id`,`books`.`book_id`,`keywords`.`keyword`,`users`.`name`FROM `users` INNER JOIN `records` on `users`.`user_id` = `records`.`user_id` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`INNER JOIN `book_keywords`ON `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `records`.`book_id`=2 AND `users`.`user_id` = `records`.`user_id`
+
 
 
 
@@ -220,7 +264,23 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
                             <small>レビュー：</small>
                         <small><?php echo $user_each['review'];?></small>
                                 </div>
+
+
+
+
+                <?php if($user_each['like_flag'] ==1 ){?>
+              <!-- 既にいいねされているときなので[いいねを取り消す] -->
+              <a href="book_detail.php?record_id=<?php echo $user_each['record_id'];?>&book_id=<?php echo $_REQUEST['book_id'];?>"><small>LIKEを取り消す</small></a>
+
+              <?php }else{ ?>
+              <!-- まだいいねがおされていないので[いいね] -->
+             <a href="book_detail.php?record_id=<?php echo $user_each['record_id']?>&book_id=<?php echo $_REQUEST['book_id']; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-thumbs-up"></span> LIKE</a>
+            <?php } ?>
+             いいね数:<?php echo $user_each['like_count']; ?>
                             </div>
+
+
+
                         </div>
                         </div>
                         <?php } ?>
