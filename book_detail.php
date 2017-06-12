@@ -2,8 +2,8 @@
 session_start();
 
 require('dbconnect.php');
-require('like.php');
-require('unlike.php');
+// require('like.php');
+// require('unlike.php');
 // 本詳細
 
 
@@ -270,11 +270,11 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
 
                 <?php if($user_each['like_flag'] ==1 ){?>
               <!-- 既にいいねされているときなので[いいねを取り消す] -->
-              <a href="book_detail.php?record_id=<?php echo $user_each['record_id'];?>&book_id=<?php echo $_REQUEST['book_id'];?>"><small>LIKEを取り消す</small></a>
+              <a href="unlike.php?record_id=<?php echo $user_each['record_id'];?>&book_id=<?php echo $_REQUEST['book_id'];?>"><small>LIKEを取り消す</small></a>
 
               <?php }else{ ?>
               <!-- まだいいねがおされていないので[いいね] -->
-             <a href="book_detail.php?record_id=<?php echo $user_each['record_id']?>&book_id=<?php echo $_REQUEST['book_id']; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-thumbs-up"></span> LIKE</a>
+             <a href="like.php?record_id=<?php echo $user_each['record_id']?>&book_id=<?php echo $_REQUEST['book_id']; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-thumbs-up"></span> LIKE</a>
             <?php } ?>
              いいね数:<?php echo $user_each['like_count']; ?>
                             </div>
