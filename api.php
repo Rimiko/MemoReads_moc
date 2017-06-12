@@ -51,6 +51,14 @@ for ($i=0; $i < $c; $i++){
     }else{
         $pics[] = 'なし';
     }
+
+  if (isset($posts[$i]->id)) { 
+       $bookids[] = $posts[$i]->id; 
+
+    }else{
+        $bookids[] = 'なし';
+    }
+
     
 }
 }

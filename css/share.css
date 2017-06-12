@@ -151,6 +151,19 @@ form{
 .form-horizontal .form-group {
     margin-left:0px;
 }
+
+#serch{
+  width:50%;
+}
+
+p{
+ color:red;
+}
+
+.record-button{
+  margin-top:10px
+}
+
 /*透過処理
 /*#allbox-sub{
   background-color:       rgba(255,255,255,0.5);
@@ -224,3 +237,5 @@ ul.social-network li a {
   text-shadow:none;
 }
 */
+
+ 
