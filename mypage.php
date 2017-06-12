@@ -12,7 +12,7 @@ require('dbconnect.php');
   $record = mysqli_query($db,$sql) or die(mysqli_error($db));
   $member = mysqli_fetch_assoc($record);
 
-  var_dump($_SESSION['login_member_id']);
+  // var_dump($member);
 
   // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
 
