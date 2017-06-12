@@ -9,10 +9,11 @@ if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
     $sql = 'SELECT`book_id`,`title`,`category`,`author`,`picture_url`,`detail` FROM `books` WHERE `book_id` ='.$_REQUEST['book_id'];
 
  $books = mysqli_query($db,$sql) or die(mysqli_error($db));
- $book = mysqli_fetch_assoc($books);
+ 
  $books_array = array();
- // while ($book = mysqli_fetch_assoc($books)) {}
+ $book = mysqli_fetch_assoc($books);
      $books_array[] = $book; 
+
  
 
  
@@ -21,17 +22,33 @@ if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 // ユーザー表示
 if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
 
-$sql = 'SELECT DISTINCT`avatar`.`avatar_path`,`users`.`name`,`users`.`age`,`users`.`gender`,`users`.`hobby`,`users`.`job`,`records`.`review`,`records`.`created`,`books`.`book_id`FROM `avatar` INNER JOIN `users` on `avatar`.`avatar_id` = `users`.`avatar_id` INNER JOIN `records` ON `users`.`user_id`= `records`.`user_id`INNER JOIN `books`ON `records`.`book_id` = `books`.`book_id` INNER JOIN `book_keywords` ON `books`.`book_id`= `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `books`.`book_id` ='.$_REQUEST['book_id'];
+$sql = 'SELECT a.`avater_path`,u.*,r.* FROM (`users`u INNER JOIN `avatar`a ON u.`avatar_id` = a.`avatar_id`) INNER JOIN `records`r ON u.`user_id` = r.`user_id` WHERE r.`book_id`='.$_REQUEST['book_id'];
 
  $users = mysqli_query($db,$sql) or die(mysqli_error($db));
-var_dump($users);
+
 
  $users_array = array();
- while ($user = mysqli_fetch_assoc($users)) {
-$users_array[] = $user;
-     #
- 
- }
+ while ($user = mysqli_fetch_assoc($users)){
+
+
+    $sql = 'SELECT`keywords`.`keyword` FROM `keywords` INNER JOIN `records_keywords` on `keywords`.`keyword_id` = `records_keywords`.`keyword_id` INNER JOIN `records` on `records`.`record_id` = `records_keywords`.`record_id` WHERE `records`.`record_id`='.$user['record_id'];
+
+
+
+$keywords = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+$keywords_array = array();
+while ($keyword = mysqli_fetch_assoc($keywords)){
+    $keywords_array[]=$keyword['keyword'];
+}
+
+
+ $user['keyword'] = $keywords_array;
+
+ $users_array[] = $user; }
+// var_dump($users_array);
+        # code...
+   
 }
 
 
@@ -47,23 +64,82 @@ $users_array[] = $user;
 
 
 
-// キーワード結果
-if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
-$sql ='SELECT `users`.`user_id`,`books`.`book_id`,`keywords`.`keyword`FROM `users` INNER JOIN `records` on `users`.`user_id` = `records`.`user_id` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`INNER JOIN `book_keywords`ON `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `books`.`book_id`='.$_REQUEST['book_id'];
-
-$keywords = mysqli_query($db,$sql) or die(mysqli_error($db));
-
-
- $keywords_array = array();
- while ($keyword = mysqli_fetch_assoc($keywords)) {
-$keywords_array[] = $keyword;
-     
- 
-}}
+// // キーワード結果
 
 
 
 
+// if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
+
+
+//     foreach ($users_array as $key) {
+// $sql =sprintf('SELECT DISTINCT`keywords`.`keyword`FROM `avatar` INNER JOIN `users` on `avatar`.`avatar_id` = `users`.`avatar_id` INNER JOIN `records` ON `users`.`user_id`= `records`.`user_id`INNER JOIN `books`ON `records`.`book_id` = `books`.`book_id` INNER JOIN `book_keywords` ON `books`.`book_id`= `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id`= `keywords`.`keyword_id` WHERE `book_keywords`.`book_id` = %d AND`book_keywords`.`user_id`=%d'
+
+// ,mysqli_real_escape_string($db,$_REQUEST['book_id']),
+// mysqli_real_escape_string($db,$key['user_id']));
+// echo '<pre>';
+// var_dump($sql);
+// echo '</pre>';
+// }
+   
+//  echo '<pre>';
+//  var_dump($sql);
+//   echo '</pre>';
+// $keywords = mysqli_query($db,$sql) or die(mysqli_error($db));
+    
+    // $hanakuso = $keywords['mysqli_result']->current_field;
+    // echo $hanakuso;
+// echo '<pre>';
+// var_dump($keywords);
+// echo '</pre>';
+//  $keywords_array = array();
+//  while ($keyword = mysqli_fetch_assoc($keywords)) {
+// $keywords_array[] = $keyword;
+//      echo '<pre>';
+//       var_dump($keyword);
+//   echo '</pre>';
+// }
+// }
+
+//      $dsn = 'mysql:dbname=Bookrus;host=localhost';
+//      $user = 'root';
+//      $password = 'mysql1';
+
+
+   
+// $book_id = $_REQUEST['book_id'];
+
+// $sql =  'SELECT * FROM `book_keywords` WHERE `book_id` = ?';
+// $date = array($book_id);
+// $stmt = $db->prepare($sql);
+// $stmt->execute($date);
+// $keywords = array(); 
+
+// while ($book = $stmt->fetech(PDO::FETCH_ASSOC)) {
+    
+//     $sql =  'SELECT * FROM `keywords` WHERE `keyword_id` = ?';
+//     $date = array($book['book_keyword_id']);
+//     $stmt = $dbh->prepare($sql);
+//     $stmt->execute($date);
+//     $keyword = $stmt->fetech(PDO::FETCH_ASSOC);
+
+
+//     $sql =  'SELECT * FROM `users` WHERE `user_id` = ?';
+//     $date = array($book['user_id']);
+//     $stmt = $dbh->prepare($sql);
+//     $stmt->execute($date);
+//     $user = $stmt->fetech(PDO::FETCH_ASSOC);
+
+
+
+
+//     $keywords[] = array('keyword_id' => $keyword['keyword_id'],
+//                         'keyword' => $keyword['keyword'], 
+//                         'user_id' => $user['user_id'], 
+//                         'name' => $user['name']);
+//     }
+
+// var_dump($keywords);
 
 ?>
 
@@ -109,7 +185,9 @@ $keywords_array[] = $keyword;
 
                     
                 <div class="review">
-                <?php foreach ($users_array as $users) { ?>
+                <?php foreach ($users_array as $user_each) {  ?>
+                <?php $c=count($user_each['keyword']); ?>
+
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="list-group">
                             <div class="list-group-item">
@@ -118,33 +196,37 @@ $keywords_array[] = $keyword;
                                         <img class="circle img-thumbnail img-box" src="images/rimiko.png" alt="sintret" width="50">
                                     </a>
                                        <a href="#" title="sintret">
-                                            <small><strong><?php echo $users['name'];?></strong></small>
+                                            <small><strong><?php echo $user_each['name'];?></strong></small>
                                         </a>
-                                 <small class="time">    　　<i class="fa fa-clock-o" aria-hidden="true"></i><?php echo $users['created'];?></small>
-                                 <small class="pro">　　<i class="fa fa-user" aria-hidden="true"></i> <a href="#"><?php echo $users['age'];?></a>/<a href="#"><?php echo $users['hobby'];?></a>/<a href="#"><?php echo $users['job'];?></a></small>
+                                 <small class="time">    　　<i class="fa fa-clock-o" aria-hidden="true"></i><?php echo $user_each['created'];?></small>
+                                 <small class="pro">　　<i class="fa fa-user" aria-hidden="true"></i> <a href="#"><?php echo $user_each['age'];?></a>/<a href="#"><?php echo $user_each['hobby'];?></a>/<a href="#"><?php echo $user_each['job'];?></a></small>
 
-                                 <?php foreach ($keywords_array as $keyword) {?>
-                                 <br>
+                                 
+                                 <br> 
                                  <div class="keyword">
                                  
                                  <small>キーワード：</small>
-                                 <small><a href="#"><?php echo $keyword['keyword'];?></a>
+                 <?php for ($i=0; $i <$c ; $i++) { ?>
+                                 <small><a href="#">#<?php echo $user_each['keyword'][$i];?></a>
+                                                        
                                  
                                  </small>
+                                  <?php } ?>
                                  </div>
 
-                                 <?php } ?>
+                                 
                                 </div>
                                 <div class="row-content">
                             <small>レビュー：</small>
-                        <small><?php echo $users['review'];?></small>
+                        <small><?php echo $user_each['review'];?></small>
                                 </div>
                             </div>
                         </div>
+                        </div>
                         <?php } ?>
-               <!--      </div> -->
+                   
 
-<!--                     <div class="col-xs-12 col-sm-8 col-md-8"> -->
+              <!--   <div class="col-xs-12 col-sm-8 col-md-8"> -->
                         <!-- <! <! <div class="list-group">
                             <div class="list-group-item">
                                 <div class="row-picture">
