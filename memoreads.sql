@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 6 朁E13 日 02:30
+-- Generation Time: 2017 年 6 朁E13 日 02:34
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `memoreads`
 --
+CREATE DATABASE IF NOT EXISTS `memoreads` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `memoreads`;
 
 -- --------------------------------------------------------
 
@@ -26,10 +28,12 @@ SET time_zone = "+00:00";
 -- テーブルの構造 `avatar`
 --
 
-CREATE TABLE `avatar` (
-  `avatar_id` int(11) NOT NULL,
-  `avatar_path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `avatar`;
+CREATE TABLE IF NOT EXISTS `avatar` (
+  `avatar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `avatar_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`avatar_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `avatar`
@@ -52,8 +56,9 @@ INSERT INTO `avatar` (`avatar_id`, `avatar_path`) VALUES
 -- テーブルの構造 `books`
 --
 
-CREATE TABLE `books` (
-  `book_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE IF NOT EXISTS `books` (
+  `book_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `category` varchar(255) DEFAULT NULL,
   `picture_url` varchar(255) DEFAULT NULL,
@@ -61,8 +66,9 @@ CREATE TABLE `books` (
   `detail` text,
   `api_id` varchar(256) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`book_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `books`
@@ -85,13 +91,15 @@ INSERT INTO `books` (`book_id`, `title`, `category`, `picture_url`, `author`, `d
 -- テーブルの構造 `book_keywords`
 --
 
-CREATE TABLE `book_keywords` (
-  `book_keyword_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `book_keywords`;
+CREATE TABLE IF NOT EXISTS `book_keywords` (
+  `book_keyword_id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `keyword_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`book_keyword_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `book_keywords`
@@ -130,11 +138,13 @@ INSERT INTO `book_keywords` (`book_keyword_id`, `book_id`, `keyword_id`, `user_i
 -- テーブルの構造 `keywords`
 --
 
-CREATE TABLE `keywords` (
-  `keyword_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `keywords`;
+CREATE TABLE IF NOT EXISTS `keywords` (
+  `keyword_id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(256) NOT NULL,
-  `created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`keyword_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `keywords`
@@ -161,11 +171,13 @@ INSERT INTO `keywords` (`keyword_id`, `keyword`, `created`) VALUES
 -- テーブルの構造 `likes`
 --
 
-CREATE TABLE `likes` (
-  `like_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `likes`;
+CREATE TABLE IF NOT EXISTS `likes` (
+  `like_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `record_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  `record_id` int(11) NOT NULL,
+  PRIMARY KEY (`like_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- テーブルのデータのダンプ `likes`
@@ -197,8 +209,9 @@ INSERT INTO `likes` (`like_id`, `user_id`, `record_id`) VALUES
 -- テーブルの構造 `records`
 --
 
-CREATE TABLE `records` (
-  `record_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `records`;
+CREATE TABLE IF NOT EXISTS `records` (
+  `record_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `stars` int(11) NOT NULL,
   `review` varchar(256) DEFAULT NULL,
@@ -206,8 +219,9 @@ CREATE TABLE `records` (
   `end_date` datetime NOT NULL,
   `book_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`record_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `records`
@@ -234,11 +248,13 @@ INSERT INTO `records` (`record_id`, `user_id`, `stars`, `review`, `start_date`, 
 -- テーブルの構造 `records_keywords`
 --
 
-CREATE TABLE `records_keywords` (
-  `record_keyword_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `records_keywords`;
+CREATE TABLE IF NOT EXISTS `records_keywords` (
+  `record_keyword_id` int(11) NOT NULL AUTO_INCREMENT,
   `record_id` int(11) NOT NULL,
-  `keyword_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  `keyword_id` int(11) NOT NULL,
+  PRIMARY KEY (`record_keyword_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- テーブルのデータのダンプ `records_keywords`
@@ -268,8 +284,9 @@ INSERT INTO `records_keywords` (`record_keyword_id`, `record_id`, `keyword_id`) 
 -- テーブルの構造 `users`
 --
 
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -281,8 +298,9 @@ CREATE TABLE `users` (
   `great_man` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `point` int(11) DEFAULT NULL,
-  `created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `users`
@@ -308,102 +326,6 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `age`, `gender`, `a
 (17, 'RIMIKO', 'rrrr@rrrr', 'e950c1517ee0d7e20454d22c306c4c501a7cf11c', 20, 2, 0, 'piannno', 'studenttt', 'dddd', 'asdasdf', 0, '0000-00-00 00:00:00'),
 (18, 'kakaka', 'kakaka@kakaka', '57c3dd950b3072ca042bd3f85e67c7bd1cf8a03f', 20, 2, 2, '', '', NULL, NULL, NULL, '0000-00-00 00:00:00');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `avatar`
---
-ALTER TABLE `avatar`
-  ADD PRIMARY KEY (`avatar_id`);
-
---
--- Indexes for table `books`
---
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`book_id`);
-
---
--- Indexes for table `book_keywords`
---
-ALTER TABLE `book_keywords`
-  ADD PRIMARY KEY (`book_keyword_id`);
-
---
--- Indexes for table `keywords`
---
-ALTER TABLE `keywords`
-  ADD PRIMARY KEY (`keyword_id`);
-
---
--- Indexes for table `likes`
---
-ALTER TABLE `likes`
-  ADD PRIMARY KEY (`like_id`);
-
---
--- Indexes for table `records`
---
-ALTER TABLE `records`
-  ADD PRIMARY KEY (`record_id`);
-
---
--- Indexes for table `records_keywords`
---
-ALTER TABLE `records_keywords`
-  ADD PRIMARY KEY (`record_keyword_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `avatar`
---
-ALTER TABLE `avatar`
-  MODIFY `avatar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `books`
---
-ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `book_keywords`
---
-ALTER TABLE `book_keywords`
-  MODIFY `book_keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
---
--- AUTO_INCREMENT for table `keywords`
---
-ALTER TABLE `keywords`
-  MODIFY `keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `likes`
---
-ALTER TABLE `likes`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT for table `records`
---
-ALTER TABLE `records`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `records_keywords`
---
-ALTER TABLE `records_keywords`
-  MODIFY `record_keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
