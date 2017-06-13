@@ -71,10 +71,6 @@ if(empty($error)){
     
         $sql = 'SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`,`books`.`picture_url`,COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC';
 
-
-
-       
-
         $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
         $a = array();
         while ($book_ranking = mysqli_fetch_assoc($b_rank)) {
@@ -115,6 +111,7 @@ if(empty($error)){
     <link href="css/style.css" rel="stylesheet" />  
     <link href="css/ayumi_edit.css" rel="stylesheet" /> 
     <link href="css/header.css" rel="stylesheet" />
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -246,7 +243,7 @@ if(empty($error)){
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <img src="images/<?php echo $a[0]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[0]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -280,7 +277,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[0]['avatar_path'];?>"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -313,7 +310,7 @@ if(empty($error)){
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <img src="images/<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[1]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -341,7 +338,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[1]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -368,7 +365,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[2]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -397,7 +394,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[2]['avatar_path'];?>"><img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -424,8 +421,8 @@ if(empty($error)){
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
-                                                <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $a[3]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                <a class="iframe" href="book_detail.php?book_id=<?php echo $a[3]['book_id'];?>" title="ウィキペディア表紙"><div class="col-sm-6 col-md-4">
+                                                    <img src="<?php echo $a[3]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -455,7 +452,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[3]['avatar_path'];?>"><img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -483,7 +480,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[4]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -513,7 +510,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[4]['avatar_path'];?>"><img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -745,6 +742,14 @@ if(empty($error)){
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
     <script src="js/functions.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+    <script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+   });
+</script>
     
 </body>
 </html>
