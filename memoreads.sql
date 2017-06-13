@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 6 朁E12 日 10:35
+-- Generation Time: 2017 年 6 朁E13 日 02:30
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `memoreads`
 --
-CREATE DATABASE IF NOT EXISTS `memoreads` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `memoreads`;
 
 -- --------------------------------------------------------
 
@@ -28,12 +26,10 @@ USE `memoreads`;
 -- テーブルの構造 `avatar`
 --
 
-DROP TABLE IF EXISTS `avatar`;
-CREATE TABLE IF NOT EXISTS `avatar` (
-  `avatar_id` int(11) NOT NULL AUTO_INCREMENT,
-  `avatar_path` varchar(255) NOT NULL,
-  PRIMARY KEY (`avatar_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+CREATE TABLE `avatar` (
+  `avatar_id` int(11) NOT NULL,
+  `avatar_path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `avatar`
@@ -56,9 +52,8 @@ INSERT INTO `avatar` (`avatar_id`, `avatar_path`) VALUES
 -- テーブルの構造 `books`
 --
 
-DROP TABLE IF EXISTS `books`;
-CREATE TABLE IF NOT EXISTS `books` (
-  `book_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `books` (
+  `book_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `category` varchar(255) DEFAULT NULL,
   `picture_url` varchar(255) DEFAULT NULL,
@@ -66,9 +61,8 @@ CREATE TABLE IF NOT EXISTS `books` (
   `detail` text,
   `api_id` varchar(256) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `books`
@@ -82,7 +76,8 @@ INSERT INTO `books` (`book_id`, `title`, `category`, `picture_url`, `author`, `d
 (5, '継続的デリバリー', '0', 'http://books.google.com/books/content?id=v3eetgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', 'ジェズハンブル', '', 'v3eetgAACAAJ', '2017-04-17 00:00:00', '2017-04-27 16:00:00'),
 (6, '三毛猫ホームズのびっくり箱', '文学', 'http://books.google.com/books/content?id=nT9OCvvwrEUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api', '赤川次郎', '箱が人を殺したって......? なにせ密室の中で殺人が起こって、そこには死体と箱しかなかったというのだ。食べきれないほどのごちそうを期待して、パーティーに出かけた石津、片山刑事の前に出されたのは、こんな難題だった。またまた怪奇事件発生!! 毎度おなじみの三人と三毛猫ホームズが、家庭内の複雑な憎しみがもたらした、この事件のトリックに挑戦した。──他に「三毛猫ホームズの披露宴」など6編を収録した絶好調の人気シリーズ!', 'nT9OCvvwrEUC', '2017-06-05 23:04:35', '2017-06-05 02:41:31'),
 (7, 'ヤバい心理学', '心理学', 'http://books.google.com/books/content?id=1WBHDgAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '神岡真司', '「ヤバすぎる」心理ツールだけを厳選しました！ 他人の言動の裏に潜む「心」の正体を知りたい―。自分の気持ちや考えのベースになっている「本音」を理解しておきたい―。私たちは、いつだってこんな願望に支配されているのです。人は相手の気持ちや本音、その場の状況等、あらゆることが気になります。と同時、自分の想いや本音を伝えたい、逆に知られたくないという考えもあります。つまり、人には「心」というものが存在し、それを把握することを望んでいるのです。本書では、そんな「心」の真実を知れる「ヤバすぎる」ツールがギュッと凝縮されているのです。', '1WBHDgAAQBAJ', '2017-06-06 07:13:08', '2017-06-04 16:00:00'),
-(8, '継続的に売れるセールスパーソンの行動特性88', 'Contracts', 'http://books.google.com/books/content?id=-M6VQgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '千田琢哉', '自分自身でも経験し、日々のクライアントの問題解決でも向き合わざるを得なかった“継続的に売れる”セールスパーソンへの道―。', '-M6VQgAACAAJ', '2017-06-06 05:07:08', '2017-06-11 16:00:00');
+(8, '継続的に売れるセールスパーソンの行動特性88', 'Contracts', 'http://books.google.com/books/content?id=-M6VQgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api', '千田琢哉', '自分自身でも経験し、日々のクライアントの問題解決でも向き合わざるを得なかった“継続的に売れる”セールスパーソンへの道―。', '-M6VQgAACAAJ', '2017-06-06 05:07:08', '2017-06-11 16:00:00'),
+(9, 'あああ', '0', 'asdf.jpg', 'asdfas', 'asdfasdfasdfa', 'asdfasdf', '2017-06-20 00:00:00', '2017-06-06 16:00:00');
 
 -- --------------------------------------------------------
 
@@ -90,15 +85,13 @@ INSERT INTO `books` (`book_id`, `title`, `category`, `picture_url`, `author`, `d
 -- テーブルの構造 `book_keywords`
 --
 
-DROP TABLE IF EXISTS `book_keywords`;
-CREATE TABLE IF NOT EXISTS `book_keywords` (
-  `book_keyword_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `book_keywords` (
+  `book_keyword_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `keyword_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created` datetime NOT NULL,
-  PRIMARY KEY (`book_keyword_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `book_keywords`
@@ -137,13 +130,11 @@ INSERT INTO `book_keywords` (`book_keyword_id`, `book_id`, `keyword_id`, `user_i
 -- テーブルの構造 `keywords`
 --
 
-DROP TABLE IF EXISTS `keywords`;
-CREATE TABLE IF NOT EXISTS `keywords` (
-  `keyword_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `keywords` (
+  `keyword_id` int(11) NOT NULL,
   `keyword` varchar(256) NOT NULL,
-  `created` datetime NOT NULL,
-  PRIMARY KEY (`keyword_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `keywords`
@@ -170,42 +161,35 @@ INSERT INTO `keywords` (`keyword_id`, `keyword`, `created`) VALUES
 -- テーブルの構造 `likes`
 --
 
-DROP TABLE IF EXISTS `likes`;
-CREATE TABLE IF NOT EXISTS `likes` (
-  `like_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `likes` (
+  `like_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `record_id` int(11) NOT NULL,
-  PRIMARY KEY (`like_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  `record_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- テーブルのデータのダンプ `likes`
 --
 
 INSERT INTO `likes` (`like_id`, `user_id`, `record_id`) VALUES
-(1, 2, 1),
-(2, 2, 2),
-(3, 2, 3),
-(4, 2, 5),
-(5, 1, 3),
-(6, 1, 4),
-(7, 1, 5),
-(8, 3, 1),
-(9, 3, 2),
-(10, 3, 3),
-(11, 3, 4),
-(12, 3, 5),
-(13, 3, 7),
-(14, 3, 8),
-(15, 3, 10),
-(16, 4, 1),
-(17, 4, 2),
-(18, 5, 1),
-(19, 5, 3),
-(20, 5, 4),
-(21, 5, 5),
-(22, 6, 1),
-(23, 6, 2);
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 5, 9),
+(6, 2, 1),
+(7, 2, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 2, 5),
+(11, 3, 1),
+(12, 3, 2),
+(13, 3, 3),
+(14, 3, 4),
+(15, 3, 5),
+(18, 13, 4),
+(19, 13, 5),
+(20, 13, 9);
 
 -- --------------------------------------------------------
 
@@ -213,9 +197,8 @@ INSERT INTO `likes` (`like_id`, `user_id`, `record_id`) VALUES
 -- テーブルの構造 `records`
 --
 
-DROP TABLE IF EXISTS `records`;
-CREATE TABLE IF NOT EXISTS `records` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `records` (
+  `record_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `stars` int(11) NOT NULL,
   `review` varchar(256) DEFAULT NULL,
@@ -223,9 +206,8 @@ CREATE TABLE IF NOT EXISTS `records` (
   `end_date` datetime NOT NULL,
   `book_id` int(11) NOT NULL,
   `created` datetime NOT NULL,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `records`
@@ -249,22 +231,20 @@ INSERT INTO `records` (`record_id`, `user_id`, `stars`, `review`, `start_date`, 
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `record_keyword`
+-- テーブルの構造 `records_keywords`
 --
 
-DROP TABLE IF EXISTS `record_keyword`;
-CREATE TABLE IF NOT EXISTS `record_keyword` (
-  `record_keyword_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `records_keywords` (
+  `record_keyword_id` int(11) NOT NULL,
   `record_id` int(11) NOT NULL,
-  `keyword_id` int(11) NOT NULL,
-  PRIMARY KEY (`record_keyword_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `keyword_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
--- テーブルのデータのダンプ `record_keyword`
+-- テーブルのデータのダンプ `records_keywords`
 --
 
-INSERT INTO `record_keyword` (`record_keyword_id`, `record_id`, `keyword_id`) VALUES
+INSERT INTO `records_keywords` (`record_keyword_id`, `record_id`, `keyword_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 1, 5),
@@ -288,9 +268,8 @@ INSERT INTO `record_keyword` (`record_keyword_id`, `record_id`, `keyword_id`) VA
 -- テーブルの構造 `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -302,9 +281,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `great_man` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `point` int(11) DEFAULT NULL,
-  `created` datetime NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `users`
@@ -312,9 +290,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `age`, `gender`, `avatar_id`, `hobby`, `job`, `great_man`, `comment`, `point`, `created`) VALUES
 (1, 'RImiko', 'rf181.0624.t@gmail.com', '3707711fbda2357c06a24ccb08dcebc2026bf66c', 22, 2, 5, 'piano', 'student', 'asd', 'cccc', 140, '0000-00-00 00:00:00'),
-(2, 'AYUMI', 'ayumi@ayumi', 'ecbd8af733a17803b66ee4321b23f87f103cc9ca', 24, 2, 1, '', '', '', '', 0, '0000-00-00 00:00:00'),
-(3, 'naru', 'naru@naru', 'feac8c398d6ed455ec8c9eb6cf074571328a2672', 19, 1, 3, 'スケボー', 'エンジニア', '孫正義', 'ｑｑｑｑｑｑｑｑ', 45, '0000-00-00 00:00:00'),
-(4, 'atsushi', 'atsushi@atsushi', '1c5aa4fe8dcfac2419277476df6c1e8def58f827', 23, 1, 4, '筋トレ', '筋トレ', 'もりしー', 'ｄｄｄｄｄ', 13, '0000-00-00 00:00:00'),
+(2, 'AYUMI', 'ayumi@ayumi', 'ecbd8af733a17803b66ee4321b23f87f103cc9ca', 24, 2, 1, '', '', '', '', 80, '0000-00-00 00:00:00'),
+(3, 'naru', 'naru@naru', 'feac8c398d6ed455ec8c9eb6cf074571328a2672', 19, 1, 3, 'スケボー', 'エンジニア', '孫正義', 'ｑｑｑｑｑｑｑｑ', 135, '0000-00-00 00:00:00'),
+(4, 'atsushi', 'atsushi@atsushi', '1c5aa4fe8dcfac2419277476df6c1e8def58f827', 23, 1, 4, '筋トレ', '筋トレ', 'もりしー', 'ｄｄｄｄｄ', 103, '0000-00-00 00:00:00'),
 (5, 'eriko', 'eriko@eriko', 'e6dd2a0cb778fc799964f50a7661ea4649b9bc1e', 32, 2, 6, 'プログラム', '先生', 'マーク・ザッカーバーグ', 'ｋｋｋｋｋ', 17, '0000-00-00 00:00:00'),
 (6, 'LOUIS', 'loius@loius', 'd82ece8d514aca7e24d3fc11fbb8dada57f2966c', 29, 1, 7, '旅', '旅人', '旅人', '旅人', 1000, '0000-00-00 00:00:00'),
 (7, 'YUKII', 'yuki@yuki', 'a6aa6c594f3f904825833313c0bab3e292e95764', 28, 2, 6, '旅', 'エンジニア', '関西人', 'ｋｄｆｊｄｋｄ', 125, '0000-00-00 00:00:00'),
@@ -330,6 +308,102 @@ INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `age`, `gender`, `a
 (17, 'RIMIKO', 'rrrr@rrrr', 'e950c1517ee0d7e20454d22c306c4c501a7cf11c', 20, 2, 0, 'piannno', 'studenttt', 'dddd', 'asdasdf', 0, '0000-00-00 00:00:00'),
 (18, 'kakaka', 'kakaka@kakaka', '57c3dd950b3072ca042bd3f85e67c7bd1cf8a03f', 20, 2, 2, '', '', NULL, NULL, NULL, '0000-00-00 00:00:00');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `avatar`
+--
+ALTER TABLE `avatar`
+  ADD PRIMARY KEY (`avatar_id`);
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`book_id`);
+
+--
+-- Indexes for table `book_keywords`
+--
+ALTER TABLE `book_keywords`
+  ADD PRIMARY KEY (`book_keyword_id`);
+
+--
+-- Indexes for table `keywords`
+--
+ALTER TABLE `keywords`
+  ADD PRIMARY KEY (`keyword_id`);
+
+--
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`like_id`);
+
+--
+-- Indexes for table `records`
+--
+ALTER TABLE `records`
+  ADD PRIMARY KEY (`record_id`);
+
+--
+-- Indexes for table `records_keywords`
+--
+ALTER TABLE `records_keywords`
+  ADD PRIMARY KEY (`record_keyword_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `avatar`
+--
+ALTER TABLE `avatar`
+  MODIFY `avatar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `book_keywords`
+--
+ALTER TABLE `book_keywords`
+  MODIFY `book_keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `keywords`
+--
+ALTER TABLE `keywords`
+  MODIFY `keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `records`
+--
+ALTER TABLE `records`
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `records_keywords`
+--
+ALTER TABLE `records_keywords`
+  MODIFY `record_keyword_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
