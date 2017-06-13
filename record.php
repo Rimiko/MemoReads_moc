@@ -21,25 +21,39 @@ if(!empty($_SESSION['book'])){
   $booktitle=$_SESSION['book']['title'];
   $bookpic=$_SESSION['book']['pic'];
   $bookauthor=$_SESSION['book']['author'];
+  $bookdescription=$_SESSION['book']['description'];
   $bookid=$_SESSION['book']['bookid'];
 
 
-
-  $sql ='SELECT * FROM `books` WHERE `api_id` ='.$_SESSION['book']['bookids'];
+  $sql =sprintf('SELECT * FROM `books` WHERE `api_id` ="%s"',$bookid);
 
 
   $records = mysqli_query($db,$sql) or die(mysqli_error($db));
   $record = mysqli_fetch_assoc($records);
+  // var_dump($record);
+
 
   if(isset($record)){
     $b=$record['book_id'];
   }else{
 
-$sql='INSERT INTO `books`';
+$sql=sprintf('INSERT INTO `books` (`book_id`, `title`, `category`, `picture_url`, `author`, `detail`, `api_id`, `created`, `modified`) VALUES(NULL,"%s",NULL,"%s","%s","%s","%s",now(),now())',
+mysqli_real_escape_string($db,$booktitle),
+mysqli_real_escape_string($db,$bookpic),
+mysqli_real_escape_string($db,$bookauthor),
+mysqli_real_escape_string($db,$bookdescription),
+mysqli_real_escape_string($db,$bookid));
+
+
+
+mysqli_query($db,$sql) or die(mysqli_error($db));
+header("Location:record.php");
+exit();
+
   }
 }
 
-  // var_dump($record);
+
 
 
 

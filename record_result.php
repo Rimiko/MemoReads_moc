@@ -2,7 +2,6 @@
 session_start();
 require('api.php');
 
-
 //何も入れずに検索した場合の処理
 if ($_REQUEST['title'] == '') {
   header('Location: record.php?title=');
@@ -15,8 +14,10 @@ if(isset($_REQUEST['book_select'])){
     $a=$_REQUEST['book_select'];
     $_SESSION['book']['title']=$titles[$a];
     $_SESSION['book']['pic']=$pics[$a];
-    $_SESSION['book']['author']=$authors[$a];
+    $_SESSION['book']['author']=$authors[$a][0];
+    $_SESSION['book']['description']=$descriptions[$a];
     $_SESSION['book']['bookid']=$bookids[$a];
+
 
     header("Location:record.php");
     exit();
@@ -65,7 +66,7 @@ if(isset($_REQUEST['book_select'])){
 
       <input type="radio" name="book_select" id="radios-0" value="<?php echo $i; ?>" checked="checked">
             <div class="well well-sm">
-                <div class="row">
+                <div class="row" style="width:390px; height:170px;">
                     <div class="col-sm-6 col-md-6" style="width: 170px;">
                      <img src="<?php echo $pics[$i]; ?>"  style="width: 100px;height:170px;">
                     </div>
@@ -83,19 +84,24 @@ if(isset($_REQUEST['book_select'])){
 
    
      <?php endif; ?>
-     </label>
+    
 
                     
                    </div>
 
                   </div>
+
                    
                 </div>
 
-              
-
+      
               </div>
-             
+
+              </label>
+
+
+
+
        
               
          
