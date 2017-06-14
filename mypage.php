@@ -40,8 +40,57 @@ if(!empty($_REQUEST['user_id'])){
 
   // var_dump($books_array);
 
+//パワーアップ
+if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
+    # code...
+
+if ($member[0]['point'] >= 10 && 20 > $member[0]['point'] ){
+
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 20 && 30 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 30 && 40 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 40 && 50 > $member[0]['point'] ) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 50 && 60 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+if ($member[0]['level'] == 5 ) {
+$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['level'] == 10 ) {
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+
+
+
+
+    }
+
+unset($_SESSION['true']);
+unset($_SESSION['true2']);
+
+
+
 
 ?>
+
+
+
 
 
 
