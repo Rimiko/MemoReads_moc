@@ -9,6 +9,8 @@
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
     $member = mysqli_fetch_assoc($login);
+    $_SESSION['login_member_id'] = $member;
+    
 
 
  
@@ -91,7 +93,7 @@
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
-                                    <?php echo $member['name']; ?>
+                                    <?php echo $user['name']; ?>
                                 </div>
                  <div class="container">
                     <div class="row ptlv" style="margin-left: 15px;">
