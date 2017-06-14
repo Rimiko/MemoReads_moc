@@ -4,7 +4,7 @@ require('dbconnect.php');
 // require('api.php');
 
 
-if (!empty($_POST)) {
+if (!empty($_POST['title'])) {
   if ($_REQUEST['bool_select'] == '') {
     $error['book_select'] == 'blank';
     # code...
@@ -52,6 +52,30 @@ exit();
 
   }
 }
+
+if ($_POST) {
+ $reveiw=$_POST['textinput'];
+ $start_date=$_POST['date'];
+ $end_date=$_POST['date2'];
+ $sql =sprintf('SELECT `book_id` FROM `books` WHERE `api_id` ="%s"',$bookid);
+
+ $bookids2 = mysqli_query($db,$sql) or die(mysqli_error($db));
+ $recordid2 = mysqli_fetch_assoc($records);
+
+ $sql=sprintf('INSERT INTO `records` (`record_id`, `user_id`, `stars`, `review`, `start_date`, `end_date`, `book_id`, `created`, `modified`) VALUES(NULL,"%s",NULL,"%s","%s","%s","%s",now(),now())',
+mysqli_real_escape_string($db,$_SESSION['login_member_id']),
+mysqli_real_escape_string($db,$reveiw),
+mysqli_real_escape_string($db,$start_date),
+mysqli_real_escape_string($db,$end_date),
+mysqli_real_escape_string($db,$bookid));
+
+
+mysqli_query($db,$sql) or die(mysqli_error($db));
+header("Location:mypage.php");
+exit();
+}
+
+
 
 
 
@@ -134,15 +158,16 @@ exit();
 <?php } ?>
 
 
-
- </form>
- <form method="post" action="record.php" name="記録">
- 
                         </div>
                       
                     </div>
                   </div>
                 </div>
+
+ </form>
+ <form method="post" action="record.php" name="記録">
+
+ 
                  <div class="form-group">
                         <label for="status" class="col-sm-4 control-label">感想</label>
                         <div class="col-sm-9">
