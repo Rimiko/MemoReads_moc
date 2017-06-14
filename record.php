@@ -70,8 +70,9 @@ mysqli_real_escape_string($db,$end_date),
 mysqli_real_escape_string($db,$bookid));
 
 
-mysqli_query($db,$sql) or die(mysqli_error($db));
-header("Location:mypage.php");
+
+
+header("Location:point.php");
 exit();
 }
 
