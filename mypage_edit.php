@@ -9,15 +9,13 @@ if(isset($_SESSION['login_member_id'])){
 }
 
 if(isset($_POST) && !empty($_POST)){
-$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s",`point`=%d WHERE `user_id`='.$_SESSION['login_member_id'],
+$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s" WHERE `user_id`='.$_SESSION['login_member_id'],
     mysqli_real_escape_string($db,$_POST['name']),
     mysqli_real_escape_string($db,$_POST['avatar_id']),
     mysqli_real_escape_string($db,$_POST['hobby']),
     mysqli_real_escape_string($db,$_POST['job']),
     mysqli_real_escape_string($db,$_POST['great_man']),
-    mysqli_real_escape_string($db,$_POST['comment']),
-    mysqli_real_escape_string($db,$_POST['point'])
-    );
+    mysqli_real_escape_string($db,$_POST['comment']));
     //SQL文実行
     mysqli_query($db,$sql) or die(mysqli_error($db));
     //一覧に戻る
