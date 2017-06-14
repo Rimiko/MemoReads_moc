@@ -4,7 +4,8 @@
    // var_dump($_SESSION['login_member_id']);
    // var_dump($_SESSION['join']['name']); 
 
-    
+
+        // ログイン情報取得
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
     $member = mysqli_fetch_assoc($login);
@@ -57,6 +58,8 @@
     <link href="css/ayumi_edit.css" rel="stylesheet" /> 
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet" >
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
+
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -82,7 +85,7 @@
                         <div class="profile-sidebar" style="background-color: white;">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
-                                <img src="images/<?php echo $member['avatar_path']?>" class="img-responsive" alt="">
+                                <img src="images/<?php echo $member['avatar_path'] ?>" class="img-responsive" alt="">
                             </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
@@ -148,7 +151,7 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <img src="<?php $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"  />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[0]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"/></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8" style="float: left;">
                                                     <h4>
@@ -182,7 +185,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[0]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -216,7 +219,7 @@
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <img src="<?php $a[1]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[1]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[1]['picture_url']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -244,7 +247,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[1]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -271,7 +274,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $a[2]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                     <a class="iframe" href="book_detail.php?book_id=<?php echo $a[2]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[2]['picture_url']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -300,7 +303,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[2]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[2]['avatar_path'];?>"><img src="images/<?php echo $u[2]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -327,7 +330,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $a[3]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[3]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[3]['picture_url']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -357,7 +360,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[3]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[3]['avatar_path'];?>"><img src="images/<?php echo $u[3]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -385,7 +388,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="<?php $a[4]['picture_url']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[4]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[4]['picture_url']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -415,7 +418,7 @@
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <img src="images/<?php echo $u[4]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" />
+                                                    <a href="mypage.php?book_id=<?php echo $u[4]['avatar_path'];?>"><img src="images/<?php echo $u[4]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -507,6 +510,15 @@
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
     <script src="js/functions.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+    <script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+   });
+</script>
     </div>
 </body>
 </html>
