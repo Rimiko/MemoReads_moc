@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require('dbconnect.php');
 
@@ -7,7 +6,7 @@ require('dbconnect.php');
 
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_member_id']を入れること
-if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
+if(!empty($_REQUEST['user_id'])){
   $sql ='SELECT u.*,a.* FROM `users`u INNER JOIN `avatar`a ON u.`avatar_id`= a.`avatar_id` WHERE `user_id` ='.$_REQUEST['user_id'];
 
 
