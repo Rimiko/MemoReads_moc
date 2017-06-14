@@ -1,4 +1,86 @@
 <!-- サイドバー -->
+<?php
+
+session_start();
+
+// bdconnect.php をよみこむ
+require('dbconnect.php');
+
+
+if (isset($_SESSION['login_member_id'])){
+
+$sql = 'SELECT * ,`avatar`.`avatar_path`FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id` ='.$_SESSION['login_member_id'];
+
+
+
+$avatars = mysqli_query($db,$sql) or die(mysqli_error($db));
+$avatar_array = array();
+$avatar = mysqli_fetch_assoc($avatars);
+$avatar_array[] = $avatar;
+ var_dump($avatar_array[0]['point']);
+
+}
+    # code...
+
+if ($avatar_array[0]['point'] >= 10 && 20 > $avatar_array[0]['point'] ){
+
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($avatar_array[0]['point'] >= 20 && 30 > $avatar_array[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($avatar_array[0]['point'] >= 30 && 40 > $avatar_array[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($avatar_array[0]['point'] >= 40 && 50 > $avatar_array[0]['point'] ) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($avatar_array[0]['point'] >= 50 && 60 > $avatar_array[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+if ($avatar_array[0]['level'] == 5 ) {
+$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($avatar_array[0]['level'] == 10 ) {
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+    
+
+    
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <?php foreach($avatar_array as $avatar_each){?>
+ <?php var_dump($avatar_each);?>
+     
+  
   <div class="container">
     <div class="row profile">
         <div class="col-md-3">
@@ -6,30 +88,32 @@
             style="width:262px; margin-top: 154px;">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="images/dog.jpg" class="img-responsive" alt="">
+                    <img src="images/<?php echo $avatar_each['avatar_path']?>" class="img-responsive" alt="">
+
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Rimiko Fukumitsu
+                        <?php echo $avatar_each['name']?>
                     </div>
+                   
  <div class="container">
     <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
           <label for="" class="date-title">Point</label>
           <div class="date-content">
-            <p class="dia"><strong>10</strong> pt</p>
+            <p class="dia"><strong><?php echo $avatar_each['point']?></strong> pt</p>
           </div>
         </div>
             <div class="text-center date-body" style="width:100px">
           <label for="" class="date-title">Level</label>
           <div class="date-content">
-            <p class="dia"><strong>5</strong> Lv.</p>
+            <p class="dia"><strong><?php echo $avatar_each['level']?></strong> Lv.</p>
           </div>
         </div>
     </div>
-</div>
+</div><?php } ?>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
