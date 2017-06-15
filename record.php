@@ -16,7 +16,7 @@ if (!empty($_POST['title'])) {
     $error['book_select'] == 'blank';
     # code...
   }
-  # code...
+  
 }
   // var_dump($_SESSION['book']);
 
@@ -90,6 +90,7 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 }
 }
+
 if (isset($_POST['keyword1'])) {
 $keyword[] = $_POST['keyword1'];
 
