@@ -188,9 +188,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                        
-                    </div>
+                        </div>
                 </div>
 
                 <!-- book部門２位 -->
