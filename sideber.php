@@ -56,6 +56,8 @@ $avatar_array[] = $avatar;
 
 }
     # code...
+if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
+    # code...
 
 if ($avatar_array[0]['point'] >= 10 && 20 > $avatar_array[0]['point'] ){
 
@@ -88,12 +90,14 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
     mysqli_query($db,$sql) or die(mysqli_error($db));
 }
 
-    
-
-    
+  
 
 
 
+    }
+
+unset($_SESSION['true']);
+unset($_SESSION['true2']);
 
 
 

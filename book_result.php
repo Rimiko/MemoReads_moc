@@ -403,7 +403,7 @@ function ChangeTab(tabname) {
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
-                        <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $result['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
                     
                     <div class="col-sm-6 col-md-6">

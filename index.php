@@ -12,4 +12,6 @@ class robot{
 	
 }
 
+header('Location:top.php');
+exit();
 ?>

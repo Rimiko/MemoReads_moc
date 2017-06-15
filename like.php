@@ -20,6 +20,10 @@ $sql = 'UPDATE`users`INNER JOIN `records` ON `users`.`user_id` = `records`.`user
 //SQL文実行
 mysqli_query($db,$sql) or die(mysqli_error($db));
 // 一覧のページに戻る/実際はbook_detail.php
+
+$_SESSION['true'] ="true";
+
+
 $url = 'book_detail.php?book_id='.$_REQUEST['book_id'];
 header("Location:$url");
 exit();
