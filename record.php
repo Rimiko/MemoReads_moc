@@ -16,7 +16,7 @@ if (!empty($_POST['title'])) {
     $error['book_select'] == 'blank';
     # code...
   }
-  # code...
+  
 }
   // var_dump($_SESSION['book']);
 
@@ -90,6 +90,7 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 }
 }
+
 if (isset($_POST['keyword1'])) {
 $keyword[] = $_POST['keyword1'];
 
@@ -148,7 +149,7 @@ if (isset($keyword)) {
 }
 
 if (isset($keyword)) {
-  $sql =sprintf('SELECT `record_id` FROM `records` WHERE `book_id` =%d AND `user_id` =%d',$bookid,$_SESSION['login_member_id']);
+  $sql =sprintf('SELECT `record_id` FROM `records` WHERE `book_id` =%d AND `user_id` =%d',$recordid2['book_id'],$_SESSION['login_member_id']);
 
  $select_recordids = mysqli_query($db,$sql) or die(mysqli_error($db));
  $select_recordid = mysqli_fetch_assoc($select_recordids);
