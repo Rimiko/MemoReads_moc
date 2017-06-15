@@ -221,7 +221,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
    $users_array = array();
    while ($user = mysqli_fetch_assoc($users)){
    $users_array[] = $user;
-   var_dump($users_array);
+   // var_dump($users_array);
   
 }}
 
@@ -273,13 +273,25 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 function ChangeTab(tabname) {
     console.log(tabname);
 // 全部消す
+  
 
- document.getElementById('tab1').style.display = 'none';
+   document.getElementById('tab1').style.display = 'none';
    document.getElementById('tab2').style.display = 'none';
    document.getElementById('tab3').style.display = 'none';
    // 指定箇所のみ表示
    document.getElementById(tabname).style.display = 'block';
+
+   // if (tabname != null){
+   //   document.getElementById("tab").value = tabname;
+   // }
 }</script>
+
+<!-- <script>
+  
+elements = document.getElementsByTagName("li");
+// console.log(elements);
+
+</script> -->
   </head>
   <body>
 
@@ -336,13 +348,31 @@ function ChangeTab(tabname) {
            <div class="tabbox">
 
    <ul class="portfolio-filter text-center">
+   　　　　　　  
+     
+                
+                  
+                <?php if(isset($_GET['tab']) && ($_GET['tab'] == 'tab1')){ ?>
                 <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1"
                 onclick="ChangeTab('tab1');return false;">TOP</a></li>
-
-                <li><a class="btn btn-default" href="#tab2"
+                <?php }else{ ?>
+                <li style="margin-top:78px;"><a class="btn btn-default" href="#tab1"
+                onclick="ChangeTab('tab1');return false;">TOP</a></li>
+                 <?php } ?>
+                <?php if(isset($_GET['tab']) && ($_GET['tab'] == 'tab2')){ ?>
+                <li><a class="btn btn-default active" href="#tab2"
                 onclick="ChangeTab('tab2');return false;">BOOK</a></li>
+                <?php }else{ ?>
+                  <li><a class="btn btn-default" href="#tab2"
+                onclick="ChangeTab('tab2');return false;">BOOK</a></li>
+                 <?php } ?>
+                 <?php if(isset($_GET['tab']) && ($_GET['tab'] == 'tab3')){ ?>
+                <li><a class="btn btn-default action" href="#tab3"
+                onclick="ChangeTab('tab3');return false;">ユーザー</a></li>
+                <?php }else{ ?>
                 <li><a class="btn btn-default" href="#tab3"
                 onclick="ChangeTab('tab3');return false;">ユーザー</a></li>
+                <?php } ?>
                 <!-- <li><a class="btn btn-default" href="#">キーワード</a></li> -->
             </ul><!--/#portfolio-filter-->
 
@@ -360,14 +390,14 @@ function ChangeTab(tabname) {
 
 
 <?php if ($toppage > 1){ ?>
-<a href="book_result.php?page=<?php echo $toppage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?page=<?php echo $toppage-1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
 <?php if ($toppage < $topmaxPage){ ?>
-     <a href="book_result.php?page=<?php echo $toppage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+     <a href="book_result.php?page=<?php echo $toppage+1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
@@ -505,14 +535,14 @@ function ChangeTab(tabname) {
 
 
 <?php if ($bookpage > 1){ ?>
-<a href="book_result.php?page=<?php echo $bookpage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?page=<?php echo $bookpage-1; ?><?php echo $word;?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
-<?php if ($bookpage < $bookmaxPage){ ?>
-     <a href="book_result.php?page=<?php echo $bookpage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+<?php if ($bookpage < $bookmaxPage) { ?>
+     <a href="book_result.php?page=<?php echo $bookpage+1; ?><?php echo $word; ?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
@@ -625,14 +655,14 @@ function ChangeTab(tabname) {
 
 
 <?php if ($userpage > 1){ ?>
-<a href="book_result.php?page=<?php echo $userpage-1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?page=<?php echo $userpage-1; ?><?php echo $word;?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
 <?php if ($userpage < $usermaxPage){ ?>
-     <a href="book_result.php?page=<?php echo $userpage+1; ?><?php echo $word; ?>" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+     <a href="book_result.php?page=<?php echo $userpage+1; ?><?php echo $word; ?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
@@ -782,13 +812,24 @@ function ChangeTab(tabname) {
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
  <script type="text/javascript"><!--
    // デフォルトのタブを選択
-   ChangeTab('tab1');
+   <?php if(!isset($_GET['tab'])){ ?>
+   ChangeTab('tab1'); 
+
+   <?php }else{?>
+    ChangeTab('<?php echo $_GET['tab'] ?>'); 
+   <?php } ?>
 // --></script>
 
 <script>
    $(document).ready(function(){
       $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+
+      // window.location.hash = "#tab1"
+      // window.location.hash = "#tab2"
+      // window.location.hash = "#tab3"
    });
+
+
 </script>
 
     
