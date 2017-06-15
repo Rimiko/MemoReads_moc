@@ -37,8 +37,8 @@ if(!empty($_REQUEST['user_id'])){
   while ($book = mysqli_fetch_assoc($books)) {
   $books_array[]=$book;
   }
-  var_dump($book);
-  var_dump($books_array);
+  // var_dump($book);
+  // var_dump($books_array);
 
 
   // var_dump($books_array);
@@ -189,7 +189,7 @@ unset($_SESSION['true2']);
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                   <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="images/<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
+                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
                   <?php } ?>
 
                   </div>
