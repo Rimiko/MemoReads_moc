@@ -243,7 +243,7 @@ if(empty($error)){
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[0]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"></a>
+                                                    <a href="error.php"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -277,7 +277,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[0]['avatar_path'];?>"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -310,7 +310,7 @@ if(empty($error)){
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[1]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -338,7 +338,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[1]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -365,7 +365,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[2]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -394,7 +394,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[2]['avatar_path'];?>"><img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -421,7 +421,7 @@ if(empty($error)){
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
-                                                <a class="iframe" href="book_detail.php?book_id=<?php echo $a[3]['book_id'];?>" title="ウィキペディア表紙"><div class="col-sm-6 col-md-4">
+                                                <a  href="error.php"><div class="col-sm-6 col-md-4">
                                                     <img src="<?php echo $a[3]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
@@ -452,7 +452,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[3]['avatar_path'];?>"><img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -480,7 +480,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[4]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -510,7 +510,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[4]['avatar_path'];?>"><img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
