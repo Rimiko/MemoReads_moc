@@ -3,7 +3,10 @@ session_start();
 require('dbconnect.php');
 
 //ログインしている人の情報を取得（名前の表示）
-
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_member_id']を入れること
 if(!empty($_REQUEST['user_id'])){
