@@ -1,13 +1,15 @@
 <?php
-
 session_start();
 require('dbconnect.php');
 
 //ログインしている人の情報を取得（名前の表示）
-
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_member_id']を入れること
-if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
+if(!empty($_REQUEST['user_id'])){
   $sql ='SELECT u.*,a.* FROM `users`u INNER JOIN `avatar`a ON u.`avatar_id`= a.`avatar_id` WHERE `user_id` ='.$_REQUEST['user_id'];
 
 
@@ -41,8 +43,57 @@ if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
 
   // var_dump($books_array);
 
+//パワーアップ
+if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
+    # code...
+
+if ($member[0]['point'] >= 10 && 20 > $member[0]['point'] ){
+
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 20 && 30 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 30 && 40 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 40 && 50 > $member[0]['point'] ) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 50 && 60 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+if ($member[0]['level'] == 5 ) {
+$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['level'] == 10 ) {
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+
+
+
+
+    }
+
+unset($_SESSION['true']);
+unset($_SESSION['true2']);
+
+
+
 
 ?>
+
+
+
 
 
 

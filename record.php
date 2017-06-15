@@ -100,8 +100,7 @@ $keyword[] = $_POST['keyword2'];
 }
 if (isset($_POST['keyword3'])) {
 $keyword[] = $_POST['keyword3'];
-
-}
+  
 
 if (isset($_POST['keyword4'])) {
 $keyword[] = $_POST['keyword4'];
