@@ -1,44 +1,33 @@
+
 <?php 
     session_start();
     require('dbconnect.php');
    // var_dump($_SESSION['login_member_id']);
    // var_dump($_SESSION['join']['name']); 
-
-
         // ログイン情報取得
    $sql = 'SELECT `avatar`.`avatar_path`,`users`.`name` FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
     $login = mysqli_query($db,$sql) or die(mysqli_error($db));
     $member = mysqli_fetch_assoc($login);
-
-
  
   // require('dbconnect.php');
-
 // 星５つの本のid,タイトル、著者を取得する。
     
          $sql = 'SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`,`books`.`picture_url`,COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC';
-
-
-
        
-
         $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
         $a = array();
         while ($book_ranking = mysqli_fetch_assoc($b_rank)) {
             $a[] = $book_ranking;
         }
-
         // var_dump($a);
         
  // ユーザーランキング情報取得
-        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
-
+        $sql = 'SELECT `users`.`user_id`,`users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
         $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
         $u = array();
         while($user_ranking = mysqli_fetch_assoc($u_rank)){
             $u[] = $user_ranking;
         }
-
    ?>
 
 <!DOCTYPE html>
@@ -72,63 +61,62 @@
 <!--     <div class="back-rgba"> 
     <header style="position: absolute;">
         <div class="header-rgba">
-
         </div>
     </header> -->
 
     <!-- サイドバー -->
-    <!-- サイドバー -->
-  <div class="container">
-    
-        <div class="row profile col-lg-3">
-            <!-- <div class="col-md-3"> -->
-                        <div class="profile-sidebar" style="background-color: white;">
-                            <!-- SIDEBAR USERPIC -->
-                            <div class="profile-userpic">
-                                <img src="images/<?php echo $member['avatar_path'] ?>" class="img-responsive" alt="">
-                            </div>
-                            <!-- END SIDEBAR USERPIC -->
-                            <!-- SIDEBAR USER TITLE -->
-                            <div class="profile-usertitle">
-                                <div class="profile-usertitle-name">
-                                    <?php echo $member['name']; ?>
-                                </div>
-                 <div class="container">
-                    <div class="row ptlv" style="margin-left: 15px;">
-                        <div class="text-center date-body" style="width:100px">
-                          <label for="" class="date-title">Point</label>
-                          <div class="date-content">
-                            <p class="dia"><strong>10</strong> pt</p>
-                          </div>
-                        </div>
-                            <div class="text-center date-body" style="width:100px">
-                          <label for="" class="date-title">Level</label>
-                          <div class="date-content">
-                            <p class="dia"><strong>5</strong> Lv.</p>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                            </div>
-                            <!-- END SIDEBAR USER TITLE -->
-                            <!-- SIDEBAR BUTTONS -->
-                            <div class="profile-userbuttons">
-                                <a href="mypage_edit.php"><button type="button" class="btn btn-success btn-sm">編集ページ</button></a>
-                                <a href="record.php"><button type="button" class="btn btn-danger btn-sm">記録ページ</button></a>
-                            </div>
-                            <!-- END SIDEBAR BUTTONS -->
-                            <!-- SIDEBAR MENU -->
 
-                            <!-- END MENU -->
+    <!-- サイドバー -->
+  <!-- <div class="container">
+     -->
+        <!-- <div class="row profile col-lg-3"> -->
+            
+               <!--  <div class="profile-sidebar" style="background-color: white;">
+                           
+                        <div class="profile-userpic">
+                            <img src="images/<?php echo $member['avatar_path'] ?>" class="img-responsive" alt="">
                         </div>
-            </div>
+                       
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">
+                                <?php echo $member['name']; ?>
+                            </div>
+                             <div class="container">
+                                <div class="row ptlv" style="margin-left: 15px;">
+                                    <div class="text-center date-body" style="width:100px">
+                                      <label for="" class="date-title">Point</label>
+                                      <div class="date-content">
+                                        <p class="dia"><strong>10</strong> pt</p>
+                                      </div>
+                                    </div>
+                                    <div class="text-center date-body" style="width:100px">
+                                      <label for="" class="date-title">Level</label>
+                                      <div class="date-content">
+                                        <p class="dia"><strong>5</strong> Lv.</p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                    <div class="profile-userbuttons">
+                        <a href="mypage_edit.php"><button type="button" class="btn btn-success btn-sm">編集ページ</button></a>
+                        <a href="record.php"><button type="button" class="btn btn-danger btn-sm">記録ページ</button></a>
+                    </div>
+                           
+                 </div> -->
+            <!-- </div> -->
+
         
     
 
 
     <!-- ランキング -->
-
-   
+<div class="container">
+  <div class ="row">
+   <div class = "col-lg-3">
+   <?php include('sideber.php'); ?>
+   </div>
     <div class="rankings col-lg-9" style="margin-top: 100px;">
         <div class="text-center" >
                 <img src="images/cooltext245006182452535.png" >
@@ -139,8 +127,8 @@
                         
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                      <div><img src="images/cooltext245006766393490.png"></div> 
-                      <div><img src="images/gold.JPG" style="margin-right:440px;"></div>
+                      <div><img src="images/読書アイコン (1).png"></div> 
+                      <div><img src="images/トロフィーのアイコン素材 その4.png" style="margin-right:440px;"></div>
                         
 
                         <!-- book部門１位 -->
@@ -177,15 +165,15 @@
                     
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                     <div><img src="images/cooltext245006698732627.png"></div>
-                        <div><img src="images/gold.JPG" style="margin-right: 440px;"></div>
+                     <div><img src="images/人物アイコン　チーム (1).png"></div>
+                        <div><img src="images/トロフィーのアイコン素材 その4.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[0]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[0]['user_id'];?>"><img src="images/<?php echo $u[0]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -209,7 +197,7 @@
                 <div class="col-lg-6">
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                    <div><img src="images/silver.JPG" style="margin-right:440px; "></div>
+                    <div><img src="images/2位の無料素材.png" style="margin-right:440px; "></div>
                         <div class="container">
 
 
@@ -240,14 +228,14 @@
                 <!-- ユーザー部門２位 -->
                 <div class="col-lg-6 user-rank">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/silver.JPG" style="margin-right: 440px;"></div>
+                    <div><img src="images/2位の無料素材.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[1]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[1]['user_id'];?>"><img src="images/<?php echo $u[1]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -267,7 +255,7 @@
                 <!-- book部門３位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
+                        <div><img src="images/3位のフリーアイコン.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -296,14 +284,14 @@
                 <!-- ユーザー部門３位 -->
                 <div class="col-lg-6 user-rank">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
+                      <div><img src="images/3位のフリーアイコン.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[2]['avatar_path'];?>"><img src="images/<?php echo $u[2]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[2]['user_id'];?>"><img src="images/<?php echo $u[2]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -323,7 +311,7 @@
                     <!-- book部門４位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right:440px;"></div>
+                    <div><img src="images/4位アイコン.png" style="margin-right:440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -353,14 +341,14 @@
                     <!-- ユーザー部門４位 -->
                 <div class="col-lg-6 user-rank">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right: 440px;"></div>
+                      <div><img src="images/4位アイコン.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[3]['avatar_path'];?>"><img src="images/<?php echo $u[3]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[3]['user_id'];?>"><img src="images/<?php echo $u[3]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -381,7 +369,7 @@
                  <!-- book部門５位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px; "></div>
+                        <div><img src="images/5位アイコン.png" style="margin-right: 440px; "></div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -411,14 +399,14 @@
                  <!-- ユーザー部門５位 -->
                 <div class="col-lg-6 user-rank">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                     <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px;"></div>
+                     <div><img src="images/5位アイコン.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm up-rank">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[4]['avatar_path'];?>"><img src="images/<?php echo $u[4]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[4]['user_id'];?>"><img src="images/<?php echo $u[4]['avatar_path']; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
@@ -436,6 +424,7 @@
                 </div>
             </div>
         </div>
+      </div>
 </div>        
          
 
@@ -522,3 +511,5 @@
     </div>
 </body>
 </html>
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help

@@ -1,3 +1,38 @@
+<?php 
+ session_start();
+ require('dbconnect.php');
+   $sql = 'SELECT `name`,`avatar_id`,`point`,`level` FROM `users` WHERE `user_id`=1';
+
+   $test_u = mysqli_query($db,$sql) or die(mysqli_error($db));
+   $user = mysqli_fetch_assoc($test_u);
+
+var_dump($test_u);
+
+
+    if(isset($_REQUEST['record_id'])){
+        
+    $sql = 'UPDATE `users` SET `level` = `level`+1 WHERE `point`=`point`+10';
+    $level = mysqli_query($db,$sql) or die(mysqli_error($db));
+    $level_up = mysqli_fetch_assoc($level);
+
+    // アバター進化
+    $sql = 'UPDATE `users` SET `avatar_id`=`avatar_id`+1 WHERE `user_id`=1';
+            
+     $evolution = mysqli_query($db,$sql) or die(mysqli_error($db));
+     $e = mysqli_fetch_assoc($evolution);
+ }elseif{
+
+ }
+
+
+
+    $sql = 'UPDATE `users` SET `level` = `level`+1 WHERE `point`=`point`+10';
+    $level = mysqli_query($db,$sql) or die(mysqli_error($db));
+    $level_up = mysqli_fetch_assoc($level);
+
+   
+
+?>
 <!-- サイドバー -->
 <?php
 
@@ -99,6 +134,8 @@ unset($_SESSION['true2']);
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
+
+                        
                         <?php echo $avatar_each['name']?>
                     </div>
                    
@@ -108,11 +145,14 @@ unset($_SESSION['true2']);
           <label for="" class="date-title">Point</label>
           <div class="date-content">
             <p class="dia"><strong><?php echo $avatar_each['point']?></strong> pt</p>
+
           </div>
         </div>
             <div class="text-center date-body" style="width:100px">
           <label for="" class="date-title">Level</label>
           <div class="date-content">
+
+
             <p class="dia"><strong><?php echo $avatar_each['level']?></strong> Lv.</p>
           </div>
         </div>

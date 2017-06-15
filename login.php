@@ -32,14 +32,14 @@ if(empty($error)){
  mysqli_real_escape_string($db,sha1($_POST['password']))
   );
     
-  //SELECT分を記述！
+  
   // sql実行
   $record = mysqli_query($db,$sql) or die(mysqli_error($db));
   if ($table = mysqli_fetch_assoc($record)){
      //login 成功
 
     // SESSION変数に会員IDを保存
-      $_SESSION['login_member_id'] = $table['member_id'];
+      $_SESSION['login_member_id'] = $table['user_id'];
     // SESSION変数にログイン時間を保存
       $_SESSION['time'] = time();
       // 自動ログインをオンにしてたらcookieにログイン情報を保存する

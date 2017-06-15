@@ -80,7 +80,7 @@ if(empty($error)){
         // var_dump($a);
         
  // ユーザーランキング情報取得
-        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
+        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
 
         $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
         $u = array();
@@ -277,7 +277,7 @@ if(empty($error)){
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[0]['avatar_path'];?>"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
+                                                    <a href="mypage.php?user_id=<?php echo $u[0]['user_id'];?>"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
