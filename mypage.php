@@ -38,10 +38,15 @@ if(!empty($_REQUEST['user_id'])){
   $books_array[]=$book;
   }
   // var_dump($book);
-  // var_dump($books_array);
-
-
-  // var_dump($books_array);
+  //ベストブック
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+     $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+  }
+  $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $bestbook = mysqli_fetch_assoc($bestbooks);
+  // var_dump($bestbook);
 
 //パワーアップ
 if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
@@ -159,7 +164,7 @@ unset($_SESSION['true2']);
             <br>
             Occupation :<strong><?php echo $member['job'];?></strong>
             <br>
-            <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
+            <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a>
             <br>
             Favorite person : <strong><?php echo $member['great_man'];?></strong>
             <br>
@@ -188,6 +193,7 @@ unset($_SESSION['true2']);
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
                   <?php foreach($books_array as $books_each){ ?>
                   <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
                   <?php } ?>
