@@ -2,7 +2,7 @@
 <!-- サイドバー -->
 <?php
 
-session_start();
+// session_start();
 
 // bdconnect.php をよみこむ
 require('dbconnect.php');
@@ -18,7 +18,7 @@ $avatars = mysqli_query($db,$sql) or die(mysqli_error($db));
 $avatar_array = array();
 $avatar = mysqli_fetch_assoc($avatars);
 $avatar_array[] = $avatar;
- var_dump($avatar_array[0]['point']);
+ // var_dump($avatar_array[0]['point']);
 
 }
     # code...
@@ -83,7 +83,7 @@ unset($_SESSION['true2']);
 
 
  <?php foreach($avatar_array as $avatar_each){?>
- <?php var_dump($avatar_each);?>
+ 
      
   
   <div class="container">

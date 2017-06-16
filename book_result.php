@@ -12,8 +12,8 @@ $_REQUEST['search_word'];
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
       $toppage = '';
       // GET送信されてきたページ番号を取得
-      if (isset($_REQUEST['page'])){
-        $toppage = $_REQUEST['page'];
+      if (isset($_REQUEST['toppage'])){
+        $toppage = $_REQUEST['toppage'];
       }
       //ないときは1ページ目
       if ($toppage == ''){
@@ -23,7 +23,7 @@ $_REQUEST['search_word'];
       $toppage = max($toppage,1);
       // 2.必要なベージ数を計算
       // 1ページに表示する行数
-      $toprow = 2;
+      $toprow = 10;
 
 
 
@@ -62,8 +62,8 @@ $_REQUEST['search_word'];
 // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
       $bookpage = '';
       // GET送信されてきたページ番号を取得
-      if (isset($_REQUEST['page'])){
-        $bookpage = $_REQUEST['page'];
+      if (isset($_REQUEST['bookpage'])){
+        $bookpage = $_REQUEST['bookpage'];
       }
       //ないときは1ページ目
       if ($bookpage == ''){
@@ -73,7 +73,7 @@ $_REQUEST['search_word'];
       $bookpage = max($bookpage,1);
       // 2.必要なベージ数を計算
       // 1ページに表示する行数
-      $bookrow = 2;
+      $bookrow = 10;
 
 
   // 投稿数取得 book
@@ -111,8 +111,8 @@ $book_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
       $userpage = '';
       // GET送信されてきたページ番号を取得
-      if (isset($_REQUEST['page'])){
-        $userpage = $_REQUEST['page'];
+      if (isset($_REQUEST['userpage'])){
+        $userpage = $_REQUEST['userpage'];
       }
       //ないときは1ページ目
       if ($userpage == ''){
@@ -122,7 +122,7 @@ $book_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
       $userpage = max($userpage,1);
       // 2.必要なベージ数を計算
       // 1ページに表示する行数
-      $userrow = 2;
+      $userrow = 10;
 
 // 投稿数取得 user
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
@@ -231,10 +231,17 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
 
 
+// ページ数取得
 
+// if(isset($_GET['tab']) && ($_GET['tab'] == 'tab1')){ $_SESSION['top']=$toppage;}
 
+// if(isset($_GET['tab']) && ($_GET['tab'] == 'tab2')){ $_SESSION['book']=$bookpage;}
 
+// if(isset($_GET['tab']) && ($_GET['tab'] == 'tab3')){ $_SESSION['user']=$userpage;}
 
+// var_dump($_SESSION['top']);
+// var_dump($_SESSION['book']);
+// var_dump($_SESSION['user']);
 
 
 ?>
@@ -286,12 +293,12 @@ function ChangeTab(tabname) {
    // }
 }</script>
 
-<!-- <script>
+<script>
   
-elements = document.getElementsByTagName("li");
+// elements = document.getElementsByTagName("li");
 // console.log(elements);
 
-</script> -->
+</script>
   </head>
   <body>
 
@@ -390,14 +397,14 @@ elements = document.getElementsByTagName("li");
 
 
 <?php if ($toppage > 1){ ?>
-<a href="book_result.php?page=<?php echo $toppage-1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?toppage=<?php echo $toppage-1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
 <?php if ($toppage < $topmaxPage){ ?>
-     <a href="book_result.php?page=<?php echo $toppage+1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+     <a href="book_result.php?toppage=<?php echo $toppage+1; ?><?php echo $word;?>&tab=tab1" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
@@ -535,14 +542,14 @@ elements = document.getElementsByTagName("li");
 
 
 <?php if ($bookpage > 1){ ?>
-<a href="book_result.php?page=<?php echo $bookpage-1; ?><?php echo $word;?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?bookpage=<?php echo $bookpage-1; ?><?php echo $word;?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
 <?php if ($bookpage < $bookmaxPage) { ?>
-     <a href="book_result.php?page=<?php echo $bookpage+1; ?><?php echo $word; ?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+     <a href="book_result.php?bookpage=<?php echo $bookpage+1; ?><?php echo $word; ?>&tab=tab2" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
@@ -655,14 +662,14 @@ elements = document.getElementsByTagName("li");
 
 
 <?php if ($userpage > 1){ ?>
-<a href="book_result.php?page=<?php echo $userpage-1; ?><?php echo $word;?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
+<a href="book_result.php?userpage=<?php echo $userpage-1; ?><?php echo $word;?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>前</a>
 <?php }else{ ?>
   前
 <?php } ?>
 
 
 <?php if ($userpage < $usermaxPage){ ?>
-     <a href="book_result.php?page=<?php echo $userpage+1; ?><?php echo $word; ?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
+     <a href="book_result.php?userpage=<?php echo $userpage+1; ?><?php echo $word; ?>&tab=tab3" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-hand-right"></span>次へ</a>
 
 <?php }else{ ?>
 次へ
