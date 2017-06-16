@@ -17,6 +17,7 @@ if(isset($_REQUEST['book_select'])){
     $_SESSION['book']['author']=$authors[$a][0];
     $_SESSION['book']['description']=$descriptions[$a];
     $_SESSION['book']['bookid']=$bookids[$a];
+    $_SESSION['book']['$categorie']=$categories[$a];
 
 
     header("Location:record.php");
