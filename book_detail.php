@@ -64,7 +64,7 @@ $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` ='.$user['
   // kキーワード表示
 
 
-    $sql = 'SELECT`keywords`.`keyword` FROM `keywords` INNER JOIN `records_keywords` on `keywords`.`keyword_id` = `records_keywords`.`keyword_id` INNER JOIN `records` on `records`.`record_id` = `records_keywords`.`record_id` WHERE `records`.`record_id`='.$user['record_id'];
+    $sql = 'SELECT`keywords`.`keyword` FROM `keywords` INNER JOIN `record_keyword` on `keywords`.`keyword_id` = `record_keyword`.`keyword_id` INNER JOIN `records` on `records`.`record_id` = `record_keyword`.`record_id` WHERE `records`.`record_id`='.$user['record_id'];
 
 
 
