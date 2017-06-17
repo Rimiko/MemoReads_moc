@@ -118,6 +118,7 @@ unset($_SESSION['true2']);
           <label for="" class="date-title">Level</label>
           <div class="date-content">
 
+
             <p class="dia"><strong><?php echo $avatar_each['level']?></strong> Lv.</p>
           </div>
         </div>

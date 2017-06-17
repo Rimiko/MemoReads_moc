@@ -1,32 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Not Register</title>
-    <!-- <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" /> -->
-
-</head>
-<body>
-
-<div class="container">
- <div class=".col-xs-6 .col-xs-offset-3
-">
- <p></p>
-
- </div>
-</div>
-
-<!-- jQuery -->
-<!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="colorbox-master/jquery.colorbox-min.js"></script>
-<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
-    <script>
-   $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
-   });
-</script> -->
-
-</body>
-</html>
 
 <!DOCTYPE html>
 <html lang="en">

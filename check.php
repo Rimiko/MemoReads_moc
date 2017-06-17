@@ -10,7 +10,7 @@
    exit
    ();
  }
- var_dump($_SESSION['join']);
+ // var_dump($_SESSION['join']);
 
  $name = htmlspecialchars($_SESSION['join']['name'],ENT_QUOTES,'UTF-8');
  $email = htmlspecialchars($_SESSION['join']['email'],ENT_QUOTES,'UTF-8');
@@ -24,7 +24,7 @@
  
  // DB登録処理
  if (!empty($_POST)) {
-  $sql = sprintf('INSERT INTO `users`(`name`,`email`,`password`,`avatar_id`,`age`,`gender`,`hobby`,`job`) VALUES("%s","%s","%s",%d,%d,%d,"%s","%s");',
+  $sql = sprintf('INSERT INTO `users`(`user_id`,`name`,`email`,`password`,`avatar_id`,`age`,`gender`,`hobby`,`job`) VALUES(NULL,"%s","%s","%s",%d,%d,%d,"%s","%s");',
     mysqli_real_escape_string($db,$_SESSION['join']['name']),
     mysqli_real_escape_string($db,$_SESSION['join']['email']),
     mysqli_real_escape_string($db,sha1($_SESSION['join']['password'])),
@@ -36,7 +36,13 @@
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
 
-  // $sql = sprintf('SELECT LAST_INSERT_ID() AS id');
+  $sql = sprintf('SELECT LAST_INSERT_ID() AS id');
+
+  $last_login = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $login = mysqli_fetch_assoco($last_login);
+ var_dump($login);
+
+
   header("Location:thanks.php");
   exit();
      
