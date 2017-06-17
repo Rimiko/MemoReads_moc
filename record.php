@@ -30,6 +30,7 @@ if(!empty($_SESSION['book'])){
   $bookauthor=$_SESSION['book']['author'];
   $bookdescription=$_SESSION['book']['description'];
   $bookid=$_SESSION['book']['bookid'];
+  
 
 
   $sql =sprintf('SELECT * FROM `books` WHERE `api_id` ="%s"',$bookid);
@@ -143,10 +144,7 @@ if (isset($_POST['keyword13'])) {
 $keyword[] = $_POST['keyword13'];
 
 }
-if (isset($keyword)) {
-  // var_dump($keyword);
 
-}
 
 if (isset($keyword)) {
   $sql =sprintf('SELECT `record_id` FROM `records` WHERE `book_id` =%d AND `user_id` =%d',$recordid2['book_id'],$_SESSION['login_member_id']);
@@ -162,9 +160,14 @@ mysqli_real_escape_string($db,$select_recordid['record_id']),
 mysqli_real_escape_string($db,$keyword[$i])); 
 
 mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}  
+if (isset($_POST['record_button'])) {
+unset($_SESSION['book']['title']);
 }
-// header("Location:mypage.php");
-// exit();
+header("Location:mypage.php");
+exit();
+
 }
 
 
@@ -175,7 +178,7 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 
 // var_dump($_SESSION['book']);
-// var_dump($_POST);
+// var_dump($_SESSION['book']['$categorie']);
 
 
 
@@ -217,14 +220,15 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
   </head>
   <body>
   <?php include('header.php'); ?>
-
+  
   <div id="allbox">
   
 
         <!-- panel preview -->
       <div class="container">
-        
+      
         <div id="b-box">
+         <img id="icon" src="images/penicon.png">
            <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
@@ -259,12 +263,13 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
                         </div>
                       
                     </div>
+                    <div id="star"><label>評価</label></div>
                   </div>
                 </div>
 
+
  </form>
 
-<div id="star"></div>
 
  <form method="post" action="record.php" name="book_record">
 
@@ -444,7 +449,7 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 $.fn.raty.defaults.path = "images";
 $('#star').raty({
      number:5,
-     score:3,
+    
 
      click: function(score, evt) {
           $.post('./star_result.php',{score:score},
