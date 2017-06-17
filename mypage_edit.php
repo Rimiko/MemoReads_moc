@@ -8,12 +8,53 @@ if(isset($_SESSION['login_member_id'])){
     $detail_table = mysqli_fetch_assoc($detail);
 }
 
-if(isset($_POST) && !empty($_POST)){
-$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`great_man`="%s",`comment`="%s" WHERE `user_id`='.$_SESSION['login_member_id'],
+if(!empty($_SESSION['book'])){
+  $booktitle=$_SESSION['book']['title'];
+  $bookpic=$_SESSION['book']['pic'];
+  $bookauthor=$_SESSION['book']['author'];
+  $bookdescription=$_SESSION['book']['description'];
+  $bookid=$_SESSION['book']['bookid'];
+
+
+  // unset($_SESSION['book']);
+
+
+  $sql =sprintf('SELECT * FROM `books` WHERE `api_id` ="%s"',$bookid);
+
+
+  $records = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $record = mysqli_fetch_assoc($records);
+  // var_dump($record);
+
+
+  if(isset($record)){
+    $b=$record['book_id'];
+  }else{
+
+$sql=sprintf('INSERT INTO `books` (`book_id`, `title`, `category`, `picture_url`, `author`, `detail`, `api_id`, `created`, `modified`) VALUES(NULL,"%s",NULL,"%s","%s","%s","%s",now(),now())',
+mysqli_real_escape_string($db,$booktitle),
+mysqli_real_escape_string($db,$bookpic),
+mysqli_real_escape_string($db,$bookauthor),
+mysqli_real_escape_string($db,$bookdescription),
+mysqli_real_escape_string($db,$bookid));
+
+
+
+mysqli_query($db,$sql) or die(mysqli_error($db));
+header("Location:mypage_edit.php");
+exit();
+
+  }
+}
+// var_dump($_POST);
+if(!empty($_POST)){
+    var_dump($_POST);
+$sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`bestbook_id`=%d,`great_man`="%s",`comment`="%s" WHERE `user_id`='.$_SESSION['login_member_id'],
     mysqli_real_escape_string($db,$_POST['name']),
     mysqli_real_escape_string($db,$_POST['avatar_id']),
     mysqli_real_escape_string($db,$_POST['hobby']),
     mysqli_real_escape_string($db,$_POST['job']),
+    mysqli_real_escape_string($db,$record['book_id']),
     mysqli_real_escape_string($db,$_POST['great_man']),
     mysqli_real_escape_string($db,$_POST['comment']));
     //SQL文実行
@@ -21,8 +62,10 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
     //一覧に戻る
     header("Location:mypage.php");
     exit();
-
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -56,23 +99,23 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 	<div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="">
+					<form class="form-horizontal" method="post" action="mypage_edit.php" id="a">
 						<div class="form-group">
 						<h3>プロフィール編集</h3>
 							<label for="name" class="cols-sm-2 control-label">名前</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name" value="<?php echo $detail_table['name']; ?>" />
+									<input type="text" class="form-control" name="name" id="a" value="<?php echo $detail_table['name']; ?>" />
 								</div>
 							</div>
 						</div>
 
-						<p><strong>アバター選択</strong></p>
+						<p style="color:black;"><strong>アバター選択</strong></p>
 <!--                         <form method="get" action=""> -->
 						<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<input name="avatar_id" type="radio" value="1" />monkey<br />
+        				<input name="avatar_id" type="radio" value="1" checked />monkey<br />
         			</div>
         			  <div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
@@ -89,7 +132,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="job" id="job" value="<?php echo $detail_table['job']; ?>"/>
+									<input type="text" class="form-control" name="job" id="a" value="<?php echo $detail_table['job']; ?>"/>
 								</div>
 							</div>
 						</div>
@@ -99,7 +142,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-star" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="hobby" id="hobby" value="<?php echo $detail_table['hobby']; ?>" />
+									<input type="text" class="form-control" name="hobby" id="a" value="<?php echo $detail_table['hobby']; ?>" />
 								</div>
 							</div>
 						</div>
@@ -109,24 +152,34 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="great_man" id="password" value="<?php echo $detail_table['great_man']; ?>" />
+									<input type="text" class="form-control" name="great_man" id="a" value="<?php echo $detail_table['great_man']; ?>" />
 								</div>
 							</div>
  </div>
 						<div class="form-group ">
 					<label for="comment" class="cols-sm-2 control-label">ひとこと</label>
-                    <textarea class="form-control" id="comment" rows="3" value="<?php echo $detail_table['comment']; ?>" name="comment" required></textarea>
+                    <textarea class="form-control" id="a" rows="3" name="comment" ><?php echo $detail_table['comment']; ?></textarea>
                 </div>
-
-					<div class="form-group ">
-				<input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更">
-						</div>
-					
 					</form>
-<!-- 				</div>
+<form method="get" action="mypage_edit_result.php" id="b">
+    <div class="form-group">
+        <label for="job" class="cols-sm-2 control-label">ベスト本</label>
+            <div class="cols-sm-10">
+
+   <?php if(empty($_SESSION['book']['title'])): ?>
+     <input id="b" type="text" name="title" value="">
+    <?php else: ?>
+    <input id="b" type="text" name="title" value="<?php echo $booktitle; ?>">
+    <?php endif; ?>
+     <button>検索</button>
+    </div>
+    </div>
+ </form>
+         <input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更" form="a">
+				</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
     </section><!--/#contact-page-->

@@ -76,7 +76,7 @@ if (!empty($_POST['record_button'])) {
 
  $bookids2 = mysqli_query($db,$sql) or die(mysqli_error($db));
  $recordid2 = mysqli_fetch_assoc($bookids2);
- var_dump($recordid2['book_id']);
+ // var_dump($recordid2['book_id']);
 
  $sql=sprintf('INSERT INTO `records` (`record_id`, `user_id`, `stars`, `review`, `start_date`, `end_date`, `book_id`, `created`, `modified`) VALUES(NULL,"%s","%s","%s","%s","%s","%s",now(),now())',
 mysqli_real_escape_string($db,$_SESSION['login_member_id']),
@@ -144,10 +144,7 @@ if (isset($_POST['keyword13'])) {
 $keyword[] = $_POST['keyword13'];
 
 }
-// if (isset($keyword)) {
-//   var_dump($keyword);
 
-// }
 
 if (isset($keyword)) {
   $sql =sprintf('SELECT `record_id` FROM `records` WHERE `book_id` =%d AND `user_id` =%d',$recordid2['book_id'],$_SESSION['login_member_id']);
@@ -156,19 +153,21 @@ if (isset($keyword)) {
  $select_recordid = mysqli_fetch_assoc($select_recordids);
 var_dump($select_recordid);
 
-$cc = count($keyword); 
+$cc = count($keyword);
 for ($i=0; $i < $cc; $i++){
 $sql =sprintf('INSERT INTO `record_keyword`(`record_keyword_id`,`record_id`,`keyword_id`) VALUES(NULL,%d,%d)',
 mysqli_real_escape_string($db,$select_recordid['record_id']),
 mysqli_real_escape_string($db,$keyword[$i])); 
 
 mysqli_query($db,$sql) or die(mysqli_error($db));
+
 }  
 if (isset($_POST['record_button'])) {
 unset($_SESSION['book']['title']);
 }
 header("Location:mypage.php");
 exit();
+
 }
 
 
