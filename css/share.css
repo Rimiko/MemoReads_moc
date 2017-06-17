@@ -122,11 +122,13 @@ p{
     -moz-background-size:   cover;
 /*    background-size:        cover;*/
     margin-bottom:0px;
+
 }
 #b-box{
     margin-left:auto;
     margin-top:100px;
     width:70%;
+    margin-left:170px;
 
      /*display:table-cell;
     vertical-align:middle;
@@ -162,6 +164,10 @@ p{
 
 .record-button{
   margin-top:10px
+}
+#icon{
+  margin-left:790px;
+  margin-top:3px;
 }
 
 /*透過処理

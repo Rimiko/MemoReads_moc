@@ -1,13 +1,15 @@
 <?php
-
 session_start();
 require('dbconnect.php');
 
 //ログインしている人の情報を取得（名前の表示）
-
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 //SQL実行し、ユーザーのデータを取得
 // user_idには. $SESSION['login_member_id']を入れること
-if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
+if(!empty($_REQUEST['user_id'])){
   $sql ='SELECT u.*,a.* FROM `users`u INNER JOIN `avatar`a ON u.`avatar_id`= a.`avatar_id` WHERE `user_id` ='.$_REQUEST['user_id'];
 
 
@@ -35,14 +37,68 @@ if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
   while ($book = mysqli_fetch_assoc($books)) {
   $books_array[]=$book;
   }
-  var_dump($book);
-  var_dump($books_array);
+  // var_dump($book);
+  //ベストブック
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+     $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+  }
+  $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $bestbook = mysqli_fetch_assoc($bestbooks);
+  // var_dump($bestbook);
+
+//パワーアップ
+if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
+    # code...
+
+if ($member[0]['point'] >= 10 && 20 > $member[0]['point'] ){
+
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 20 && 30 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 30 && 40 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($member[0]['point'] >= 40 && 50 > $member[0]['point'] ) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['point'] >= 50 && 60 > $member[0]['point']) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+
+if ($member[0]['level'] == 5 ) {
+$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($member[0]['level'] == 10 ) {
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
 
 
-  // var_dump($books_array);
+
+
+
+    }
+
+unset($_SESSION['true']);
+unset($_SESSION['true2']);
+
+
 
 
 ?>
+
+
+
 
 
 
@@ -108,7 +164,7 @@ if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
             <br>
             Occupation :<strong><?php echo $member['job'];?></strong>
             <br>
-            <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="#" class="bestbook"><strong class="bestbook-title">すえずえ</strong></a>
+            <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a>
             <br>
             Favorite person : <strong><?php echo $member['great_man'];?></strong>
             <br>
@@ -137,8 +193,9 @@ if(isset($_SESSION['login_member_id'])&& !empty($_REQUEST['user_id'])){
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
                   <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="images/<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
+                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
                   <?php } ?>
 
                   </div>

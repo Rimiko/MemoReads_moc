@@ -55,6 +55,7 @@
                   <input type="text" name="search_word" class="search-query mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></button>
                     <!-- <button type="submit" class="btn"><i class="icon-search"></i></button> -->
                        </div>
+                                <!-- <input id="tab" name="tab" value="tab1" type="hidden"> -->
                                 </form>
                             </div>
                           </div>

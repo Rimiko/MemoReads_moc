@@ -80,7 +80,7 @@ if(empty($error)){
         // var_dump($a);
         
  // ユーザーランキング情報取得
-        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id`,`users`.`job`,`users`.`age`,`users`.`best_book` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
+        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id`,`users`.`job`,`users`.`age`,`users`.`bestbook_id` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
 
         $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
         $u = array();
@@ -297,7 +297,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[0]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[0]["point"]; ?>pt</P>
-                                                    <p>BEST本：<?php echo $u[0]["best_book"]; ?></p>
+                                                    <p>BEST本：<?php echo $u[0]["bestbook_id"]; ?></p>
 
                                                     
                                                 </div>
@@ -362,7 +362,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[1]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[1]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[1]["best_book"]; ?></P>
+                                                    <P>BEST本：<?php echo $u[1]["bestbook_id"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -421,7 +421,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[2]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[2]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[2]["best_book"]; ?></P>
+                                                    <P>BEST本：<?php echo $u[2]["bestbook_id"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -441,7 +441,10 @@ if(empty($error)){
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
+
                                                 <a href="error.php"><div class="col-sm-6 col-md-4">
+
+
                                                     <img src="<?php echo $a[3]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
@@ -482,7 +485,7 @@ if(empty($error)){
                                                    </p>
                                                     
                                                     <P>ポイント：<?php echo $u[3]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[3]["best_book"]; ?></P>
+                                                    <P>BEST本：<?php echo $u[3]["bestbook_id"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -544,7 +547,7 @@ if(empty($error)){
                                                    </p>
                                     4                
                                                     <P>ポイント：<?php echo $u[4]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[4]["best_book"]; ?></P>
+                                                    <P>BEST本：<?php echo $u[4]["bestbook_id"]; ?></P>
                                                     
                                                 </div>
                                             </div>

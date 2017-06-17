@@ -55,7 +55,6 @@ h3{
 
 .bestbook-title{
     color: blue;
-    border-bottom: 1px solid blue;
 }
 .bestbook strong{
 
@@ -131,6 +130,7 @@ opacity: 0.8;
 .best{
     border: 5px solid;
     border-color: red;
+
 }
 .favorite{
     border: 5px solid;

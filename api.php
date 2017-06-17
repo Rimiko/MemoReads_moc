@@ -19,6 +19,9 @@ $posts = $json_decode->items;
 // echo "<pre>";
 // var_dump($posts);
 // echo "</pre>";
+//  echo "<pre>";
+ // var_dump($categories);
+ // echo "</pre>";
 
 
 
@@ -57,6 +60,12 @@ for ($i=0; $i < $c; $i++){
 
     }else{
         $bookids[] = 'なし';
+    }
+      if (isset($posts[$i]->volumeInfo->categories)) { 
+       $categories[] = $posts[$i]->volumeInfo->categories; 
+
+    }else{
+        $categories[] = 'なし';
     }
 
     

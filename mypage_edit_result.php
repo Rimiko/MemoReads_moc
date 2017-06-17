@@ -4,7 +4,7 @@ require('api.php');
 
 //何も入れずに検索した場合の処理
 if ($_REQUEST['title'] == '') {
-  header('Location: record.php?title=');
+  header('Location: mypage_edit.php?title=');
   exit();
 
 }
@@ -17,10 +17,9 @@ if(isset($_REQUEST['book_select'])){
     $_SESSION['book']['author']=$authors[$a][0];
     $_SESSION['book']['description']=$descriptions[$a];
     $_SESSION['book']['bookid']=$bookids[$a];
-    $_SESSION['book']['$categorie']=$categories[$a];
 
 
-    header("Location:record.php");
+    header("Location:mypage_edit.php");
     exit();
 }
  // if (empty($error)){

@@ -1,42 +1,8 @@
-<?php 
- session_start();
- require('dbconnect.php');
-   $sql = 'SELECT `name`,`avatar_id`,`point`,`level` FROM `users` WHERE `user_id`=1';
 
-   $test_u = mysqli_query($db,$sql) or die(mysqli_error($db));
-   $user = mysqli_fetch_assoc($test_u);
-
-var_dump($test_u);
-
-
-    if(isset($_REQUEST['record_id'])){
-        
-    $sql = 'UPDATE `users` SET `level` = `level`+1 WHERE `point`=`point`+10';
-    $level = mysqli_query($db,$sql) or die(mysqli_error($db));
-    $level_up = mysqli_fetch_assoc($level);
-
-    // アバター進化
-    $sql = 'UPDATE `users` SET `avatar_id`=`avatar_id`+1 WHERE `user_id`=1';
-            
-     $evolution = mysqli_query($db,$sql) or die(mysqli_error($db));
-     $e = mysqli_fetch_assoc($evolution);
- }elseif{
-
- }
-
-
-
-    $sql = 'UPDATE `users` SET `level` = `level`+1 WHERE `point`=`point`+10';
-    $level = mysqli_query($db,$sql) or die(mysqli_error($db));
-    $level_up = mysqli_fetch_assoc($level);
-
-   
-
-?>
 <!-- サイドバー -->
 <?php
 
-session_start();
+// session_start();
 
 // bdconnect.php をよみこむ
 require('dbconnect.php');
@@ -52,9 +18,11 @@ $avatars = mysqli_query($db,$sql) or die(mysqli_error($db));
 $avatar_array = array();
 $avatar = mysqli_fetch_assoc($avatars);
 $avatar_array[] = $avatar;
- var_dump($avatar_array[0]['point']);
+ // var_dump($avatar_array[0]['point']);
 
 }
+    # code...
+if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
     # code...
 
 if ($avatar_array[0]['point'] >= 10 && 20 > $avatar_array[0]['point'] ){
@@ -88,12 +56,14 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
     mysqli_query($db,$sql) or die(mysqli_error($db));
 }
 
-    
-
-    
+  
 
 
 
+    }
+
+unset($_SESSION['true']);
+unset($_SESSION['true2']);
 
 
 
@@ -113,7 +83,7 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 
  <?php foreach($avatar_array as $avatar_each){?>
- <?php var_dump($avatar_each);?>
+ 
      
   
   <div class="container">
