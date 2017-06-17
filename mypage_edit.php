@@ -59,6 +59,10 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
     mysqli_real_escape_string($db,$_POST['comment']));
     //SQL文実行
     mysqli_query($db,$sql) or die(mysqli_error($db));
+
+    if (isset($_POST['edit'])) {
+unset($_SESSION['book']);
+}
     //一覧に戻る
     header("Location:mypage.php");
     exit();
@@ -99,7 +103,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
 	<div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="mypage_edit.php" id="a">
+					<form class="form-horizontal" method="post" action="" id="a">
 						<div class="form-group">
 						<h3>プロフィール編集</h3>
 							<label for="name" class="cols-sm-2 control-label">名前</label>
@@ -175,7 +179,7 @@ $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`jo
     </div>
     </div>
  </form>
-         <input type="submit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更" form="a">
+         <input type="submit" name="edit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更" form="a">
 				</div>
 				</div>
 			</div>
