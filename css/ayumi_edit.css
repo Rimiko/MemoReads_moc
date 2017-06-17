@@ -21,7 +21,6 @@ body {
   color:#ffffff;
   background-color:#ffffff;
   overflow-x:hidden;
-
 }
 
 .up-back{
@@ -31,7 +30,7 @@ body {
 }
 
 /*s*/
-hi,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6 {
   color:#333;
   line-height:1.1em;
 }
@@ -71,7 +70,11 @@ a:hover {
   margin-bottom:0px;
   color:#333;
 }
-
+.text-center h1{
+  font-size: 80px;
+  /*color: #1D0702;*/
+  color:white;
+}
 .btn-default {
   color: #333;
   background-color: #fff;
@@ -522,7 +525,10 @@ h2{
 }
  
 .feature {
-  padding:90px 40px 50px 40px;
+  /*padding:50px 40px 50px 40px;*/
+  padding:50px 100px 50px 100px;
+
+  /*background-image: url("../images/background.png");*/
   background-image: url("../images/background.png");
   
    /*z-index:1;
@@ -780,13 +786,13 @@ h2{
 }
 
 .lates {
-  padding:100px;
+  padding:50px;
 }
 
 .lates h2 {
-  font-size:20px;
+  font-size:60px;
   font-weight:600;
-  color:#333;
+  color:#905530;
 }
 
 .lates img {
@@ -1431,8 +1437,8 @@ ul.sidebar-gallery {
 }
 
 .btn-lg:hover {
-  color:#1BBD36;
-  background:#ddd;
+  color:white;
+  background:red;
 }
 
 a.scrollup{
@@ -1473,13 +1479,23 @@ color: #999;
   height: 170px;
   /*ランキングの位置調整*/
   margin-top: -20px;
-  border-color: black;
-  border:solid 2px;
+  border:solid 1px;
+  border-color: grey;
+  
   background-color: white;
 }
 .well-sm img{
 width: 130px;
 height: 150px;
+border:solid 1px;
+border-color: grey;
+}
+
+.well-sm h4{
+  font-size: 20px;
+}
+.well-sm p{
+  font-size: 15px;
 }
 .up-rank{
   margin:-20px 80px;
@@ -1508,12 +1524,16 @@ color: #999;
 .user-rank{
   padding-left: 50px;
 }
-/*.rank img{margin-right: 440px;
+.rank img{margin-right: 440px;
 
 
 }
 
-*/
+/*background 透過*/
+.touka{
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 30px;
+}
 /*footer*/
 
 /*.footer{

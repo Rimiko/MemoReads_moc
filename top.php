@@ -80,7 +80,7 @@ if(empty($error)){
         // var_dump($a);
         
  // ユーザーランキング情報取得
-        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
+        $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id`,`users`.`job`,`users`.`age`,`users`.`best_book` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
 
         $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
         $u = array();
@@ -112,6 +112,13 @@ if(empty($error)){
     <link href="css/ayumi_edit.css" rel="stylesheet" /> 
     <link href="css/header.css" rel="stylesheet" />
     <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/balloon.js"></script>
+<script>
+    $(function() {
+  $('selectors').balloon(options);
+});
+</script>
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -131,19 +138,19 @@ if(empty($error)){
                         <div class="row slide-margin">
                             <div class="col-sm-6">
                                 <div class="carousel-content">
-                                    <h2 class="animation animated-item-1"><span style="color: #F9A843; font-size: 60px; box-shadow: 5px 5px 5px 5px rgba(200,100,100,0.5);">MEMOREADS</span></h2>
-                                    <p class="animation animated-item-2" style="color: #F9A843;">Read Review Relate</p>
+                                    <h2 class="animation animated-item-1"><span style="color: #F9A843; font-size: 100px; /*box-shadow: 5px 5px 5px 5px rgba(200,100,100,0.5)*/;">MEMOREADS</span></h2>
+                                    <p class="animation animated-item-2" style="color: #F9A843; font-size: 40px;">Read Review Relate</p>
                                     <!-- <a class="btn-slide animation animated-item-3" href="#">Read More</a> -->
                                 </div>
 
 
                             </div>
                                  <div class="container-fluid">
-                <div class="row-fluid" >
+                  <div class="row-fluid" >
                    
                       
                      <div class="col-md-offset-3 col-md-3" id="box">
-                      <h2>Login</h2>
+                       <h2>Login</h2>
                        
                             <hr>
                            
@@ -211,44 +218,48 @@ if(empty($error)){
 
                         </div>
                     </div>
-
-                    <a href="register.php" class="btn btn-lg btn-warning col-md-offset-9"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
+                    <label>
+                    <a href="register.php" class="btn btn-lg btn-warning col-lg-12"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
+                    </label>
                 </div><!--/.item-->             
             </div><!--/.carousel-inner-->
         </div><!--/.carousel-->
     </section><!--/#main-slider-->
-    <div class="back-rgba">
-    <div class="feature">
+  
+    <div class="">
+     <div class="feature">
+      <!-- <div class="touka"> -->
         <div class="text-center" >
-                <img src="images/cooltext245006182452535.png" >
-            </div>
+            <h1>WEEKLY RANKINGS</h1>
+                <!-- <img src="images/cooltext245006182452535.png" > -->
+        </div>
 
-            
-        <div class="container rankings" style="background-image: url(images/2558160805_bbfa81ab3a_o.png); box-shadow: 15px 10px 10px 10px rgba(0,0,0,0.5); border-radius: 20px;">
+      <!-- <div class="touka">    -->
+        <div class="container rankings">
           
             <div class="text-center">
                 <div class="col-lg-6">
                         <!-- rankig -->
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                      <div><img src="images/cooltext245006766393490.png"></div> 
-                      <div><img src="images/gold.JPG" style="margin-right:440px;"></div>
+                      <div><img src="images/読書アイコン (2) のコピー 2white.png"  title="星５つ評価の多い本のランキング"><!-- <img src="images/読書アイコン (2).png"> --></div> 
+                      <div><img src="images/トロフィーのアイコン素材 その4 のコピー.png" style="margin-right:440px;"></div>
                         
 
                         <!-- book部門１位 -->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
-                                        <div class="well well-sm" style="margin-top: -30px; border:solid 2px; border-color:black;">
+                                        <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                     
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[0]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"></a>
+                                                    <a href="error.php"><img src="<?php echo $a[0]['picture_url']; ?>" alt="" class="img-rounded img-responsive"></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $a[0]["title"]; ?></h4>
-                                                    <p><?php echo $a[0]['author']; ?></p>
+                                                    <p>著者：<?php echo $a[0]['author']; ?></p>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[0]['cnt']; ?></P>
                                                     
@@ -269,21 +280,25 @@ if(empty($error)){
                     
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                     <div><img src="images/cooltext245006698732627.png"></div>
-                        <div><img src="images/gold.JPG" style="margin-right: 440px;"></div>
+                     <div><img src="images/勉強アイコン2 のコピーwhite.png"  title="高ポイントユーザーのランキング"><!-- <img src="images/勉強アイコン2.png"> --></div>
+                        <div><img src="images/トロフィーのアイコン素材 その4 のコピー.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?user_id=<?php echo $u[0]['user_id'];?>"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[0]['avatar_path'] ?>" alt="" class="img-rounded img-responsive"/></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $u[0]["name"]; ?></h4>
-                                                   
-                                                    <P><?php echo $u[0]["point"]; ?></P>
+                                                   <p>年齢：<?php echo $u[0]['age']; ?>代</p>
+                                                   <p>職業：<?php echo $u[0]['job']; ?>
+                                                   </p>
+                                                    <P>ポイント：<?php echo $u[0]["point"]; ?>pt</P>
+                                                    <p>BEST本：<?php echo $u[0]["best_book"]; ?></p>
+
                                                     
                                                 </div>
                                             </div>
@@ -300,7 +315,7 @@ if(empty($error)){
                 <div class="col-lg-6">
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                    <div><img src="images/silver.JPG" style="margin-right:440px; "></div>
+                    <div><img src="images/2位アイコン のコピーwhite.png" style="margin-right:440px; "></div>
                         <div class="container">
 
 
@@ -310,12 +325,12 @@ if(empty($error)){
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
                                                 
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[1]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[1]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $a[1]['title']; ?></h4>
-                                                    <p><?php echo $a[1]['author']; ?>
+                                                    <p>著者：<?php echo $a[1]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[1]['cnt']; ?></P>
                                                     
@@ -331,20 +346,23 @@ if(empty($error)){
                 <!-- ユーザー部門２位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/silver.JPG" style="margin-right: 440px;"></div>
+                    <div><img src="images/2位アイコン のコピーwhite.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[1]['avatar_path'];?>"><img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[1]['avatar_path'] ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $u[1]["name"]; ?></h4>
-                                                    
-                                                    <P><?php echo $u[1]["point"]; ?></P>
+                                                     <p>年齢：<?php echo $u[1]['age']; ?>代</p>
+                                                   <p>職業：<?php echo $u[1]['job']; ?>
+                                                   </p>
+                                                    <P>ポイント：<?php echo $u[1]["point"]; ?>pt</P>
+                                                    <P>BEST本：<?php echo $u[1]["best_book"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -358,19 +376,19 @@ if(empty($error)){
                 <!-- book部門３位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
+                        <div><img src="images/3位アイコン (1).png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[2]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[2]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $a[2]['title']; ?></h4>
-                                                    <p><?php echo $a[2]['author']; ?>
+                                                    <p>著者：<?php echo $a[2]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[2]['cnt']; ?></P>
                                                     
@@ -387,21 +405,23 @@ if(empty($error)){
                 <!-- ユーザー部門３位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/Bronze_medal_icon.svg.png" style="margin-right: 440px;"></div>
+                      <div><img src="images/3位アイコン (1).png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[2]['avatar_path'];?>"><img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[2]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $u[2]["name"]; ?></h4>
-                                                   
-                                                
-                                                    <P><?php echo $u[2]["point"]; ?></P>
+                                                     <p>年齢：<?php echo $u[2]['age']; ?>代</p>
+                                                   <p>職業：<?php echo $u[2]['job']; ?>
+                                                   </p>
+                                                    <P>ポイント：<?php echo $u[2]["point"]; ?>pt</P>
+                                                    <P>BEST本：<?php echo $u[2]["best_book"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -415,20 +435,20 @@ if(empty($error)){
                     <!-- book部門４位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right:440px;"></div>
+                    <div><img src="images/4位の無料素材 (1) のコピー.png" style="margin-right:440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
-                                                <a class="iframe" href="book_detail.php?book_id=<?php echo $a[3]['book_id'];?>" title="ウィキペディア表紙"><div class="col-sm-6 col-md-4">
+                                                <a href="error.php"><div class="col-sm-6 col-md-4">
                                                     <img src="<?php echo $a[3]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $a[3]['title']; ?></h4>
                                                     <p>
-                                                        <?php echo $a[3]['author']; ?>
+                                                        著者：<?php echo $a[3]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[3]['cnt']; ?></P>
                                                     
@@ -445,20 +465,24 @@ if(empty($error)){
                     <!-- ユーザー部門４位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/yellow-number-4-icon-24402.png" style="margin-right: 440px;"></div>
+                      <div><img src="images/4位の無料素材 (1) のコピー.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[3]['avatar_path'];?>"><img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[3]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $u[3]["name"]; ?></h4>
+                                                     <p>年齢：<?php echo $u[3]['age']; ?>代</p>
+                                                   <p>職業：<?php echo $u[3]['job']; ?>
+                                                   </p>
                                                     
-                                                    <P><?php echo $u[3]["point"]; ?></P>
+                                                    <P>ポイント：<?php echo $u[3]["point"]; ?>pt</P>
+                                                    <P>BEST本：<?php echo $u[3]["best_book"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -473,20 +497,20 @@ if(empty($error)){
                  <!-- book部門５位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px; "></div>
+                        <div><img src="images/5位アイコン (2).png" style="margin-right: 440px; "></div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $a[4]['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="<?php echo $a[4]["picture_url"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $a[4]['title']; ?></h4>
                                                     <p>
-                                                        <?php echo $a[4]['author']; ?>
+                                                        著者：<?php echo $a[4]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[4]['cnt']; ?></P>
                                                     
@@ -503,20 +527,24 @@ if(empty($error)){
                  <!-- ユーザー部門５位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                     <div><img src="images/yellow-number-5-icon-24416.png" style="margin-right: 440px;"></div>
+                     <div><img src="images/5位アイコン (2).png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
                                         <div class="well well-sm">
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-4">
-                                                    <a href="mypage.php?book_id=<?php echo $u[4]['avatar_path'];?>"><img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
+                                                    <a href="error.php"><img src="images/<?php echo $u[4]["avatar_path"]; ?>" alt="" class="img-rounded img-responsive" /></a>
                                                 </div>
                                                 <div class="col-sm-6 col-md-8">
                                                     <h4>
                                                         <?php echo $u[4]["name"]; ?></h4>
-                                                    
-                                                    <P><?php echo $u[4]["point"]; ?></P>
+                                                     <p>年齢：<?php echo $u[4]['age']; ?>代</p>
+                                                   <p>職業：<?php echo $u[4]['job']; ?>
+                                                   </p>
+                                    4                
+                                                    <P>ポイント：<?php echo $u[4]["point"]; ?>pt</P>
+                                                    <P>BEST本：<?php echo $u[4]["best_book"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -529,81 +557,50 @@ if(empty($error)){
             </div>
         </div>
        </div>
+       <!-- </div>@@@@ -->
+     </div>
+    </div>
+  
     
-</div>
+   
     
-    <!-- <div class="about">
-        <div class="container">
-            <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                <h2>about us</h2>
-                <img src="images/6.jpg" class="img-responsive"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                </p>
-            </div>
-            
-            <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                <h2>Template built with Twitter Bootstrap</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                </p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat libero, pulvinar tincidunt leo consectetur eget. 
-                Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. 
-                Curabitur lacinia pellentesque libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque </p>
-            </div>
-        </div>
-    </div> -->
-    
-    <div class="lates" style="background-color: #EBE8C3;">
+    <div class="lates" style="background-image:url(images/p0026_l.png);">
         <div class="container">
             <div class="text-center" >
                 <h2>HOW TO USE</h2>
             </div>
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                 <img src="images/4.jpg" class="img-responsive"/>
-                <h3>Template built with Twitter Bootstrap</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
+                <h3>読む・書く</h3>
+                <p>読んだの本や漫画を読んでレビューを書きましょう！
+                　　本に関するキーワード選択や星評価も可能！マイページの本棚にどんどん本を埋めていきましょう！
                 </p>
             </div>
             
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                 <img src="images/4.jpg" class="img-responsive"/>
-                <h3>Template built with Twitter Bootstrap</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
+                <h3>共有</h3>
+                <p>
+                　あなたの書いたレビューを他ユーザー様とシェアしましょう！自分の書いたレビューが誰かの役に立つかも！！
                 </p>
             </div>
             
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">             
                 <img src="images/4.jpg" class="img-responsive"/>
-                <h3>Template built with Twitter Bootstrap</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
+                <h3>探す</h3>
+                <p>
+                ユーザー様が書いたレビューが本検索の際に役立ちます！
+                同じ年代や職業の人が何を読んでいるか気になりますよね？レビューを参考に自分にあった本を見つけましょう！　いいレビューにはいいね！をしてあげましょう！
                 </p>
             </div>
 
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">             
                 <img src="images/4.jpg" class="img-responsive"/>
-                <h3>Template built with Twitter Bootstrap</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum erat 
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
-                libero, pulvinar tincidunt leo consectetur eget. Curabitur lacinia pellentesque
+                <h3>アバター育成</h3>
+                <p>
+                １レビューごとにポイントゲット！いいねをもらってさらにポイントゲット！
+                ポイントが貯まるほとにレベルが上がっていき、あなたのアバターが進化します！
+                読書とともにアバター育成も楽しめます！
                 </p>
             </div>
         </div>
@@ -750,6 +747,12 @@ if(empty($error)){
       $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
    });
 </script>
+<!-- <script>
+    $(function() {
+  $('selectors').balloon(options);
+});
+</script> -->
+
     
 </body>
 </html>
