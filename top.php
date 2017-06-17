@@ -1,7 +1,7 @@
+
 <?php
   session_start();
  require('dbconnect.php');
-
  //自動ログいん処理
  if (isset($_COOKIE['email']) && !empty($_COOKIE['email'])) {
     // 読むときはグローバル変数でできる,emailが入っているということはパスワードも入っていると「認識される
@@ -10,20 +10,15 @@
       $_POST['password'] = $_COOKIE['password'];
       $_POST['save'] = 'on';
   } 
-
-
 // post送信されていたら、emailとパスワードの入力チェックを行い、どちらかがor 両方が未入力の場合「メールアドレスとパスワードをご記入ください」とパスワード入力欄の下に表示
 // $error['login']にblankという文字をセットして判別できるようにすること
 if (!empty($_POST)) {
   if(empty($_POST['email'])){
     $error['login'] = 'blank';
   }
-
-
 if(empty($_POST['password'])){
  $error['login'] = 'blank';
   }
-
 if(empty($error)){
   // login処理
   // 入力されたemail,passwordでDBから会員情報を取得できたら、正常ログイン。取得できなかったら、$error['login']に　faildを代入して、パスワードの下に「ログインに失敗しました。正しくご記入ください」
@@ -37,7 +32,6 @@ if(empty($error)){
   $record = mysqli_query($db,$sql) or die(mysqli_error($db));
   if ($table = mysqli_fetch_assoc($record)){
      //login 成功
-
     // SESSION変数に会員IDを保存
       $_SESSION['login_member_id'] = $table['user_id'];
     // SESSION変数にログイン時間を保存
@@ -47,9 +41,7 @@ if(empty($error)){
         // setcookie(保存するキー,保存する値,保存する期間（秒）)
         setcookie('email',$_POST['email'],time() + 60*60*24*14);
         setcookie('password',$_POST['password'],time() + 60*60*24*14);
-
       }
-
     // ログイン後のindex.php（ドップページ）に遷移
       header("Location: user_top.php");
       exit();
@@ -59,29 +51,22 @@ if(empty($error)){
   }
 } 
 } 
-
 // ----------BOOK RANKING取得------------------
-
-
  // session_start();
  
   require('dbconnect.php');
-
 // 星５つの本のid,タイトル、著者を取得する。
     
         $sql = 'SELECT `records`.`book_id`, `records`.`review`, `books`. `title`,`books`.`author`,`books`.`picture_url`,COUNT(*) as cnt FROM `records` INNER JOIN `books` ON `records`.`book_id`= `books`.`book_id`WHERE `stars`= 5 GROUP BY`book_id` ORDER BY `cnt` DESC';
-
         $b_rank = mysqli_query($db,$sql) or die(mysqli_error($db));
         $a = array();
         while ($book_ranking = mysqli_fetch_assoc($b_rank)) {
             $a[] = $book_ranking;
         }
-
         // var_dump($a);
         
  // ユーザーランキング情報取得
         $sql = 'SELECT `users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id`,`users`.`job`,`users`.`age`,`users`.`bestbook_id` FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`ORDER BY `point`DESC';
-
         $u_rank =  mysqli_query($db,$sql) or die(mysqli_error($db));
         $u = array();
         while($user_ranking = mysqli_fetch_assoc($u_rank)){
@@ -89,11 +74,7 @@ if(empty($error)){
         }
         // var_dump($u);
         
-
  
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -708,7 +689,6 @@ if(empty($error)){
                 </div>
             </div>
         </div>
-
                 
                 <div class="col-md-4 col-md-offset-4">
                     <div class="copyright">
