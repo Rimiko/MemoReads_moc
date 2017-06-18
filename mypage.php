@@ -119,6 +119,9 @@ unset($_SESSION['true2']);
     <link href="css/mypage.css" rel="stylesheet" />
     <link href="css/memoreads.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
+
+
+
 <!--    <link href="css/header.css" rel="stylesheet" /> -->
     <!-- =======================================================
         Theme Name: Company
@@ -133,14 +136,13 @@ unset($_SESSION['true2']);
   <div id="background">
     <div class="aboutus">
         <div class="container">
-            <h3><i class="glyphicon glyphicon-user"></i> My Page</h3>
+            <h3><i class="glyphicon glyphicon-user"></i> <strong><?php echo $member['name'];?></strong><small style="color:white;">さんのページ</small></h3>
             <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-md-offset-1">
         <div class="col-sm-3 margin-img">
-            <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>">
-            <div class="container">
-    <div class="row ptlv">
+            <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
+          <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
           <label for="" class="date-title">Point</label>
           <div class="date-content">
@@ -154,35 +156,36 @@ unset($_SESSION['true2']);
           </div>
         </div>
     </div>
-</div>
         </div>
-        <div class="col-sm-7 well margin-well">
+        <div class="col-sm-5 well margin-well">
             <p>
-            Name : <strong><?php echo $member['name'];?></strong>
-            <br>
             Age : <strong><?php echo $member['age'];?></strong>
             <br>
             Occupation :<strong><?php echo $member['job'];?></strong>
-            <br>
-            <i class="fa fa-bookmark-o" aria-hidden="true"></i> Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a>
             <br>
             Favorite person : <strong><?php echo $member['great_man'];?></strong>
             <br>
             Hobby :<strong><?php echo $member['hobby'];?></strong>
             <br>
             Free comment : <strong class="free"><?php echo $member['comment'];?></strong>
+<!--             <br>
+            Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a> -->
             </p>
             <div class="pull-right">
             <a href="mypage_edit.php" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>  編集ページ</a>
             </div>
         </div>
+
+
     </div>
 </div>
 
             </div>
         </div>
+        <br>
+        <br>
                 <div class="container">
-            <h3><i class="fa fa-book" aria-hidden="true"></i><strong> Book Shelf  </strong>     <a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
+            <h3><i class="fa fa-book" aria-hidden="true"></i> Book Shelf       <a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
             <div class="text-center">
     </div>
     
@@ -195,8 +198,27 @@ unset($_SESSION['true2']);
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
                   <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" width="112" height="175" ></a>
-                  <?php } ?>
+                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" id="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="112" height="175" ></a>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
+<script>
+$(function(){
+
+    $('#book').balloon({
+        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
+        position: "top",
+        // 吹き出しの CSS 設定です
+        css: {
+            "color": "black",
+            "font-size": "20px",
+            "font-weight": "bold",
+            "padding": "20px",
+            "background-color": "white",
+        }
+    });
+});
+</script>
+<?php } ?>
 
                   </div>
                   </div>
@@ -260,15 +282,17 @@ unset($_SESSION['true2']);
             </div>
         </div>
 
-    
+ 
    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.1.1.min.js"></script>  
+    <!-- <script src="js/jquery-2.1.1.min.js"></script>  --> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
-    <script src="js/functions.js"></script>
+<!--     <script src="js/functions.js"></script> -->
+
+
     
 </body>
 </html>
