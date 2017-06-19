@@ -196,7 +196,7 @@ unset($_SESSION['true2']);
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
+                    <a href="#" class="book"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best" title="BEST BOOK" style="color:yellow;"></a>
                   <?php foreach($books_array as $books_each){ ?>
                   <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" class="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="105" height="164" ></a>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
