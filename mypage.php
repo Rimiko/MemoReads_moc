@@ -118,6 +118,7 @@ unset($_SESSION['true2']);
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/mypage.css" rel="stylesheet" />
     <link href="css/memoreads.css" rel="stylesheet" />
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
 
 
@@ -196,9 +197,32 @@ unset($_SESSION['true2']);
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#" class="book"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best" title="BEST BOOK" style="color:yellow;"></a>
-                  <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" class="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="105" height="164" ></a>
+
+                    <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK<br><a href='delete.php' style='color:black;'>削除</a>"></a>
+                  <?php foreach($books_array as $books_each){ 
+                      $start_date = strtotime($books_each['start_date']);
+                      $end_date = strtotime($books_each['end_date']);
+                      $start_date = date('Y-m-d',$start_date);
+                      $end_date = date('Y-m-d',$end_date);
+                      if(isset($books_each['stars'])&&$books_each['stars']=='5'){ ?>
+                      <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="favorite img-rounded img-responsive" title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAVORITE BOOK<br><?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="112" height="175" ></a>
+                      <?php }else{ ?>
+                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="105" height="164" ></a>
+<?php } ?>
+<?php } ?>
+
+<!-- <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a> -->
+
+                  </div>
+                  </div>
+                </div>
+            <ul class="paging">
+
+                <li><a href="#" class="btn btn-default left">前</a></li>
+
+                <li><a href="#" class="btn btn-default right">次</a></li>
+          </ul>
+  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
@@ -210,35 +234,38 @@ $(function(){
         // 吹き出しの CSS 設定です
         css: {
             "color": "black",
-            "font-size": "20px",
+            "font-size": "12px",
             "font-weight": "bold",
-            "padding": "20px",
+            "padding": "10px",
             "background-color": "white",
+        }
+    });
+        $('.best').balloon({
+        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
+        position: "top",
+        // 吹き出しの CSS 設定です
+        css: {
+            "color": "white",
+            "font-size": "12px",
+            "font-weight": "bold",
+            "padding": "10px",
+            "background-color": "red",
+        }
+    });
+         $('.favorite').balloon({
+        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
+        position: "top",
+        // 吹き出しの CSS 設定です
+        css: {
+            "color": "white",
+            "font-size": "12px",
+            "font-weight": "bold",
+            "padding": "10px",
+            "background-color": "orange",
         }
     });
 });
 </script>
-<?php } ?>
-
-                  </div>
-                  </div>
-                </div>
-            <ul class="paging">
-
-                <li><a href="#" class="btn btn-default left">前</a></li>
-
-                <li><a href="#" class="btn btn-default right">次</a></li>
-          </ul>
-<!--                <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <img src="images/services/2.jpg" alt="" >
-                    <h4>John Doe</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing eil sed deiusmod tempor</p>
-                </div>
-                <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
-                    <img src="images/services/3.jpg" alt="" >
-                    <h4>John Doe</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing eil sed deiusmod tempor</p>
-                </div> -->
             </div>
             </div>
         </div>
@@ -291,7 +318,19 @@ $(function(){
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
 <!--     <script src="js/functions.js"></script> -->
+<script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+<script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
 
+      // window.location.hash = "#tab1"
+      // window.location.hash = "#tab2"
+      // window.location.hash = "#tab3"
+   });
+
+
+</script>
 
     
 </body>
