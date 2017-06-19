@@ -7,7 +7,10 @@ require('dbconnect.php');
 //   var_dump($_POST['keyword']);
 //   # code...
 // }
-
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 
 
 
@@ -239,7 +242,7 @@ exit();
 <?php } ?>
 
 
-  <label>タイトル</label>
+  <label>タイトル/作者</label>
 
    
   <div class="col-ms-4">
@@ -329,7 +332,7 @@ exit();
     <label class="checkbox-inline" for="keyword-7">
       <input type="checkbox" name="keyword8" id="keyword-7" value="8">
       びっくり
-    </label>k 
+    </label>
     <label class="checkbox-inline" for="keyword-8">
       <input type="checkbox" name="keyword9" id="keyword-8" value="9">
       とりあえず読め
@@ -360,13 +363,13 @@ exit();
                     </div> 
                     <div class="form-group">
                         <label for="date" class="col-sm-3 control-label">読み始め</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 date">
                             <input type="date" class="form-control" id="date" name="date">
                         </div>
                     </div>
                      <div class="form-group">
                         <label for="date" class="col-sm-3 control-label">読み終わり</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 date2">
                             <input type="date" class="form-control" id="date" name="date2">
                         </div>
                     </div>    
