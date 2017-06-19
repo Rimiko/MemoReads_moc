@@ -73,7 +73,13 @@ if(empty($error)){
             $u[] = $user_ranking;
         }
         // var_dump($u);
-        
+         $sql = 'SELECT`users`.`name`,`users`.`avatar_id`,`avatar`.`avatar_path`,`users`.`point`,`users`.`user_id`,`users`.`job`,`users`.`age`,`users`.`bestbook_id` ,`books`.`title`FROM `users`INNER JOIN `avatar`ON `users`.`avatar_id`=`avatar`.`avatar_id`INNER JOIN `books`ON `users`.`bestbook_id`= `books`.`book_id`ORDER BY `point`DESC
+';
+         $best = mysqli_query($db,$sql) or die(mysqli_error($db));
+         $b = array();
+         while($best_book = mysqli_fetch_assoc($best)){
+            $b[] = $best_book;
+         }
  
 ?>
 <!DOCTYPE html>
@@ -278,7 +284,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[0]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[0]["point"]; ?>pt</P>
-                                                    <p>BEST本：<?php echo $u[0]["bestbook_id"]; ?></p>
+                                                    <p>BEST本：<?php echo $b[0]["title"]; ?></p>
 
                                                     
                                                 </div>
@@ -343,7 +349,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[1]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[1]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[1]["bestbook_id"]; ?></P>
+                                                    <P>BEST本：<?php echo $b[1]["title"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -402,7 +408,7 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[2]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[2]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[2]["bestbook_id"]; ?></P>
+                                                    <P>BEST本：<?php echo $b[2]["title"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -466,7 +472,7 @@ if(empty($error)){
                                                    </p>
                                                     
                                                     <P>ポイント：<?php echo $u[3]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[3]["bestbook_id"]; ?></P>
+                                                    <P>BEST本：<?php echo $b[3]["title"]; ?></P>
                                                     
                                                 </div>
                                             </div>
@@ -524,11 +530,9 @@ if(empty($error)){
                                                     <h4>
                                                         <?php echo $u[4]["name"]; ?></h4>
                                                      <p>年齢：<?php echo $u[4]['age']; ?>代</p>
-                                                   <p>職業：<?php echo $u[4]['job']; ?>
-                                                   </p>
-                                    4                
+                                                   <p>職業：<?php echo $u[4]['job']; ?></p>               
                                                     <P>ポイント：<?php echo $u[4]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $u[4]["bestbook_id"]; ?></P>
+                                                    <P>BEST本：<?php echo $b[4]["title"]; ?></P>
                                                     
                                                 </div>
                                             </div>
