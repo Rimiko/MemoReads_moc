@@ -188,6 +188,15 @@ a:hover img{
 float: left;
 list-style: none;
 }
+.pageleft{
+    float: left;
+
+}
+.pageright{
+    float: right;
+
+
+}
 
 
 

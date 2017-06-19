@@ -206,14 +206,14 @@ unset($_SESSION['true2']);
                   </div>
                   </div>
                 </div>
-
+<!-- 
             <ul class="paging">
-            <div class="page col-md-6">
+            <div class="pageleft col-md-6">
                 <li><a href="#" class="btn btn-default left">前</a></li></div>
-            <div class="page col-md-6">
+            <div class="pageright col-md-6">
                 <li><a href="#" class="btn btn-default right">次</a></li></div>
-          </ul>
-          </div>
+          </ul> -->
+      <!--     </div> -->
                       </div>
 
 
