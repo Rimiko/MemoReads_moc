@@ -137,11 +137,18 @@ unset($_SESSION['true2']);
   <div id="background">
     <div class="aboutus">
         <div class="container">
-            <h3><i class="glyphicon glyphicon-user"></i> <strong><?php echo $member['name'];?></strong><small style="color:white;">さんのページ</small></h3>
+
             <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
-    <div class="col-sm-12 col-md-offset-1">
-        <div class="col-sm-3 margin-img">
+
+<!--                 <h2 class="col-lg-6" style="color:white;"><strong><?php echo $member['name'];?></strong><small style="color:white;">さんのマイページ</small></h2> -->
+
+
+
+
+    <div class="col-lg-12">
+        <div class="col-lg-3 profile-sidebar">
+        <strong style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small>
             <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
           <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
@@ -157,48 +164,31 @@ unset($_SESSION['true2']);
           </div>
         </div>
     </div>
-        </div>
-        <div class="col-sm-5 well margin-well">
+            <div class="col-sm-12 well margin-well">
             <p>
-            Age : <strong><?php echo $member['age'];?></strong>
+            年齢 : <?php echo $member['age'];?>代
             <br>
-            Occupation :<strong><?php echo $member['job'];?></strong>
+            職業 :<?php echo $member['job'];?>
             <br>
-            Favorite person : <strong><?php echo $member['great_man'];?></strong>
+            尊敬する偉人 : <?php echo $member['great_man'];?>
             <br>
-            Hobby :<strong><?php echo $member['hobby'];?></strong>
+            趣味 :<?php echo $member['hobby'];?>
             <br>
-            Free comment : <strong class="free"><?php echo $member['comment'];?></strong>
-<!--             <br>
-            Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a> -->
+            ひとこと : <?php echo $member['comment'];?>
             </p>
-            <div class="pull-right">
+            <div class="pull-center">
             <a href="mypage_edit.php" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>  編集ページ</a>
             </div>
         </div>
-
-
-    </div>
-</div>
-
-            </div>
         </div>
-        <br>
-        <br>
-                <div class="container">
-            <h3><i class="fa fa-book" aria-hidden="true"></i> Book Shelf       <a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
-            <div class="text-center">
-    </div>
-    
-    <!-- <div class="our-team"> -->
-
-            
+            <div class="col-lg-9">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;<a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
                 <div class="bookshelf">
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 
-                    <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK<br><a href='delete.php' style='color:black;'>削除</a>"></a>
+                    <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
                   <?php foreach($books_array as $books_each){ 
                       $start_date = strtotime($books_each['start_date']);
                       $end_date = strtotime($books_each['end_date']);
@@ -216,12 +206,29 @@ unset($_SESSION['true2']);
                   </div>
                   </div>
                 </div>
+
             <ul class="paging">
-
-                <li><a href="#" class="btn btn-default left">前</a></li>
-
-                <li><a href="#" class="btn btn-default right">次</a></li>
+            <div class="page col-md-6">
+                <li><a href="#" class="btn btn-default left">前</a></li></div>
+            <div class="page col-md-6">
+                <li><a href="#" class="btn btn-default right">次</a></li></div>
           </ul>
+          </div>
+                      </div>
+
+
+
+
+    </div>
+</div>
+
+            </div>
+
+        <br>
+        <br>
+
+                              </div>
+                      </div>
   
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
@@ -266,7 +273,7 @@ $(function(){
     });
 });
 </script>
-            </div>
+
             </div>
         </div>
     <!-- </div> -->

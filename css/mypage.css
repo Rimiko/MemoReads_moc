@@ -7,7 +7,20 @@ input::-webkit-input-placeholder{
 
 }
 
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+/*    margin-top: 90px;*/
+    border-radius: 10px;
+}
+.img-thumbnail{
+    border: none;
+}
 
+.pull-center{
+    text-align: center;
+    padding-top:20px; 
+}
 .containter h3{
     padding-bottom: 0;
     color: black;
@@ -50,7 +63,7 @@ input::-webkit-input-placeholder{
     }
 }
 h3{
-    padding-left: 80px;
+/*    padding-left: 80px;*/
 
 }
 .img-responsive{
@@ -96,12 +109,12 @@ h3{
 .well p{
     padding-top: 10px;
     font-size: 15px;
-    color:white;
+    color:black;
 }
 .well strong{
     padding-top: 10px;
     font-size: 20px;
-    color:white;
+    color:black;
 }
 .free strong{
     font-size:5px;
@@ -120,9 +133,15 @@ h3{
     position: relative;
     width: 700px;
     height: 897px;
-    margin-left: 200px;
+    margin-left: 50px;
     box-shadow:5px 5px 5px 5px rgba(0,0,0,1);
 
+}
+.shelftitle{
+    margin:0 auto;
+    text-align: center;
+margin-left: 180px;
+padding-top:30px;
 }
 
 .absolute{
@@ -168,12 +187,6 @@ a:hover img{
 .paging li{
 float: left;
 list-style: none;
-}
-.paging .right{
-    margin-left: 870px
-}
-.paging .left{
-    margin-left: 30px
 }
 
 
