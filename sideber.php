@@ -86,9 +86,9 @@ unset($_SESSION['true2']);
  
      
   
-  <div class="container">
-    <div class="row profile">
-        <div class="col-md-3">
+  <!-- <div class="container"> -->
+    <!-- <div class="row profile"> -->
+        <!-- <div class="col-md-3"> -->
             <div class="profile-sidebar"
             style="width:262px; margin-top: 154px;">
                 <!-- SIDEBAR USERPIC -->
@@ -102,28 +102,28 @@ unset($_SESSION['true2']);
                     <div class="profile-usertitle-name">
 
                         
-                        <?php echo $avatar_each['name']?>
+                        <h4>ようこそ <strong><?php echo $avatar_each['name']; ?></strong>さん</h4>
                     </div>
                    
- <div class="container">
-    <div class="row ptlv">
-        <div class="text-center date-body" style="width:100px">
-          <label for="" class="date-title">Point</label>
-          <div class="date-content">
-            <p class="dia"><strong><?php echo $avatar_each['point']?></strong> pt</p>
+                     <div class="container">
+                        <div class="row ptlv">
+                            <div class="text-center date-body" style="width:100px">
+                              <label for="" class="date-title">Point</label>
+                              <div class="date-content">
+                                <p class="dia"><strong><?php echo $avatar_each['point']?></strong> pt</p>
 
-          </div>
-        </div>
-            <div class="text-center date-body" style="width:100px">
-          <label for="" class="date-title">Level</label>
-          <div class="date-content">
+                              </div>
+                            </div>
+                                <div class="text-center date-body" style="width:100px">
+                              <label for="" class="date-title">Level</label>
+                              <div class="date-content">
 
 
-            <p class="dia"><strong><?php echo $avatar_each['level']?></strong> Lv.</p>
-          </div>
-        </div>
-    </div>
-</div><?php } ?>
+                                <p class="dia"><strong><?php echo $avatar_each['level']?></strong> Lv.</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div><?php } ?>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
@@ -135,6 +135,6 @@ unset($_SESSION['true2']);
                 <!-- SIDEBAR MENU -->
 
                 <!-- END MENU -->
-            </div>
+            <!-- </div> -->
         </div>
-    </div>
+    <!-- </div> -->

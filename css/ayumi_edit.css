@@ -33,6 +33,7 @@ body {
 hi,h2,h3,h4,h5,h6 {
   color:#333;
   line-height:1.1em;
+  font-weight: bold: 
 }
 
 p {
@@ -163,18 +164,18 @@ Licensed under MIT
   padding: 20px 0 10px 0;
   background: #fff;
   margin-top: 90px;
-  border-radius: 30px;
+  border-radius: 10px;
 }
 
 
 .profile-userpic img {
   float: none;
   margin: 0 auto;
-  width: 50%;
-  height: 50%;
-  -webkit-border-radius: 50% !important;
+  /*width: 50%;*/
+  /*height: 50%;*/
+  -webkit-border-radius: 10px !important;
   -moz-border-radius: 50% !important;
-  border-radius: 50% !important;
+  /*border-radius: 50% !important;*/
 }
 
 .profile-usertitle {
@@ -1480,6 +1481,10 @@ color: #999;
 width: 130px;
 height: 150px;
 }
+
+.well-sm h4{
+  font-weight: 600;
+}
 .up-rank{
   margin:-20px 80px;
   height:170px;
@@ -1506,6 +1511,9 @@ color: #999;
 
 .user-rank{
   padding-left: 50px;
+}
+.book{
+  font-size: 50px;
 }
 /*.rank img{margin-right: 440px;
 
