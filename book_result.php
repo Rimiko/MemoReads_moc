@@ -7,6 +7,10 @@ require('dbconnect.php');
 
 
 $_REQUEST['search_word'];
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 
 
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
