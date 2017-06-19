@@ -84,15 +84,17 @@ h3{
 .ptlv{
     margin-left: 22px;
 }
-
+.name{
+    text-align: center;
+}
 .date-body{
   background-color: white;
   padding:0 5px 5px 5px;
   float: left;
-  border: 1px solid green;
+ /* border: 1px solid green;*/
 }
 .date-body .date-title{
-  color: green;
+  color: black;
 }
 
 
@@ -113,7 +115,7 @@ h3{
 }
 .well strong{
     padding-top: 10px;
-    font-size: 20px;
+    font-size: 15px;
     color:black;
 }
 .free strong{
@@ -189,11 +191,15 @@ float: left;
 list-style: none;
 }
 .pageleft{
+    display: inline-block;
     float: left;
+
 
 }
 .pageright{
+display: inline-block;
     float: right;
+    padding-left: 300px;
 
 
 }
