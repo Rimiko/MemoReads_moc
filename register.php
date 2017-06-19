@@ -134,6 +134,7 @@ if(empty($_POST['password_2'])){
 	<link href="css/style.css" rel="stylesheet">	
     <link href="css/register.css" rel="stylesheet">	
     <link href="css/header.css" rel="stylesheet">
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -223,22 +224,22 @@ if(empty($_POST['password_2'])){
                             <div class="cols-sm-12">
                              
         						<div class="col-xs-4">
-                    				<img src="images/dragon1.png" class="img-responsive img-radio" width="87" height="87">
+                    				<a class="iframe" href="images/dragon1.png"><img src="images/dragon1.png" class="img-responsive img-radio" width="87" height="87"></a>
                     				<!-- <button type="button" class="btn btn-primary btn-radio">lion</button> -->
                     				<input name="avatar_id" type="radio" id="left-item" value="1">
-                                    <p>アバターA</p>
+                                    <p>ドラゴン</p>
                                 </div>
             			        <div class="col-xs-4">
-                    				<img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87">
+                    				<a class="iframe" href="images/i07.jpg"><img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87"></a>
                     				<!-- <button type="button" class="btn btn-primary btn-radio">cat</button> -->
                     				<input name="avatar_id" type="radio" id="middle-item" value="4">
-                                    <p>アバターB</p>
+                                    <p>何かの卵</p>
                     			</div>
                     			<div class="col-xs-4">
-                    				<img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87">
+                    				<a class="iframe" href="images/mon_107.bmp"><img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87"></a>
                     				<!-- <button type="button" class="btn btn-primary btn-radio">dog</button> -->
                     				<input name="avatar_id" type="radio" id="right-item" value="7">
-                                    <p>アバターC</p>
+                                    <p>モンスター</p>
                     			</div>
 
                                 <?php
@@ -409,6 +410,15 @@ if(empty($_POST['password_2'])){
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 	<script src="js/functions.js"></script>
     <script src="contactform/contactform.js"></script>
+
+     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+    <script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"30%", height:"60%"});
+   });
+</script>
     
 </body>
 </html>

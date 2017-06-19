@@ -197,6 +197,7 @@ unset($_SESSION['true2']);
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+
                     <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK<br><a href='delete.php' style='color:black;'>削除</a>"></a>
                   <?php foreach($books_array as $books_each){ 
                       $start_date = strtotime($books_each['start_date']);
@@ -221,6 +222,7 @@ unset($_SESSION['true2']);
 
                 <li><a href="#" class="btn btn-default right">次</a></li>
           </ul>
+  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
