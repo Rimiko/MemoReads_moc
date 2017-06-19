@@ -128,11 +128,14 @@ if(empty($error)){
                                     <h2 class="animation animated-item-1"><span style="color: #F9A843; font-size: 100px; /*box-shadow: 5px 5px 5px 5px rgba(200,100,100,0.5)*/;">MEMOREADS</span></h2>
                                     <p class="animation animated-item-2" style="color: #F9A843; font-size: 40px;">Read Review Relate</p>
                                     <!-- <a class="btn-slide animation animated-item-3" href="#">Read More</a> -->
+                                    <label>
+                                      <a href="register.php" class="btn btn-lg btn-warning col-lg-12"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
+                                    </label>
                                 </div>
 
 
                             </div>
-                                 <div class="container-fluid">
+                <div class="container-fluid">
                   <div class="row-fluid" >
                    
                       
@@ -191,23 +194,23 @@ if(empty($error)){
                                     </fieldset>
                                 </form>
 
-                    </div> 
+                      </div> 
                         
-                        <!-- <a href="#" class="btn btn-primary btn-warning col-md-offset-9">SIGN UP HERE!!</a> -->
+                        
                                 
-                            </div>
+                  </div>
 
-                            <div class="col-sm-6 hidden-xs animation animated-item-4">
+                            <!-- <div class="col-sm-6 hidden-xs animation animated-item-4">
                                 <div class="slider-img">
-                                    <!-- <img src="images/slider/img3.png" class="img-responsive"> -->
+                                    <! <img src="images/slider/img3.png" class="img-responsive">
                                 </div>
                             </div>
-
-                        </div>
+ --> 
+                </div>
                     </div>
-                    <label>
+                    <!-- <label>
                     <a href="register.php" class="btn btn-lg btn-warning col-lg-12"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
-                    </label>
+                    </label> -->
                 </div><!--/.item-->             
             </div><!--/.carousel-inner-->
         </div><!--/.carousel-->
@@ -217,7 +220,7 @@ if(empty($error)){
      <div class="feature">
       <!-- <div class="touka"> -->
         <div class="text-center" >
-            <h1>WEEKLY RANKINGS</h1>
+            <h1 style="font-size: 60px;">WEEKLY RANKINGS</h1>
                 <!-- <img src="images/cooltext245006182452535.png" > -->
         </div>
 
@@ -597,45 +600,45 @@ if(empty($error)){
     <section id="partner">
         <div class="container">
             <div class="center wow fadeInDown">
-                <h2>Developers</h2>
-                <div class="footer">
-            <div class="container">
-                <!-- <div class="container"> -->
-            <div class="developers">
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
-                        <div><img class="image-circle" src="images/rimiko.JPG"> </div>  
-                        <h2>Rimiko Fukumitsu</h2>
-                        
+                        <h2>Developers</h2>
+              <div class="footer">
+                <div class="container">
+                        <!-- <div class="container"> -->
+                  <div class="developers">
+                      <div class="col-md-3">
+                        <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
+                                <a href="https://www.facebook.com/profile.php?id=100006744364920&fref=ts"><img class="image-circle" src="images/rimiko.JPG"></a>
+                                <h2>Rimiko Fukumitsu</h2>
+                                
+                        </div>
+                      </div>
+                        <div class="col-md-3">
+                            <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
+                                <div><img class="image-circle" src="images/naru.JPG"></div> 
+                                <h2>Naru<br> Nishimura</h2>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
+                                <div><img class="image-circle" src="images/atsushi.JPG"></div>  
+                                <h2>Atsushi Miyamoto</h2>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
+                                <div><img class="image-circle" src="images/IMG_1696.jpg"></div> 
+                                <h2>Ayumi <br>Maeda</h2>
+                                
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.JPG"></div> 
-                        <h2>Naru<br> Nishimura</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.JPG"></div>  
-                        <h2>Atsushi Miyamoto</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.jpg"></div> 
-                        <h2>Ayumi <br>Maeda</h2>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-            </div>    
+                 </div>
+                </div>    
 
             
-                   </div>
+              </div>
             </div>        
         </div><!--/.container-->
     </section><!--/#partner-->

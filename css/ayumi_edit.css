@@ -1485,6 +1485,10 @@ height: 150px;
 .well-sm h4{
   font-weight: 600;
 }
+
+.well-sm:hover img{
+    opacity: 1;
+}
 .up-rank{
   margin:-20px 80px;
   height:170px;
