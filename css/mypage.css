@@ -37,8 +37,9 @@ input::-webkit-input-placeholder{
     }
     .margin-well{
         margin-top: 16px;
-        background-image: url(../images/paper.png);
-        box-shadow: 5px 5px 5px rgba(0,0,0,1);
+        background-color: transparent;
+
+        border:none;
     }
 }
 
@@ -63,9 +64,9 @@ h3{
     text-align: -webkit-right;
 }
 /*ポイントとレベル*/
-/*.ptlv{
-    margin-left: 50px;
-}*/
+.ptlv{
+    margin-left: 22px;
+}
 
 .date-body{
   background-color: white;
@@ -91,6 +92,12 @@ h3{
 .well p{
     padding-top: 10px;
     font-size: 15px;
+    color:white;
+}
+.well strong{
+    padding-top: 10px;
+    font-size: 20px;
+    color:white;
 }
 .free strong{
     font-size:5px;
@@ -185,7 +192,7 @@ list-style: none;
 }
 
     /*吹き出し*/
-.detail{
+/*.detail{
 position:relative;
 }
 .detail:hover:after{
@@ -198,10 +205,10 @@ left:0;
 width:100px;
 height:50px;
 line-height:20px;
-background-color:#fbd76f;
-/*font-weight:bold;*/
+background-color:#fbd76f;*/
+/*font-weight:bold;
 text-align:center;
 color:black;
-}
+}*/
 
 

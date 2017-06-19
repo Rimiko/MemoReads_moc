@@ -38,8 +38,6 @@ mysqli_real_escape_string($db,$bookauthor),
 mysqli_real_escape_string($db,$bookdescription),
 mysqli_real_escape_string($db,$bookid));
 
-
-
 mysqli_query($db,$sql) or die(mysqli_error($db));
 header("Location:mypage_edit.php");
 exit();
@@ -48,7 +46,7 @@ exit();
 }
 // var_dump($_POST);
 if(!empty($_POST)){
-    var_dump($_POST);
+    // var_dump($_POST);
 $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`bestbook_id`=%d,`great_man`="%s",`comment`="%s" WHERE `user_id`='.$_SESSION['login_member_id'],
     mysqli_real_escape_string($db,$_POST['name']),
     mysqli_real_escape_string($db,$_POST['avatar_id']),
@@ -103,20 +101,42 @@ unset($_SESSION['book']);
 	<div class="container">
 			<div class="row main">
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="" id="a">
+        <h4>ベスト本・プロフィール編集</h4>
+                <form method="get" action="mypage_edit_result.php" >
+    <div class="form-group">
+        <label for="job" class="cols-sm-2 control-label">ベスト本の変更</label>
+            <div class="cols-sm-10">
+
+   <?php if(empty($_SESSION['book']['title'])): ?>
+     <input id="a" type="text" name="title" value="">
+    <?php else: ?>
+    <input id="a" type="text" name="title" value="<?php echo $booktitle; ?>">
+    <?php endif; ?>
+     <button>検索</button>
+    </div>
+    </div>
+ </form>
+                                 <br>
+					<form class="form-horizontal" method="post" action="">
 						<div class="form-group">
-						<h3>プロフィール編集</h3>
+                                <h4>プロフィール編集</h4>
+
 							<label for="name" class="cols-sm-2 control-label">名前</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <?php if (isset($_POST['name'])){ ?>
+                                <input type="text" class="form-control" name="name" id="a" value="<?php echo $_POST['name']; ?>" />
+                                <?php }else{ ?>
 									<input type="text" class="form-control" name="name" id="a" value="<?php echo $detail_table['name']; ?>" />
+                                    <?php } ?>
+
 								</div>
 							</div>
 						</div>
 
 						<p style="color:black;"><strong>アバター選択</strong></p>
-<!--                         <form method="get" action=""> -->
+
 						<div class="col-xs-4">
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
         				<input name="avatar_id" type="radio" value="1" checked />monkey<br />
@@ -129,7 +149,6 @@ unset($_SESSION['book']);
         				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
         				<input name="avatar_id" type="radio" value="3" />dog<br />
         			</div>
-
 
 						<div class="form-group">
 							<label for="job" class="cols-sm-2 control-label">職業</label>
@@ -156,30 +175,20 @@ unset($_SESSION['book']);
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="great_man" id="a" value="<?php echo $detail_table['great_man']; ?>" />
+									<input type="text" class="form-control" name="great_man" id="a" value="<?php echo $detail_table['name']; ?>" />
 								</div>
 							</div>
  </div>
+
 						<div class="form-group ">
 					<label for="comment" class="cols-sm-2 control-label">ひとこと</label>
                     <textarea class="form-control" id="a" rows="3" name="comment" ><?php echo $detail_table['comment']; ?></textarea>
                 </div>
-					</form>
-<form method="get" action="mypage_edit_result.php" id="b">
-    <div class="form-group">
-        <label for="job" class="cols-sm-2 control-label">ベスト本</label>
-            <div class="cols-sm-10">
 
-   <?php if(empty($_SESSION['book']['title'])): ?>
-     <input id="b" type="text" name="title" value="">
-    <?php else: ?>
-    <input id="b" type="text" name="title" value="<?php echo $booktitle; ?>">
-    <?php endif; ?>
-     <button>検索</button>
-    </div>
-    </div>
- </form>
-         <input type="submit" name="edit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更" form="a">
+
+         <input type="submit" name="edit" class="btn btn-primary btn-lg btn-block login-button cols-sm-2" value="変更" >
+
+                    </form>
 				</div>
 				</div>
 			</div>
