@@ -169,6 +169,15 @@ p{
   margin-left:790px;
   margin-top:3px;
 }
+.checkbox-inline{
+  margin-left:none;
+}
+.date{
+  width:60%;
+}
+.date2{
+  width:60%;
+}
 
 /*透過処理
 /*#allbox-sub{
