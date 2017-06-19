@@ -48,6 +48,54 @@ if(!empty($_REQUEST['user_id'])){
   $bestbook = mysqli_fetch_assoc($bestbooks);
   // var_dump($bestbook);
 
+  //paging処理
+//ページング処理
+
+//0.ページ番号を取得（ある場合はGET送信、ない場合は１ページ目と認識する）
+$page = '';
+
+//GET送信されてきたページ番号を取得
+if(isset($_GET['page'])){
+  $page = $_GET['page'];
+}
+
+//ないときは1ページ目
+if ($page == ''){
+  $page = 1;
+}
+
+//1.表示する正しいページの数値を設定（MIN）
+$page = max($page,1);
+//2.必要なページ数を計算
+//1ページに表示する行数
+$row = 25;
+
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT  COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+      $sql ='SELECT COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+  }
+
+
+$record_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+$table_cnt = mysqli_fetch_assoc($record_cnt);
+//ceil() :切り上げする関数
+$maxPage = ceil($table_cnt['cnt'] / $row);
+
+//3.表示する正しいページ数を設定(MAX)
+$page = min($page,$maxPage);
+
+//4.ページに表示する件数だけ取得
+$start = ($page-1)* $row;
+
+
+
+
+
+
+
+
 //パワーアップ
 if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
     # code...
@@ -141,14 +189,15 @@ unset($_SESSION['true2']);
             <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
 
-<!--                 <h2 class="col-lg-6" style="color:white;"><strong><?php echo $member['name'];?></strong><small style="color:white;">さんのマイページ</small></h2> -->
+
 
 
 
 
     <div class="col-lg-12">
         <div class="col-lg-3 profile-sidebar">
-        <strong style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small>
+        <div class="name">
+        <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></div>
             <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
           <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
@@ -166,15 +215,15 @@ unset($_SESSION['true2']);
     </div>
             <div class="col-sm-12 well margin-well">
             <p>
-            年齢 : <?php echo $member['age'];?>代
+            年齢 : <strong><?php echo $member['age'];?>代</strong>
             <br>
-            職業 :<?php echo $member['job'];?>
+            職業 :<strong><?php echo $member['job'];?></strong>
             <br>
-            尊敬する偉人 : <?php echo $member['great_man'];?>
+            尊敬する偉人 : <strong><?php echo $member['great_man'];?></strong>
             <br>
-            趣味 :<?php echo $member['hobby'];?>
+            趣味 :<strong><?php echo $member['hobby'];?></strong>
             <br>
-            ひとこと : <?php echo $member['comment'];?>
+            ひとこと : <strong><?php echo $member['comment'];?></strong>
             </p>
             <div class="pull-center">
             <a href="mypage_edit.php" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>  編集ページ</a>
@@ -197,7 +246,7 @@ unset($_SESSION['true2']);
                       if(isset($books_each['stars'])&&$books_each['stars']=='5'){ ?>
                       <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="favorite img-rounded img-responsive" title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAVORITE BOOK<br><?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="112" height="175" ></a>
                       <?php }else{ ?>
-                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="105" height="164" ></a>
+                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php?record_id=<?php echo $books_each['record_id']; ?>' style='color:black;'>削除</a>" width="105" height="164" ></a>
 <?php } ?>
 <?php } ?>
 
@@ -206,13 +255,13 @@ unset($_SESSION['true2']);
                   </div>
                   </div>
                 </div>
-<!-- 
+
             <ul class="paging">
             <div class="pageleft col-md-6">
-                <li><a href="#" class="btn btn-default left">前</a></li></div>
+                <li><?php if ($page > 1){ ?><a href="mypage.php?page=<?php echo $page-1 ?>" class="btn btn-default left">前</a><?php }else{ ?><?php } ?></li></div>
             <div class="pageright col-md-6">
-                <li><a href="#" class="btn btn-default right">次</a></li></div>
-          </ul> -->
+                <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
+          </ul>
       <!--     </div> -->
                       </div>
 
