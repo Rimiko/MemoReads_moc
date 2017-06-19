@@ -39,7 +39,7 @@
   $sql = sprintf('SELECT LAST_INSERT_ID() AS id');
 
   $last_login = mysqli_query($db,$sql) or die(mysqli_error($db));
-  $login = mysqli_fetch_assoco($last_login);
+  $login = mysqli_fetch_assoc($last_login);
  var_dump($login);
 
 
