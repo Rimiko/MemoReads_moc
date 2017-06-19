@@ -198,7 +198,7 @@ unset($_SESSION['true2']);
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
                   <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" class="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="112" height="175" ></a>
+                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" class="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="105" height="164" ></a>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>

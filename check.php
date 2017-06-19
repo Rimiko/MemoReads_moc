@@ -21,6 +21,12 @@
  $job = htmlspecialchars($_SESSION['join']['job'],ENT_QUOTES,'UTF-8');
  $hobby = htmlspecialchars($_SESSION['join']['hobby'],ENT_QUOTES,'UTF-8');
 
+ //アバター画像取得
+ $sql ='SELECT a.* FROM `avatar`a WHERE `avatar_id` ='.$avatar;
+ $avatars=mysqli_query($db,$sql) or die(mysqli_error($db));
+ $avatar_path = mysqli_fetch_assoc($avatars);
+ var_dump($avatar_path);
+
  
  // DB登録処理
  if (!empty($_POST)) {
@@ -107,8 +113,8 @@
                         <label for="avatar" class="cols-sm-2 control-label">アバター選択</label>
                         <div class="cols-sm-12">
                         <div class="col-xs-4">
-                        <img src="images/background.png" class="img-responsive img-radio">
-                        <p><?php echo $avatar; ?></p>
+                        <img src="images/<?php echo $avatar_path['avatar_path']; ?>" class="img-responsive img-radio">
+                       <!--  <p><?php echo $avatar; ?></p> -->
                         <input type="checkbox" id="right-item" class="hidden">
                     </div>
                     </div>
@@ -131,7 +137,11 @@
                             <label for="name" class="cols-sm-2 control-label">性別</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                  <p><?php echo $gender; ?></p>
+                                <?php if($gender=='1'){?>
+                                  <p>男</p>
+                              <?php }elseif($gender=='2'){?>
+                              <p>女</p>
+                              <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -179,29 +189,29 @@
                 <!-- <div class="container"> -->
             <div class="developers">
                 <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="image/rimiko.png">
-                        <div><img class="image-circle" src="image/rimiko.png"> </div>    
+                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
+                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
                         <h2>Rimiko Fukumitsu</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="image/naru.png"></div>    
+                        <div><img class="image-circle" src="images/naru.png"></div>    
                         <h2>Naru<br> Nishimura</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="image/atsushi.png"></div>    
+                        <div><img class="image-circle" src="images/atsushi.png"></div>    
                         <h2>Atsushi Miyamoto</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="image/IMG_1696.png"></div>    
+                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
                         <h2>Ayumi <br>Maeda</h2>
                         
                     </div>

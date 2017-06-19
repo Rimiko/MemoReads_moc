@@ -143,16 +143,16 @@ unset($_SESSION['book']);
 						<p style="color:black;"><strong>アバター選択</strong></p>
 
 						<div class="col-xs-4">
-        				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<input name="avatar_id" type="radio" value="1" checked />monkey<br />
+        				<img src="images/dragon1.png" class="img-responsive img-radio"  width="87" height="87">
+        				<input name="avatar_id" type="radio" value="1" checked />アバターA<br />
         			</div>
         			  <div class="col-xs-4">
-        				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<input name="avatar_id" type="radio" value="2" />dog<br />
+        				<img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87">
+        				<input name="avatar_id" type="radio" value="4" />アバターB<br />
         			</div>
         			<div class="col-xs-4">
-        				<img src="images/IMG_0243.jpg" class="img-responsive img-radio">
-        				<input name="avatar_id" type="radio" value="3" />dog<br />
+        				<img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87">
+        				<input name="avatar_id" type="radio" value="7" />アバターC<br />
         			</div>
 
 						<div class="form-group">
@@ -180,7 +180,7 @@ unset($_SESSION['book']);
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="great_man" id="a" value="<?php echo $detail_table['name']; ?>" />
+									<input type="text" class="form-control" name="great_man" id="a" value="<?php echo $detail_table['great_man']; ?>" />
 								</div>
 							</div>
  </div>

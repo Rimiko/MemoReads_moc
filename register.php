@@ -177,7 +177,7 @@ if(empty($_POST['password_2'])){
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
-                                    <input type="email" name="email" value="<?php echo htmlspecialchars($email,ENT_QUOTES,'utf-8'); ?>">
+                                    <input type="email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($email,ENT_QUOTES,'utf-8'); ?>">
                                     <?php if(isset($error['email']) && $error['email']=='blank'): ?>
                                         <p>emailを入力してください</p>
                                     <?php endif; ?>
