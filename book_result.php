@@ -464,7 +464,7 @@ function ChangeTab(tabname) {
                         <!-- Split button -->
                        <!--  <div class="btn-group">
                             <button type="button" class="btn btn-primary" style="width: 100px;height: 26px;"> -->
-                                <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p><!-- </button>
+                                <p><a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $top_each['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p><!-- </button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
                                 <!-- <span class="caret"></span><span class="sr-only">Social</span> -->
                             <!-- </button>
@@ -603,7 +603,7 @@ function ChangeTab(tabname) {
                         <!-- Split button -->
                        <!--  <div class="btn-group">
                             <button type="button" class="btn btn-primary" style="width: 100px;height: 26px;"> -->
-                                <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p><!-- </button>
+                                <p><a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $top_each['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" ></a></p><!-- </button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
                                 <!-- <span class="caret"></span><span class="sr-only">Social</span> -->
                             <!-- </button>
