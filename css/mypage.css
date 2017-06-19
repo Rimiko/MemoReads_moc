@@ -53,6 +53,10 @@ h3{
     padding-left: 80px;
 
 }
+.img-responsive{
+    display: inherit;
+    height: 170px;
+}
 
 .bestbook-title{
     color: blue;
@@ -141,7 +145,7 @@ opacity: 0.8;
 }
 .favorite{
     border: 5px solid;
-    border-color: yellow;
+    border-color: orange;
 }
 .text-center{
     width: 700px;
