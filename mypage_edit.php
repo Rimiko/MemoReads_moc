@@ -2,6 +2,11 @@
 session_start();
 require('dbconnect.php');
 
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
+
 if(isset($_SESSION['login_member_id'])){
     $sql = 'SELECT * FROM `users`u WHERE `user_id`='.$_SESSION['login_member_id'];
     $detail = mysqli_query($db,$sql) or die(mysqli_error($db));
