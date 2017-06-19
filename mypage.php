@@ -197,7 +197,8 @@ unset($_SESSION['true2']);
     <div class="col-lg-12">
         <div class="col-lg-3 profile-sidebar">
         <div class="name">
-        <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></div>
+        <h3>
+        <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></h3></div>
             <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
           <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
