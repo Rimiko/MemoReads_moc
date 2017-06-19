@@ -85,8 +85,11 @@ input::-webkit-input-placeholder {
     width: 100%;
 }
 .img-radio {
-    opacity: 0.5;
+/*    opacity: 0.5;*/
     margin-bottom: 5px;
+}
+.img-responsive{
+    height:87px;
 }
 
 .space-20 {

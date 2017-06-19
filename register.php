@@ -223,27 +223,27 @@ if(empty($_POST['password_2'])){
                             <div class="cols-sm-12">
                              
         						<div class="col-xs-4">
-                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<img src="images/dragon1.png" class="img-responsive img-radio" width="87" height="87">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">lion</button> -->
                     				<input name="avatar_id" type="radio" id="left-item" value="1">
                                     <p>アバターA</p>
                                 </div>
             			        <div class="col-xs-4">
-                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">cat</button> -->
-                    				<input name="avatar_id" type="radio" id="middle-item" value="2">
+                    				<input name="avatar_id" type="radio" id="middle-item" value="4">
                                     <p>アバターB</p>
                     			</div>
                     			<div class="col-xs-4">
-                    				<img src="images/background.png" class="img-responsive img-radio">
+                    				<img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87">
                     				<!-- <button type="button" class="btn btn-primary btn-radio">dog</button> -->
-                    				<input name="avatar_id" type="radio" id="right-item" value="3">
+                    				<input name="avatar_id" type="radio" id="right-item" value="7">
                                     <p>アバターC</p>
                     			</div>
 
                                 <?php
 
-                                    if(isset($_POST['avatar_id']) && ($_POST['avatar_id']=='1' || $_POST['avatar_id']=='2' || $_POST['avatar_id']=='3')){
+                                    if(isset($_POST['avatar_id']) && ($_POST['avatar_id']=='1' || $_POST['avatar_id']=='4' || $_POST['avatar_id']=='7')){
                                      $avatar = $_POST['avatar_id'];
                                      echo 'アバター:'. $_POST['avatar_id'];
                                      
