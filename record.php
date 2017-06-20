@@ -14,6 +14,8 @@ if(empty($_SESSION['login_member_id'])){
 
 
 
+
+
 if (!empty($_POST['title'])) {
   if ($_REQUEST['book_select'] == '') {
     $error['book_select'] == 'blank';
@@ -90,6 +92,11 @@ mysqli_real_escape_string($db,$end_date),
 mysqli_real_escape_string($db,$recordid2['book_id']));
 
 
+
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+$sql = 'UPDATE`users`INNER JOIN `records` ON `users`.`user_id` = `records`.`user_id` SET `users`.`point` = `users`.`point`+5 WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
+//SQL文実行
 mysqli_query($db,$sql) or die(mysqli_error($db));
 
 }
