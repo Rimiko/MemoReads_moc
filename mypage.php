@@ -188,8 +188,11 @@ $start = ($page-1)* $row;
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-
+<?php if(empty($bestbook)){?>
+<a href="" class="detail iframe"><img src="images/noimage.png" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
+<?php }else{ ?>
                     <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
+                    <?php } ?>
                   <?php foreach($books_array as $books_each){ 
                       $start_date = strtotime($books_each['start_date']);
                       $end_date = strtotime($books_each['end_date']);
