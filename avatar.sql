@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017 年 6 朁E20 日 03:12
+-- Generation Time: 2017 年 6 朁E20 日 03:18
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -26,10 +26,12 @@ SET time_zone = "+00:00";
 -- テーブルの構造 `avatar`
 --
 
-CREATE TABLE `avatar` (
-  `avatar_id` int(11) NOT NULL,
-  `avatar_path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `avatar`;
+CREATE TABLE IF NOT EXISTS `avatar` (
+  `avatar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `avatar_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`avatar_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- テーブルのデータのダンプ `avatar`
@@ -46,25 +48,6 @@ INSERT INTO `avatar` (`avatar_id`, `avatar_path`) VALUES
 (8, 'mon_109.gif'),
 (9, 'mon_110.bmp');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `avatar`
---
-ALTER TABLE `avatar`
-  ADD PRIMARY KEY (`avatar_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `avatar`
---
-ALTER TABLE `avatar`
-  MODIFY `avatar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
