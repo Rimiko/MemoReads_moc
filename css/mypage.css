@@ -162,11 +162,18 @@ opacity: 0.8;
 .best{
     border: 5px solid;
     border-color: red;
+    margin-top: 5px;
 
 }
 .favorite{
     border: 5px solid;
     border-color: orange;
+    margin-top: 5px;
+}
+.book{
+    border: 5px solid;
+    border-color: white;
+    margin-top: 5px;
 }
 .text-center{
     width: 700px;
