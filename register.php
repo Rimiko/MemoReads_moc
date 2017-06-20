@@ -5,7 +5,7 @@ session_start();
 
 
 
-var_dump($_POST);
+// var_dump($_POST);
 
 // var_dump($_REQUEST);
 $name = '';
@@ -20,59 +20,59 @@ if(!empty($_POST)){
 
     if(empty($_POST['name'])){
         $error['name'] = 'blank';
-        echo 'a';
+        // echo 'a';
     }else {
         $name = $_POST['name'];
-        echo 'm';
+        // echo 'm';
     }
     
     if(empty($_POST['email'])){
         $error['email'] = 'blank';
-        echo 'a2';
+        // echo 'a2';
     }else{
         $email = $_POST['email'];
-        echo 'a3';
+        // echo 'a3';
     }
 // パスワード
 if(empty($_POST['password'])){
     $error['password'] = 'blank';
-    echo 'c';
+    // echo 'c';
 }elseif(strlen($_POST['password']) < 4){
     $error['password'] = 'length';
-    echo "f";
+    // echo "f";
 }else{
     $password = $_POST['password'];
-    echo 'k';
+    // echo 'k';
 }
 // 確認用パスワード
 if(empty($_POST['password_2'])){
     $error['password_2'] = 'blank';
-    echo 'd';
+    // echo 'd';
 }elseif($password !== $_POST['password_2']){
     $error['password_2'] = 'notsame';
     }else{
         $password_2 = $_POST['password_2'];
     
-    echo 'd2';
+    // echo 'd2';
     }
 
     //アバター
    
      if(empty($_POST['avatar_id'])){
         $error['avatar_id'] = 'blank';
-        echo 'P';
+        // echo 'P';
     }else {
         $avatar = $_POST['avatar_id'];
-        echo 'Q';
+        // echo 'Q';
     }
 
     //年齢
      if(empty($_POST['age'])){
         $error['age'] = 'blank';
-        echo 'G';
+        // echo 'G';
     }else {
         $age = $_POST['age'];
-        echo 'T';
+        // echo 'T';
     }
 
     // //職業
@@ -81,7 +81,7 @@ if(empty($_POST['password_2'])){
     //     echo 'j';
     // }else {
         $job = $_POST['job'];
-        echo 'u';
+        // echo 'u';
     
 
     //趣味
@@ -90,7 +90,7 @@ if(empty($_POST['password_2'])){
     //     echo 'h';
     // }else {
         $hobby = $_POST['hobby'];
-        echo 'r';
+        // echo 'r';
     
 
     //エラーがない場合

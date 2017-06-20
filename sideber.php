@@ -128,7 +128,7 @@ unset($_SESSION['true2']);
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
                 <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm"><a href="mypage_edit.php" style="color:white;">編集ページ</a></button>
+                    <button type="button" class="btn btn-success btn-sm"><a href="mypage_edit.php" style="color:#333333;">編集ページ</a></button>
                     <button type="button" class="btn btn-danger btn-sm"><a href="record.php" style="color:white;">記録ページ</a></button>
                 </div>
                 <!-- END SIDEBAR BUTTONS -->
