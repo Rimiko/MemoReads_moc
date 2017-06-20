@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/animate.css">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/register.css" rel="stylesheet">
+    <link href="css/error.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
 
     <!-- =======================================================
@@ -24,7 +24,50 @@
     ======================================================= -->
   </head>
   <body>
-  <?php include('header.php'); ?>
+  <header>        
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse.collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                       <!--  <div class="navbar-brand"> -->
+
+                         <!--  <div class="row">
+                            <div class="span12"> -->
+                  <!-- <form class="form-search form-horizontal pull-right" action="book_result.php" method="get">
+                  <div class="input-append span12">
+                  <input type="text" name="search_word" class="mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></button>
+
+                       </div>
+
+                                </form> -->
+                    <!--         </div>
+                          </div> -->
+
+                   <!--      </div> -->
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+                        <div class="menu">
+                            <ul class="nav nav-tabs" role="tablist">
+                            <?php if(isset($_SESSION['login_member_id'])){?>
+                                <li role="presentation"><a href="user_top.php"><?php }else{?><li role="presentation"><a href="top.php"><?php }?>Home</a></li>
+                                <?php if(isset($_SESSION['login_member_id'])){?>
+                                <li role="presentation"><a href="mypage.php" class="active">My Page</a></li>
+                                <li role="presentation"><a href="logout.php">Logout</a></li>
+                                <?php }else{} ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </nav>
+    </header>
+
+
     <section id="contact-page">
     <div class="kabe">
     <div class="container">
@@ -47,47 +90,9 @@
         </div>
 
         <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    </section><!--/#contact-page-->
-    <section id="partner">
-        <div class="container">
-            <div class="center wow fadeInDown">
-                <h2>Developers</h2>
-                <div class="footer">
-            <div class="container">
-                <!-- <div class="container"> -->
-            <div class="developers">
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
-                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
-                        <h2>Rimiko Fukumitsu</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
-                        <h2>Naru<br> Nishimura</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.png"></div>    
-                        <h2>Atsushi Miyamoto</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
-                        <h2>Ayumi <br>Maeda</h2>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--/#contact-page-->
 
-    
+    </section>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.1.1.min.js"></script>  
     <!-- Include all compiled plugins (below), or include individual files as needed -->

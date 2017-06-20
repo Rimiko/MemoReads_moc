@@ -48,6 +48,54 @@ if(!empty($_REQUEST['user_id'])){
   $bestbook = mysqli_fetch_assoc($bestbooks);
   // var_dump($bestbook);
 
+  //paging処理
+//ページング処理
+
+//0.ページ番号を取得（ある場合はGET送信、ない場合は１ページ目と認識する）
+$page = '';
+
+//GET送信されてきたページ番号を取得
+if(isset($_GET['page'])){
+  $page = $_GET['page'];
+}
+
+//ないときは1ページ目
+if ($page == ''){
+  $page = 1;
+}
+
+//1.表示する正しいページの数値を設定（MIN）
+$page = max($page,1);
+//2.必要なページ数を計算
+//1ページに表示する行数
+$row = 25;
+
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT  COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+      $sql ='SELECT COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+  }
+
+
+$record_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+$table_cnt = mysqli_fetch_assoc($record_cnt);
+//ceil() :切り上げする関数
+$maxPage = ceil($table_cnt['cnt'] / $row);
+
+//3.表示する正しいページ数を設定(MAX)
+$page = min($page,$maxPage);
+
+//4.ページに表示する件数だけ取得
+$start = ($page-1)* $row;
+
+
+
+
+
+
+
+
 //パワーアップ
 if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
     # code...
@@ -118,6 +166,7 @@ unset($_SESSION['true2']);
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/mypage.css" rel="stylesheet" />
     <link href="css/memoreads.css" rel="stylesheet" />
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
 
 
@@ -136,11 +185,20 @@ unset($_SESSION['true2']);
   <div id="background">
     <div class="aboutus">
         <div class="container">
-            <h3><i class="glyphicon glyphicon-user"></i> <strong><?php echo $member['name'];?></strong><small style="color:white;">さんのページ</small></h3>
+
             <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
-    <div class="col-sm-12 col-md-offset-1">
-        <div class="col-sm-3 margin-img">
+
+
+
+
+
+
+    <div class="col-lg-12">
+        <div class="col-lg-3 profile-sidebar">
+        <div class="name">
+        <h3>
+        <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></h3></div>
             <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
           <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
@@ -156,49 +214,72 @@ unset($_SESSION['true2']);
           </div>
         </div>
     </div>
-        </div>
-        <div class="col-sm-5 well margin-well">
+            <div class="col-sm-12 well margin-well">
             <p>
-            Age : <strong><?php echo $member['age'];?></strong>
+            年齢 : <strong><?php echo $member['age'];?>代</strong>
             <br>
-            Occupation :<strong><?php echo $member['job'];?></strong>
+            職業 :<strong><?php echo $member['job'];?></strong>
             <br>
-            Favorite person : <strong><?php echo $member['great_man'];?></strong>
+            尊敬する偉人 : <strong><?php echo $member['great_man'];?></strong>
             <br>
-            Hobby :<strong><?php echo $member['hobby'];?></strong>
+            趣味 :<strong><?php echo $member['hobby'];?></strong>
             <br>
-            Free comment : <strong class="free"><?php echo $member['comment'];?></strong>
-<!--             <br>
-            Best Book :<a href="book_detail.php?book_id=<?php echo $bestbook['book_id'];?>" class="bestbook"><strong class="bestbook-title"><?php echo $bestbook['title'];?></strong></a> -->
+            ひとこと : <strong><?php echo $member['comment'];?></strong>
             </p>
-            <div class="pull-right">
+            <div class="pull-center">
             <a href="mypage_edit.php" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>  編集ページ</a>
             </div>
         </div>
+        </div>
+            <div class="col-lg-9">
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;<a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
+                <div class="bookshelf">
+                  <img src="images/shelf.jpg" class="shelf">
+                  <div class="absolute">
+                    <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+
+                    <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
+                  <?php foreach($books_array as $books_each){ 
+                      $start_date = strtotime($books_each['start_date']);
+                      $end_date = strtotime($books_each['end_date']);
+                      $start_date = date('Y-m-d',$start_date);
+                      $end_date = date('Y-m-d',$end_date);
+                      if(isset($books_each['stars'])&&$books_each['stars']=='5'){ ?>
+                      <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="favorite img-rounded img-responsive" title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAVORITE BOOK<br><?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="112" height="175" ></a>
+                      <?php }else{ ?>
+                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php?record_id=<?php echo $books_each['record_id']; ?>' style='color:black;'>削除</a>" width="105" height="164" ></a>
+<?php } ?>
+<?php } ?>
+
+<!-- <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a> -->
+
+                  </div>
+                  </div>
+                </div>
+
+            <ul class="paging">
+            <div class="pageleft col-md-6">
+                <li><?php if ($page > 1){ ?><a href="mypage.php?page=<?php echo $page-1 ?>" class="btn btn-default left">前</a><?php }else{ ?><?php } ?></li></div>
+            <div class="pageright col-md-6">
+                <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
+          </ul>
+      <!--     </div> -->
+                      </div>
+
+
 
 
     </div>
 </div>
 
             </div>
-        </div>
-        <br>
-        <br>
-                <div class="container">
-            <h3><i class="fa fa-book" aria-hidden="true"></i> Book Shelf       <a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
-            <div class="text-center">
-    </div>
-    
-    <!-- <div class="our-team"> -->
 
-            
-                <div class="bookshelf">
-                  <img src="images/shelf.jpg" class="shelf">
-                  <div class="absolute">
-                    <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <a href="#" class="detail"><img src="<?php echo $bestbook['picture_url']?>" width="112" height="175" class="best"></a>
-                  <?php foreach($books_array as $books_each){ ?>
-                  <a href="#" class="detail"><img src="<?php echo $books_each['picture_url']?>" class="book" title="<?php echo $books_each['start_date'];?>-<?php echo $books_each['end_date']; ?>" width="105" height="164" ></a>
+        <br>
+        <br>
+
+                              </div>
+                      </div>
+  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
@@ -210,36 +291,39 @@ $(function(){
         // 吹き出しの CSS 設定です
         css: {
             "color": "black",
-            "font-size": "20px",
+            "font-size": "12px",
             "font-weight": "bold",
-            "padding": "20px",
+            "padding": "10px",
             "background-color": "white",
+        }
+    });
+        $('.best').balloon({
+        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
+        position: "top",
+        // 吹き出しの CSS 設定です
+        css: {
+            "color": "white",
+            "font-size": "12px",
+            "font-weight": "bold",
+            "padding": "10px",
+            "background-color": "red",
+        }
+    });
+         $('.favorite').balloon({
+        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
+        position: "top",
+        // 吹き出しの CSS 設定です
+        css: {
+            "color": "white",
+            "font-size": "12px",
+            "font-weight": "bold",
+            "padding": "10px",
+            "background-color": "orange",
         }
     });
 });
 </script>
-<?php } ?>
 
-                  </div>
-                  </div>
-                </div>
-            <ul class="paging">
-
-                <li><a href="#" class="btn btn-default left">前</a></li>
-
-                <li><a href="#" class="btn btn-default right">次</a></li>
-          </ul>
-<!--                <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                    <img src="images/services/2.jpg" alt="" >
-                    <h4>John Doe</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing eil sed deiusmod tempor</p>
-                </div>
-                <div class="col-md-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
-                    <img src="images/services/3.jpg" alt="" >
-                    <h4>John Doe</h4>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing eil sed deiusmod tempor</p>
-                </div> -->
-            </div>
             </div>
         </div>
     <!-- </div> -->
@@ -291,7 +375,19 @@ $(function(){
     <script src="js/jquery.isotope.min.js"></script>  
     <script src="js/wow.min.js"></script>
 <!--     <script src="js/functions.js"></script> -->
+<script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+<script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
 
+      // window.location.hash = "#tab1"
+      // window.location.hash = "#tab2"
+      // window.location.hash = "#tab3"
+   });
+
+
+</script>
 
     
 </body>

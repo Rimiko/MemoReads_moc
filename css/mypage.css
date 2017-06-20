@@ -1,13 +1,26 @@
 
 /*プロフィール*/
-input,
+/*input,
 input::-webkit-input-placeholder{
     font-size: 11px;
     padding-top: 3px;
 
+}*/
+
+.profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+/*    margin-top: 90px;*/
+    border-radius: 10px;
+}
+.img-thumbnail{
+    border: none;
 }
 
-
+.pull-center{
+    text-align: center;
+    padding-top:20px; 
+}
 .containter h3{
     padding-bottom: 0;
     color: black;
@@ -50,8 +63,12 @@ input::-webkit-input-placeholder{
     }
 }
 h3{
-    padding-left: 80px;
+/*    padding-left: 80px;*/
 
+}
+.img-responsive{
+    display: inherit;
+    height: 170px;
 }
 
 .bestbook-title{
@@ -67,15 +84,17 @@ h3{
 .ptlv{
     margin-left: 22px;
 }
-
+.name{
+    text-align: center;
+}
 .date-body{
   background-color: white;
   padding:0 5px 5px 5px;
   float: left;
-  border: 1px solid green;
+ /* border: 1px solid green;*/
 }
 .date-body .date-title{
-  color: green;
+  color: black;
 }
 
 
@@ -92,12 +111,12 @@ h3{
 .well p{
     padding-top: 10px;
     font-size: 15px;
-    color:white;
+    color:black;
 }
 .well strong{
     padding-top: 10px;
-    font-size: 20px;
-    color:white;
+    font-size: 15px;
+    color:black;
 }
 .free strong{
     font-size:5px;
@@ -116,9 +135,15 @@ h3{
     position: relative;
     width: 700px;
     height: 897px;
-    margin-left: 200px;
+    margin-left: 50px;
     box-shadow:5px 5px 5px 5px rgba(0,0,0,1);
 
+}
+.shelftitle{
+    margin:0 auto;
+    text-align: center;
+margin-left: 180px;
+padding-top:30px;
 }
 
 .absolute{
@@ -141,7 +166,7 @@ opacity: 0.8;
 }
 .favorite{
     border: 5px solid;
-    border-color: yellow;
+    border-color: orange;
 }
 .text-center{
     width: 700px;
@@ -165,11 +190,18 @@ a:hover img{
 float: left;
 list-style: none;
 }
-.paging .right{
-    margin-left: 870px
+.pageleft{
+    display: inline-block;
+    float: left;
+
+
 }
-.paging .left{
-    margin-left: 30px
+.pageright{
+display: inline-block;
+    float: right;
+    padding-left: 300px;
+
+
 }
 
 
