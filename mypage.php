@@ -24,30 +24,6 @@ if(!empty($_REQUEST['user_id'])){
   // var_dump($member);
 
   // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
-
-
-  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
-      $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
-  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
-      $sql ='SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
-  }
-
-  $books = mysqli_query($db,$sql) or die(mysqli_error($db));
-  $books_array = array();
-  while ($book = mysqli_fetch_assoc($books)) {
-  $books_array[]=$book;
-  }
-  // var_dump($book);
-  //ベストブック
-  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
-      $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
-  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
-     $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
-  }
-  $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
-  $bestbook = mysqli_fetch_assoc($bestbooks);
-  // var_dump($bestbook);
-
   //paging処理
 //ページング処理
 
@@ -68,23 +44,21 @@ if ($page == ''){
 $page = max($page,1);
 //2.必要なページ数を計算
 //1ページに表示する行数
-$row = 25;
+$row = 24;
 
   if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
-      $sql ='SELECT  COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+      $sql =sprintf('SELECT  COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=%d',$_REQUEST['user_id']);
   }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
-      $sql ='SELECT COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+      $sql =sprintf('SELECT COUNT(*) AS cnt FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=%d',$_SESSION['login_member_id']);
   }
-
-
 $record_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 $table_cnt = mysqli_fetch_assoc($record_cnt);
 //ceil() :切り上げする関数
 $maxPage = ceil($table_cnt['cnt'] / $row);
-
 //3.表示する正しいページ数を設定(MAX)
 $page = min($page,$maxPage);
+
 
 //4.ページに表示する件数だけ取得
 $start = ($page-1)* $row;
@@ -92,53 +66,30 @@ $start = ($page-1)* $row;
 
 
 
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql =sprintf('SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=%d ORDER BY b.`created` DESC LIMIT %d,%d',$_REQUEST['user_id'],$start,$row);
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+      $sql =sprintf('SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=%d ORDER BY r.`stars` DESC LIMIT %d,%d',$_SESSION['login_member_id'],$start,$row);
+  }
+
+  $books = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $books_array = array();
+  while ($book = mysqli_fetch_assoc($books)) {
+  $books_array[]=$book;
+  }
+  // var_dump($book);
+  //ベストブック
+  if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
+      $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
+  }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
+     $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_SESSION['login_member_id'];
+  }
+  $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+  $bestbook = mysqli_fetch_assoc($bestbooks);
+  // var_dump($bestbook);
 
 
 
-
-//パワーアップ
-if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
-    # code...
-
-if ($member[0]['point'] >= 10 && 20 > $member[0]['point'] ){
-
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif($member[0]['point'] >= 20 && 30 > $member[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($member[0]['point'] >= 30 && 40 > $member[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif($member[0]['point'] >= 40 && 50 > $member[0]['point'] ) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($member[0]['point'] >= 50 && 60 > $member[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-}
-
-if ($member[0]['level'] == 5 ) {
-$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
-mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($member[0]['level'] == 10 ) {
-    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-}
-
-
-
-
-
-    }
-
-unset($_SESSION['true']);
-unset($_SESSION['true2']);
 
 
 
@@ -247,7 +198,7 @@ unset($_SESSION['true2']);
                       if(isset($books_each['stars'])&&$books_each['stars']=='5'){ ?>
                       <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="favorite img-rounded img-responsive" title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAVORITE BOOK<br><?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php' style='color:black;'>削除</a>" width="112" height="175" ></a>
                       <?php }else{ ?>
-                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php?record_id=<?php echo $books_each['record_id']; ?>' style='color:black;'>削除</a>" width="105" height="164" ></a>
+                  <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php?record_id=<?php echo $books_each['record_id']; ?>' style='color:black;'>削除</a>" width="112" height="170" ></a>
 <?php } ?>
 <?php } ?>
 
