@@ -17,3 +17,13 @@ h5{
 	margin:5px;
 }
 
+#allbox{
+	         background-image:url("../images/background.png");
+        z-index:1;
+/*    background-repeat:      no-repeat;*/
+    background-position:    top center;
+    -moz-background-size:   cover;
+/*    background-size:        cover;*/
+    margin-bottom:0px;
+}
+
