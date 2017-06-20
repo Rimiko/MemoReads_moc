@@ -152,7 +152,11 @@
                                                    <p>職業：<?php echo $u[0]['job']; ?>
                                                    </p>
                                                     <P>POINT:<?php echo $u[0]['point']; ?></P>
+                                                    <?php if(!empty($b[0]['title'])){?>
                                                      <p>BEST本：<?php echo $b[0]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
 
 
                                                     
@@ -221,8 +225,11 @@
                                                    <p>職業：<?php echo $u[1]['job']; ?>
                                                    </p>
                                                     <P>POINT:<?php echo $u[1]['point']; ?></P>
-                                                    <P>BEST本：<?php echo $b[1]['title']; ?></P>
-                                                    
+                                                     <?php if(!empty($b[1]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[1]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,7 +292,11 @@
                                                    </p>
                                                     
                                                     <P>POINT:<?php echo $u[2]['point']; ?></P>
-                                                    <P>BEST本：<?php echo $b[2]['title']; ?></P>
+                                                     <?php if(!empty($b[2]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[2]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
@@ -348,8 +359,12 @@
                                                    <p>年齢：<?php echo $u[3]['age']; ?>代</p>
                                                    <p>職業：<?php echo $u[3]['job']; ?>
                                                    </p>
-                                                    <P>POINT:<?php echo $u[3]['point']; ?></P>
-                                                    <P>BEST本：<?php echo $b[3]['title']; ?></P>
+                                                    <p>POINT:<?php echo $u[3]['point']; ?></p>
+                                                    <?php if(!empty($b[3]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[3]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
@@ -413,8 +428,12 @@
                                                    <p>職業：<?php echo $u[4]['job']; ?>
                                                    </p>
                                                     
-                                                    <P>POINT:<?php echo $u[4]['point']; ?></P>
-                                                     <P>BEST本：<?php echo $b[4]['title']; ?></P>
+                                                    <p>POINT:<?php echo $u[4]['point']; ?></p>
+                                                      <?php if(!empty($b[4]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[4]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>

@@ -287,7 +287,11 @@ if(empty($error)){
                                                    <p>職業：<?php echo $u[0]['job']; ?>
                                                    </p>
                                                     <P>ポイント：<?php echo $u[0]["point"]; ?>pt</P>
-                                                    <p>BEST本：<?php echo $b[0]["title"]; ?></p>
+                                                       <?php if(!empty($b[0]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[0]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
 
                                                     
                                                 </div>
@@ -351,8 +355,12 @@ if(empty($error)){
                                                      <p>年齢：<?php echo $u[1]['age']; ?>代</p>
                                                    <p>職業：<?php echo $u[1]['job']; ?>
                                                    </p>
-                                                    <P>ポイント：<?php echo $u[1]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $b[1]["title"]; ?></P>
+                                                    <p>ポイント：<?php echo $u[1]["point"]; ?>pt</p>
+                                                       <?php if(!empty($b[0]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[1]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
@@ -410,8 +418,12 @@ if(empty($error)){
                                                      <p>年齢：<?php echo $u[2]['age']; ?>代</p>
                                                    <p>職業：<?php echo $u[2]['job']; ?>
                                                    </p>
-                                                    <P>ポイント：<?php echo $u[2]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $b[2]["title"]; ?></P>
+                                                    <p>ポイント：<?php echo $u[2]["point"]; ?>pt</p>
+                                                       <?php if(!empty($b[2]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[2]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
@@ -475,7 +487,11 @@ if(empty($error)){
                                                    </p>
                                                     
                                                     <P>ポイント：<?php echo $u[3]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $b[3]["title"]; ?></P>
+                                                       <?php if(!empty($b[3]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[3]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
@@ -533,9 +549,13 @@ if(empty($error)){
                                                     <h4>
                                                         <?php echo $u[4]["name"]; ?></h4>
                                                      <p>年齢：<?php echo $u[4]['age']; ?>代</p>
-                                                   <p>職業：<?php echo $u[4]['job']; ?></p>               
+                                                   <p>職業：<?php echo $u[4]['job']; ?></p>
                                                     <P>ポイント：<?php echo $u[4]["point"]; ?>pt</P>
-                                                    <P>BEST本：<?php echo $b[4]["title"]; ?></P>
+                                                       <?php if(!empty($b[4]['title'])){?>
+                                                     <p>BEST本：<?php echo $b[4]['title']; ?></p>
+                                                 <?php }else{?>
+                                                 <p>BEST本：未登録</p>
+                                                 <?php }?>
                                                     
                                                 </div>
                                             </div>
