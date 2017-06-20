@@ -20,50 +20,61 @@ $avatar = mysqli_fetch_assoc($avatars);
 $avatar_array[] = $avatar;
  // var_dump($avatar_array[0]['point']);
 
-}
-    # code...
-if (isset($_SESSION['true']) && isset($_SESSION['true2'])) {
-    # code...
 
-if ($avatar_array[0]['point'] >= 10 && 20 > $avatar_array[0]['point'] ){
 
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif($avatar_array[0]['point'] >= 20 && 30 > $avatar_array[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($avatar_array[0]['point'] >= 30 && 40 > $avatar_array[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif($avatar_array[0]['point'] >= 40 && 50 > $avatar_array[0]['point'] ) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($avatar_array[0]['point'] >= 50 && 60 > $avatar_array[0]['point']) {
-    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
 }
 
-if ($avatar_array[0]['level'] == 5 ) {
-$sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
-mysqli_query($db,$sql) or die(mysqli_error($db));
-
-}elseif ($avatar_array[0]['level'] == 10 ) {
-    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
-    mysqli_query($db,$sql) or die(mysqli_error($db));
-}
-
-  
 
 
+//     if($avatar_array[0]['point']=50 || $avatar_array[0]['point']=55){
+//     $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+// }
+// if($avatar_array[0]['point']=100||$avatar_array[0]['point']=105){
+//     $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+// }
 
-    }
 
-unset($_SESSION['true']);
-unset($_SESSION['true2']);
+//  if ($avatar_array[0]['point'] = 10 || $avatar_array[0]['point']=15 ){
+
+//     $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+
+// }elseif($avatar_array[0]['point'] = 20 || $avatar_array[0]['point']=25) {
+//     $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+
+// }elseif ($avatar_array[0]['point'] = 30 || $avatar_array[0]['point']=35) {
+//     $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+// mysqli_query($db,$sql) or die(mysqli_error($db));
+
+// }elseif($avatar_array[0]['point'] = 40 || $avatar_array[0]['point']=45 ) {
+//     $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+
+// }elseif ($avatar_array[0]['point'] = 50 || $avatar_array[0]['point']=55) {
+//     $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+// }
+
+
+// if ($avatar_array[0]['level'] == 5 ) {
+// $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+// mysqli_query($db,$sql) or die(mysqli_error($db));
+
+// }elseif ($avatar_array[0]['level'] == 10 ) {
+//     $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+//     mysqli_query($db,$sql) or die(mysqli_error($db));
+// }
+
+
+
+
+
+
+//     // }
+
 
 
 

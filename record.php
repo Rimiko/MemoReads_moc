@@ -95,11 +95,69 @@ mysqli_real_escape_string($db,$recordid2['book_id']));
 
 mysqli_query($db,$sql) or die(mysqli_error($db));
 
-$sql = 'UPDATE`users`INNER JOIN `records` ON `users`.`user_id` = `records`.`user_id` SET `users`.`point` = `users`.`point`+5 WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
+$sql = 'UPDATE`users`INNER JOIN `records` ON `users`.`user_id` = `records`.`user_id` SET `users`.`point` = `users`.`point`+10 WHERE `users`.`user_id`='.$_SESSION['login_member_id'];
 //SQL文実行
 mysqli_query($db,$sql) or die(mysqli_error($db));
 
-$_SESSION['true2']="true2";
+//レベルアップ
+if (isset($_SESSION['login_member_id'])){
+
+$sql = 'SELECT * ,`avatar`.`avatar_path`FROM `users` INNER JOIN `avatar` ON `users`.`avatar_id` = `avatar`.`avatar_id` WHERE `users`.`user_id` ='.$_SESSION['login_member_id'];
+
+
+
+$avatars = mysqli_query($db,$sql) or die(mysqli_error($db));
+$avatar_array = array();
+$avatar = mysqli_fetch_assoc($avatars);
+$avatar_array[] = $avatar;
+ // var_dump($avatar_array[0]['point']);
+
+
+
+ if ($avatar_array[0]['point'] == 10 || $avatar_array[0]['point'] == 15 ){
+
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($avatar_array[0]['point'] == 20 || $avatar_array[0]['point'] == 25) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($avatar_array[0]['point'] == 30 || $avatar_array[0]['point']==35) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif($avatar_array[0]['point'] == 40 || $avatar_array[0]['point']==45 ) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+
+}elseif ($avatar_array[0]['point'] == 50 || $avatar_array[0]['point']==55) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif ($avatar_array[0]['point'] == 60 || $avatar_array[0]['point']==65) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif ($avatar_array[0]['point'] == 70 || $avatar_array[0]['point']==75) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif ($avatar_array[0]['point'] == 80 || $avatar_array[0]['point']==85) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif ($avatar_array[0]['point'] == 90 || $avatar_array[0]['point']==95) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif ($avatar_array[0]['point'] == 100 || $avatar_array[0]['point']==105) {
+    $sql = 'UPDATE`users`SET `users`.`level` = `users`.`level`+1 WHERE `user_id` ='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+if($avatar_array[0]['point']==50 || $avatar_array[0]['point']==55){
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}elseif($avatar_array[0]['point']==100||$avatar_array[0]['point']==105){
+    $sql = 'UPDATE`users` SET `users`.`avatar_id` = `users`.`avatar_id`+1 WHERE `user_id`='.$_SESSION['login_member_id'];
+    mysqli_query($db,$sql) or die(mysqli_error($db));
+}
+}
 }
 }
 
