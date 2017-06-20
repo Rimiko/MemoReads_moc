@@ -513,7 +513,7 @@
    });
 </script>
 
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
  $(function(){
@@ -531,7 +531,7 @@
         }
     });
 });
-</script> -->
+</script>
     </div>
 </body>
 </html>

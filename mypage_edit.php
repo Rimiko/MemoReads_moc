@@ -91,6 +91,8 @@ unset($_SESSION['book']);
 	<link href="css/style.css" rel="stylesheet" />
     <link href="css/share.css" rel="stylesheet" />
      <link href="css/header.css" rel="stylesheet" />
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
+
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -109,7 +111,7 @@ unset($_SESSION['book']);
         <h4>ベスト本・プロフィール編集</h4>
                 <form method="get" action="mypage_edit_result.php" >
     <div class="form-group">
-        <label for="job" class="cols-sm-2 control-label">ベスト本の変更</label>
+        <label for="job" class="cols-sm-2 control-label">あなたの一番好きな本を教えてください</label>
             <div class="cols-sm-10">
 
    <?php if(empty($_SESSION['book']['title'])): ?>
@@ -143,15 +145,15 @@ unset($_SESSION['book']);
 						<p style="color:black;"><strong>アバター選択</strong></p>
 
 						<div class="col-xs-4">
-        				<img src="images/dragon1.png" class="img-responsive img-radio"  width="87" height="87">
+        				<a class="iframe" href="images/dragon1.png"><img src="images/dragon1.png" class="img-responsive img-radio"  width="87" height="87"></a>
         				<input name="avatar_id" type="radio" value="1" checked />アバターA<br />
         			</div>
         			  <div class="col-xs-4">
-        				<img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87">
+        				<a class="iframe" href="images/i07.jpg"><img src="images/i07.jpg" class="img-responsive img-radio" width="70" height="87"></a>
         				<input name="avatar_id" type="radio" value="4" />アバターB<br />
         			</div>
         			<div class="col-xs-4">
-        				<img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87">
+        				<a class="iframe" href="images/mon_107.bmp"><img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87"></a>
         				<input name="avatar_id" type="radio" value="7" />アバターC<br />
         			</div>
 
@@ -286,5 +288,13 @@ unset($_SESSION['book']);
 	<script src="js/functions.js"></script>
     <script src="contactform/contactform.js"></script>
     
+     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="colorbox-master/jquery.colorbox-min.js"></script>
+<script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+    <script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"30%", height:"60%"});
+   });
+</script>
 </body>
 </html>
