@@ -63,6 +63,10 @@ $page = min($page,$maxPage);
 //4.ページに表示する件数だけ取得
 $start = ($page-1)* $row;
 
+if($start==-24){
+  $start=0;
+}
+
 
 
 
@@ -71,6 +75,7 @@ $start = ($page-1)* $row;
   }elseif(empty($_REQUEST['user_id']) && isset($_SESSION['login_member_id'])){
       $sql =sprintf('SELECT b.`picture_url`,b.`book_id`,u.*,r.* FROM (`users`u INNER JOIN `records`r ON u.`user_id` = r.`user_id`) INNER JOIN `books`b ON b.`book_id` = r.`book_id` WHERE u.`user_id`=%d ORDER BY r.`stars` DESC LIMIT %d,%d',$_SESSION['login_member_id'],$start,$row);
   }
+
 
   $books = mysqli_query($db,$sql) or die(mysqli_error($db));
   $books_array = array();
