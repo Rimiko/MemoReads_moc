@@ -17,7 +17,7 @@ if(isset($_REQUEST['book_select'])){
     $_SESSION['book']['author']=$authors[$a][0];
     $_SESSION['book']['description']=$descriptions[$a];
     $_SESSION['book']['bookid']=$bookids[$a];
-    $_SESSION['book']['$categorie']=$categories[$a];
+    $_SESSION['book']['categorie']=$categories[$a];
 
 
     header("Location:record.php");
@@ -52,7 +52,7 @@ if(isset($_REQUEST['book_select'])){
     <link rel="stylesheet" href="css/record_result.css"> 
 
 </head>
-<body>
+<body id="allbox">
 <div id="a-box">
 <h1>選択</h1>
         
@@ -96,9 +96,10 @@ if(isset($_REQUEST['book_select'])){
                 </div>
 
       
-              </div>
+            </label>
+            </div>
 
-              </label>
+              
 
 
 
@@ -109,16 +110,12 @@ if(isset($_REQUEST['book_select'])){
       
   <?php endfor; ?>
 
+
+
+
   <input type="submit" value="選択">
 
   </form>
-
-
-                  
-  
-
-                  
-
 
 
 
@@ -126,5 +123,6 @@ if(isset($_REQUEST['book_select'])){
 
 
 </body>
+
 </html>  
     

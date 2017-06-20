@@ -99,6 +99,7 @@ $sql = 'UPDATE`users`INNER JOIN `records` ON `users`.`user_id` = `records`.`user
 //SQL文実行
 mysqli_query($db,$sql) or die(mysqli_error($db));
 
+$_SESSION['true2']="true2";
 }
 }
 
@@ -220,7 +221,7 @@ exit();
     <link rel="stylesheet" href="css/jquery.raty.css">
     <link rel="stylesheet" href="css/share.css">    
     <link rel="stylesheet" href="css/header.css">
-
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <!-- =======================================================
         Theme Name: Company
         Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -264,7 +265,7 @@ exit();
     <?php else: ?>
     <input id="serch" type="text" name="title" value="<?php echo $booktitle; ?>">
     <?php endif; ?>
-     <button>検索</button>
+     <button><a href="record_result.php?title=<?php echo $booktitle; ?>"><i class="fa fa-search" aria-hidden="true"></i></a></button>
 <?php if(isset($error['title'])) { ?>
   <p class="error">*タイトルを入力してください</p>
 <?php } ?>
@@ -469,6 +470,18 @@ $('#star').raty({
      }
 });
 </script>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="colorbox-master/jquery.colorbox-min.js"></script>
+    <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
+    <script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+   });
+</script>
+
+
+
 
     
 </body>
