@@ -7,6 +7,10 @@ require('dbconnect.php');
 
 
 $_REQUEST['search_word'];
+if(empty($_SESSION['login_member_id'])){
+  header('Location:error.php');
+  exit();
+}
 
 
  // 0.ページ番号を取得（ある場合はGET送信、ない場合1ページ目と認識する）
@@ -430,14 +434,15 @@ function ChangeTab(tabname) {
 
 
             
-                <div class="portfolio-items" style="left: 270px;">
+                <div class="portfolio-items" style="left: 400px;">
                
              <?php foreach ($tops_array as $top_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
 
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
+            <div class="well well-sm" style="
+    margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
                         <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
@@ -572,12 +577,14 @@ function ChangeTab(tabname) {
 
       <div class="container">
             <div class="">
-                <div class="portfolio-items" style="left: 270px;">
+                <div class="portfolio-items" style="left: 400px; margin-bottom: 0px;bottom: 50px;">
                 <?php foreach ($books_array as $book_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                     <div class="row">
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
+        <div class="col-xs-6 col-sm-6 col-md-6" style="
+    left: 30px;">
+            <div class="well well-sm" style="style=
+    margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
                         <a class="iframe" href="book_detail.php?book_id=<?php echo $book_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
@@ -681,26 +688,26 @@ function ChangeTab(tabname) {
 
         </div>
       <div class="container">  
-                <div class="portfolio-items" style="left:270px;">
+                <div class="portfolio-items" style="left:400px; margin-bottom: 0px;bottom: 20px;">
                 <?php foreach ($users_array as $user_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px">
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="well well-sm">
+            <div class="well well-sm" style="margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-2 col-md-2" style="width: 180px;">
                         <a class="iframe" href="mypage.php?user_id=<?php echo $user_each['user_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $user_each['avater_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                     </div>
-                    <div class="col-sm-2 col-md-2">
-                        <h4>
+                    <div class="col-sm-2 col-md-2" style="right: 10px;">
+                        <h4 style="width: 120px;">
                             名前:<?php echo $user_each['name'];?></h4>
-                        <h4>
+                        <h4 style="width: 120px;">
                             年代;<?php echo $user_each['age'];?>
                         </h4>
-                        <h4>
+                        <h4 style="width: 120px;">
                             趣味;<?php echo $user_each['hobby'];?>
                         </h4>
-                        <h4>
+                        <h4 style="width: 120px;">
                             職業;<?php echo $user_each['job'];?>
                         </h4></div>
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
@@ -714,9 +721,9 @@ function ChangeTab(tabname) {
                         <!-- Split button -->
                        <!--  <div class="btn-group">
                             <button type="button" class="btn btn-primary" style="width: 100px;height: 26px;"> -->
-                               <div class="col-sm-2 col-md-2" style="width: 120px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;margin-left: 50px";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png" style="margin-left: 45px;"></a></p><!-- </button>
+                               <div class="col-sm-2 col-md-2" style="width: 120px; width: 120px;left: 45px;">
+                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;";></a>
+                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png"></a></p><!-- </button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
                                 <!-- <span class="caret"></span><span class="sr-only">Social</span> -->
                             <!-- </button>
@@ -767,8 +774,15 @@ function ChangeTab(tabname) {
    
     
 	
-	<section id="partner">
-       <div class="container">
+	<section id="partner" style="padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    margin-top: 250px;
+">
+       <div class="container" style="
+    margin-left: 200px;
+">
            <div class="center wow fadeInDown">
                <h2>Developers</h2>
                <div class="footer">
