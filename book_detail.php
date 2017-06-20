@@ -218,7 +218,7 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
                         <h6><strong>ジャンル:<a><?php echo $books['category'];?></a></strong></h6>
                         <h3>★★★☆☆</h3>
 
-                    <p><strong><?php echo $books['picture_url'];?></strong></p>
+                    
                             </div>
                     </div>
 
