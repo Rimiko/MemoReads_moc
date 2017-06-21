@@ -25,7 +25,7 @@
  $sql ='SELECT a.* FROM `avatar`a WHERE `avatar_id` ='.$avatar;
  $avatars=mysqli_query($db,$sql) or die(mysqli_error($db));
  $avatar_path = mysqli_fetch_assoc($avatars);
- var_dump($avatar_path);
+ // var_dump($avatar_path);
 
  
  // DB登録処理
@@ -42,11 +42,12 @@
     );
   mysqli_query($db,$sql) or die(mysqli_error($db));
 
-  $sql = sprintf('SELECT LAST_INSERT_ID() AS id');
+  $sql = sprintf('SELECT LAST_INSERT_ID()');
 
   $last_login = mysqli_query($db,$sql) or die(mysqli_error($db));
   $login = mysqli_fetch_assoc($last_login);
- var_dump($login);
+ // var_dump($login);
+  $_SESSION['login_member_id'] = $login['LAST_INSERT_ID()'];
 
 
   header("Location:thanks.php");
