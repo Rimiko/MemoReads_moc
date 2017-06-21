@@ -57,7 +57,7 @@
     <link href="css/ayumi_edit.css" rel="stylesheet" /> 
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet" >
-    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
+    <!-- <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" /> -->
 
 
     <!-- =======================================================
@@ -532,7 +532,7 @@
    });
 </script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
  $(function(){
@@ -551,6 +551,6 @@
     });
 });
 </script>
-    </div>
+     -->
 </body>
 </html>
