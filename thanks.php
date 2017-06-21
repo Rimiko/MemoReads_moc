@@ -2,7 +2,7 @@
 session_start();
 
 // 会員登録が済んだのでSESSION変数に保存していた入力値を削除
-// unset($_SESSION['join']);
+unset($_SESSION['join']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +36,7 @@ session_start();
             <div class="row main">
                 <div class="main-login main-center">
                     <form class="form-horizontal" method="post" action="#">
-                        
+
                         <div class="form-group">
                         <h3>登録完了</h3>
                             <div class="cols-sm-10">
@@ -48,9 +48,6 @@ session_start();
 
 <a href="top.php" class="rewrite">TOPに戻る</a>
 <a href="user_top.php" class="btn btn-success">マイページへ</a>
-<!--            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button>
-
-            <button type="button" class="btn btn-primary btn-lg btn-block login-button cols-sm-2">Register</button> -->
                     </form>
                 </div>
                 </div>

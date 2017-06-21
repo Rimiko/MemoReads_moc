@@ -530,7 +530,7 @@
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
 <script>
    $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
    });
 
 

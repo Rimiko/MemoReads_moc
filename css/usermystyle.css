@@ -115,14 +115,15 @@ Licensed under MIT
 }
 
 /* Profile sidebar */
+
 .profile-sidebar {
-  padding: 20px 0 10px 0;
-  background: #fff;
-  margin-top: 90px;
-  position: absolute;
+    padding: 20px 0 10px 0;
+    background: #fff;
+    margin-top: 90px;
+    border-radius: 10px;
 }
 
-.profile-userpic img {
+/*.profile-userpic img {
   float: none;
   margin: 0 auto;
   width: 50%;
@@ -130,7 +131,7 @@ Licensed under MIT
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
-}
+}*/
 
 .profile-usertitle {
   text-align: center;
@@ -219,14 +220,14 @@ Licensed under MIT
 
 }
 
-.date-body{
+/*.date-body{
   background-color: white;
   padding:0 5px 5px 5px;
   float: left;
   border: 1px solid green;
-}
+}*/
 .date-body .date-title{
-  color: green;
+  color: white;
 }
 
 

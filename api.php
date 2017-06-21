@@ -1,12 +1,11 @@
 <?php
 if (!empty($_REQUEST)) {
-	# code...
 
 $query = $_REQUEST['title']; 
 
 
 $query = rawurlencode($query); 
- // var_dump($query); 
+ // var_dump($query);
 $url = "https://www.googleapis.com/books/v1/volumes?q=" . $query;
 $json = file_get_contents($url);
 $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
@@ -20,11 +19,6 @@ $posts = $json_decode->items;
 // var_dump($posts);
 // echo "</pre>";
 //  echo "<pre>";
- // var_dump($categories);
- // echo "</pre>";
-
-
-
 $c = count($posts); 
 
 for ($i=0; $i < $c; $i++){ 
@@ -68,24 +62,8 @@ for ($i=0; $i < $c; $i++){
         $categories[] = 'なし';
     }
 
-    
 }
 }
 
-
-	 
-	
 
 ?>
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
-<form method="post" action="">
-<input type="text" name="word" value="">
-<button>検索</button>
-</form>
-</body>
-</html> -->
