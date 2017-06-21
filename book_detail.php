@@ -216,7 +216,7 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
                         <div class="book-detail">
                         <h4><strong><?php echo $books['title'];?>/<?php echo $books['author'];?></strong></h4>
                         <h6><strong>ジャンル:<a><?php echo $books['category'];?></a></strong></h6>
-                        <h3>★★★☆☆</h3>
+                        <div class="star"></div>
 
                     
                             </div>
@@ -284,37 +284,16 @@ while ($keyword = mysqli_fetch_assoc($keywords)){
                         </div>
                         </div>
                         <?php } ?>
-                   
 
-              <!--   <div class="col-xs-12 col-sm-8 col-md-8"> -->
-                        <!-- <! <! <div class="list-group">
-                            <div class="list-group-item">
-                                <div class="row-picture">
-                                    <a href="#" title="sintret">
-                                        <img class="circle img-thumbnail img-box" src="images/IMG_1696.png" alt="sintret" width="50">
-                                    </a>
-                                       <a href="#" title="sintret">
-                                            <small><strong>Ayumi Maeda</strong></small>
-                                        </a>
-                                 <small class="time">    　　<i class="fa fa-clock-o" aria-hidden="true"></i> 2017/05/29 12:04:00</small>
-                                 <small class="pro">　　<i class="fa fa-user" aria-hidden="true"></i> <a href="#">20代</a>/<a href="#">カナダ</a>/<a href="#">猫</a></small>
-                                 <br>
-                                 <div class="keyword">
-                                 <br>
-                                 <small>キーワード：</small>
-                                 <small><a href="#">#びっくり</a>
-                                 <a href="#">#見なきゃ損</a>
-                                 <a href="#"></a>
-                                 </small>
-                                 </div>
-                                </div>
-                                <div class="row-content">
-                            <small>レビュー：</small>
-                        <small>主人公の○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○</small>
-                                </div>
-                            </div>
-                        </div>
-
+<script>
+$.fn.raty.defaults.path = "images";
+$(function raty() {
+     $(".star").raty({
+          number: 5,
+          score : <?php echo $users_each['stars'];?>
+     });
+});
+</script>
        <!         </div>  -->
 
 <!--                     <div class="col-xs-12 col-sm-8 col-md-8"> -->
