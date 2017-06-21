@@ -224,10 +224,28 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
    $users_array = array();
    while ($user = mysqli_fetch_assoc($users)){
-   $users_array[] = $user;
+   $users_array[] = $user;}
    // var_dump($users_array);
+  $a =count($users_array);
+  for ($i=0; $i < $a ; $i++) { 
+    
   
-}}
+  $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`= '.$users_array[$i]['user_id'];
+
+    
+$bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+$bests_array = array();
+ while($bestbook = mysqli_fetch_assoc($bestbooks)){
+
+  $bests_array[] = $bestbook;}
+ }
+
+
+}
+
+
+
+
 
 
 // var_dump($users_array);
@@ -583,8 +601,7 @@ function ChangeTab(tabname) {
                     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6" style="
     left: 30px;">
-            <div class="well well-sm" style="style=
-    margin-bottom: 0px;">
+            <div class="well well-sm" style="margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-6 col-md-6" style="width: 180px;">
                         <a class="iframe" href="book_detail.php?book_id=<?php echo $book_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
@@ -640,7 +657,8 @@ function ChangeTab(tabname) {
                             </div>
                         </div>
                     </div>
-                      <?php } ?><!--/.portfolio-item-->
+                      <?php } ?>
+                      <!--/.portfolio-item-->
                     
 
                     
@@ -696,7 +714,8 @@ function ChangeTab(tabname) {
             <div class="well well-sm" style="margin-bottom: 0px;">
                 <div class="row">
                     <div class="col-sm-2 col-md-2" style="width: 180px;">
-                        <a class="iframe" href="mypage.php?user_id=<?php echo $user_each['user_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $user_each['avater_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                        <a href="mypage.php?user_id=<?php echo $user_each['user_id'];?>" title="ウィキペディア表紙"><img src="images/<?php echo $user_each['avatar_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+
                     </div>
                     <div class="col-sm-2 col-md-2" style="right: 10px;">
                         <h4 style="width: 120px;">
@@ -710,6 +729,9 @@ function ChangeTab(tabname) {
                         <h4 style="width: 120px;">
                             職業;<?php echo $user_each['job'];?>
                         </h4></div>
+                            
+                            <?php }?>
+                            
                         <!-- <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
                         </i></cite></small> -->
                         <!-- <p>
@@ -721,9 +743,12 @@ function ChangeTab(tabname) {
                         <!-- Split button -->
                        <!--  <div class="btn-group">
                             <button type="button" class="btn btn-primary" style="width: 100px;height: 26px;"> -->
+
+                            <?php foreach ($bests_array as $best_each) { ?>
+                              
                                <div class="col-sm-2 col-md-2" style="width: 120px; width: 120px;left: 45px;">
-                        <a class="iframe" href="book_detail.html" title="ウィキペディア表紙"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;";></a>
-                        <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png"></a></p><!-- </button>
+                        <a class="iframe" href="book_detail.php?book_id=<?php echo $best_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $best_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;";></a>
+                        <p><a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $best_each['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png"></a></p><!-- </button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> -->
                                 <!-- <span class="caret"></span><span class="sr-only">Social</span> -->
                             <!-- </button>
@@ -736,10 +761,13 @@ function ChangeTab(tabname) {
                             </ul>
                         </div> -->
                     </div>
+     <?php }?>
                 </div>
             </div>
         </div>
     </div>
+
+   
                         <div class="recent-work-wrap">
                             <!-- <img class="img-responsive" src="images/portfolio/recent/item1.png" alt=""> -->
                             <div class="overlay">
@@ -750,9 +778,12 @@ function ChangeTab(tabname) {
                                 </div> 
                             </div>
                         </div>
-                    </div><!--/.portfolio-item-->
+                       
 
-                    <?php } ?>
+                    </div><!--/.portfolio-item-->
+                 
+                    
+                
 
 
 
