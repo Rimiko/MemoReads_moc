@@ -20,10 +20,25 @@ h5{
 #allbox{
 	         background-image:url("../images/background.png");
         z-index:1;
-/*    background-repeat:      no-repeat;*/
+    /*background-repeat:      no-repeat;*/
     background-position:    top center;
     -moz-background-size:   cover;
 /*    background-size:        cover;*/
     margin-bottom:0px;
-}
 
+}
+#choose{
+	color:black;
+}
+.row{
+	margin-left:110px;
+}
+.hidari{
+	margin-left:none;
+}
+.well{
+	padding:0px;
+}
+.col-sm-6.col-md-6{
+	padding:0px;
+}
