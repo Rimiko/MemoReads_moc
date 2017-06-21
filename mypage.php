@@ -183,12 +183,12 @@ if($start==-24){
             ひとこと : <strong><?php echo $member['comment'];?></strong>
             </p>
             <div class="pull-center">
-            <a href="mypage_edit.php" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span>  編集ページ</a>
+            <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span>  編集ページ</a>
             </div>
         </div>
         </div>
             <div class="col-lg-9">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;<a href="record.php" class="btn btn-success"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;<a href="record.php" class="btn btn-success" style="background-color: #d9534f;border-color:#d9534f;"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
                 <div class="bookshelf">
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
