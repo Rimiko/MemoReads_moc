@@ -19,6 +19,7 @@ var_dump($_SESSION['score']);
 
 
 <div></div>
+<div class="star"></div>
 
 <script type="text/javascript">
 $.fn.raty.defaults.path = "images";
@@ -31,6 +32,13 @@ $('div').raty({
      }
 });
 </script>
-
+<script>
+$(function raty() {
+     $(".star").raty({
+          number: 5,
+          score : <?php echo $users_each['stars'];?>
+     });
+});
+</script>
 </body>
 </html>
