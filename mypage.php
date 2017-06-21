@@ -128,7 +128,7 @@ if($start==-24){
         <div class="name">
         <h3>
         <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></h3></div>
-            <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="200" height="300">
+            <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="300" height="300">
           <div class="row ptlv">
         <div class="text-center date-body" style="width:100px">
           <label for="" class="date-title">Point</label>
@@ -156,12 +156,23 @@ if($start==-24){
             ひとこと : <strong><?php echo $member['comment'];?></strong>
             </p>
             <div class="pull-center">
-            <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span>  編集ページ</a>
+            <!-- <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span> -->
+            <?php if($_SESSION['login_member_id'] !== $member['user_id']){
+                  echo ' ';
+                  }else{?>
+              <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span>編集ページ</a>
+              <?php  } ?>
             </div>
         </div>
         </div>
             <div class="col-lg-9">
-            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;<a href="record.php" class="btn btn-success" style="background-color: #d9534f;border-color:#d9534f;"><span class="glyphicon glyphicon-book"></span> 記録ページ</a></h3>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php if($_SESSION['login_member_id'] !== $member['user_id']){
+                  echo ' ';
+                  }else{?>
+            <a href="record.php" class="btn btn-success" style="background-color: #d9534f;border-color:#d9534f;"><span class="glyphicon glyphicon-book"></span> 記録ページ</a>
+            <?php  } ?>
+            </h3>
                 <div class="bookshelf">
                   <img src="images/shelf.jpg" class="shelf">
                   <div class="absolute">
@@ -266,28 +277,36 @@ $(function(){
             <div class="developers">
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
-                        <div><img class="image-circle" src="images/rimiko.png"> </div>    
+                        <div>
+                        <a href="https://www.facebook.com/profile.php?id=100006744364920&fref=ts"><img class="image-circle" src="images/rimiko.JPG"></a>
+                        </div>    
                         <h2>Rimiko Fukumitsu</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.png"></div>    
+                        <div>
+                        <a href="https://web.facebook.com/profile.php?id=100010602424436&fref=ts"><img class="image-circle" src="images/naru.JPG"></a>
+                        </div>    
                         <h2>Naru<br> Nishimura</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.png"></div>    
+                        <div>
+                        <a href="https://web.facebook.com/profile.php?id=100011551561512"><img class="image-circle" src="images/atsushi.JPG"></a>
+                        </div>    
                         <h2>Atsushi Miyamoto</h2>
                         
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.png"></div>    
+                        <div>
+                        <a href="https://web.facebook.com/ayumi.maeda.3532?_rdc=1&_rdr"><img class="image-circle" src="images/IMG_1696.jpg"></a>
+                        </div>    
                         <h2>Ayumi <br>Maeda</h2>
                         
                     </div>
