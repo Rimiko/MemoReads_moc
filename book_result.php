@@ -227,6 +227,21 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
    $users_array[] = $user;
    // var_dump($users_array);
   
+  $a =count($users_array);
+  for ($i=0; $i < $a ; $i++) { 
+    
+  
+  $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`= '.$users_array[$i]['user_id'];
+
+    
+$bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+$bests_array = array();
+ while($bestbook = mysqli_fetch_assoc($bestbooks)){
+
+  $bests_array[] = $bestbook;}
+ }
+
+
 }}
 
 
