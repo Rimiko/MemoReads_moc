@@ -32,7 +32,7 @@ if(isset($_REQUEST['book_select'])){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>record_result</title>
+    <title>mypage_edit_result</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -45,11 +45,12 @@ if(isset($_REQUEST['book_select'])){
 </head>
 <body id="allbox">
 <div>
-<h1><img src="images/books.PNG">選択してください</h1>
-        
+
+<h1><img src="images/books.PNG">選択してください</h1>        
 <form method="post" action="">
 <div class="row">
-<?php for ($i=0; $i < 9 ; $i++): ?>
+<?php for ($i=0; $i < 9; $i++): ?>
+
                    
        
                     <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6 serch"  style="width: 380px;height: 225px;">
@@ -60,7 +61,9 @@ if(isset($_REQUEST['book_select'])){
       <input type="radio" name="book_select" id="radios-0" value="<?php echo $i; ?>" checked="checked">
             <div class="well well-sm">
                 <div class="books" style="width:390px; height:170px;">
-                    <div class="col-sm-6 col-md-6" style="width: 170px;">
+
+                     <div class="col-sm-6 col-md-6" style="width: 170px;">
+
                     <?php if($pics[$i] == 'なし'): ?>
                       
                       <img src="images/noimage.PNG" style="width: 100px;height:170px;">
@@ -69,8 +72,6 @@ if(isset($_REQUEST['book_select'])){
                     <?php endif ?>
                     
                     </div>
-
-  
                     <div class="col-sm-6 col-md-6">
                    
                     <h5>タイトル</h5>
@@ -86,19 +87,29 @@ if(isset($_REQUEST['book_select'])){
     
 
                     
-                   
-                   </div>
+
+                    </div>
+
                   </div>
                  </div>
                 </label>     
               </div>
 
-           <?php endfor; ?>
+
+  <?php endfor; ?>
+
+  <input type="submit" value="選択">
+  </div>
+
 
    <button id="choose" style="width:50px; height:30px">選択</button>
    </div>
   </form>
- </div>
+
+  </div>
+
+
+            
 
 
 </body>
