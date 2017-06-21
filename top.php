@@ -106,12 +106,7 @@ if(empty($error)){
   $('selectors').balloon(options);
 });
 </script>
-    <!-- =======================================================
-        Theme Name: Company
-        Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
+    
   </head>
   <body>
   <?php include('header.php'); ?>
@@ -147,10 +142,7 @@ if(empty($error)){
                             <!-- ログイン -->
                                 <form class="form-horizontal" action=" " method="post" id="contact_form">
                                     <fieldset>
-                                        <!-- Form Name -->
-
-
-                                        <!-- Text input-->
+                            
 
                                         <div class="form-group">
 
@@ -164,7 +156,7 @@ if(empty($error)){
 
 
                                   
-                                        <!-- Text input-->
+                                        
                                         <div class="form-group">
 
                                             <div class="col-md-12">
@@ -200,17 +192,11 @@ if(empty($error)){
                                 
                   </div>
 
-                            <!-- <div class="col-sm-6 hidden-xs animation animated-item-4">
-                                <div class="slider-img">
-                                    <! <img src="images/slider/img3.png" class="img-responsive">
-                                </div>
-                            </div>
- --> 
+                            
+ 
                 </div>
                     </div>
-                    <!-- <label>
-                    <a href="register.php" class="btn btn-lg btn-warning col-lg-12"><span class="glyphicon glyphicon-check"></span> SIGN UP HERE!!</a>
-                    </label> -->
+                    
                 </div><!--/.item-->             
             </div><!--/.carousel-inner-->
         </div><!--/.carousel-->
@@ -221,10 +207,10 @@ if(empty($error)){
       <!-- <div class="touka"> -->
         <div class="text-center" >
             <h1 style="font-size: 60px;">WEEKLY RANKINGS</h1>
-                <!-- <img src="images/cooltext245006182452535.png" > -->
+                
         </div>
 
-      <!-- <div class="touka">    -->
+      
         <div class="container rankings">
           
             <div class="text-center">
@@ -232,7 +218,7 @@ if(empty($error)){
                         <!-- rankig -->
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                      <div><img src="images/reading_icon.png"  title="星５つ評価の多い本のランキング"><!-- <img src="images/読書アイコン (2).png"> --></div> 
+                      <div><img src="images/reading_icon.png"  title="星５つ評価の多い本のランキング"></div> 
                       <div><img src="images/1white.png" style="margin-right:440px;"></div>
                         
 
@@ -270,7 +256,7 @@ if(empty($error)){
                     
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                     <div><img src="images/reader_icon.png"  title="高ポイントユーザーのランキング"><!-- <img src="images/勉強アイコン2.png"> --></div>
+                     <div><img src="images/reader_icon.png"  title="高ポイントユーザーのランキング"></div>
                         <div><img src="images/1white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
@@ -568,7 +554,6 @@ if(empty($error)){
             </div>
         </div>
        </div>
-       <!-- </div>@@@@ -->
      </div>
     </div>
   
@@ -581,7 +566,7 @@ if(empty($error)){
                 <h2>HOW TO USE</h2>
             </div>
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <img src="images/4.jpg" class="img-responsive"/>
+                <img src="images/bookshelf_img.png" class="img-responsive"/>
                 <h3>読む・書く</h3>
                 <p>読んだの本や漫画を読んでレビューを書きましょう！
                 　　本に関するキーワード選択や星評価も可能！マイページの本棚にどんどん本を埋めていきましょう！
@@ -589,7 +574,7 @@ if(empty($error)){
             </div>
             
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                <img src="images/4.jpg" class="img-responsive"/>
+                <img src="images/record_eample.png" class="img-responsive"/>
                 <h3>共有</h3>
                 <p>
                 　あなたの書いたレビューを他ユーザー様とシェアしましょう！自分の書いたレビューが誰かの役に立つかも！！
@@ -597,7 +582,7 @@ if(empty($error)){
             </div>
             
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">             
-                <img src="images/4.jpg" class="img-responsive"/>
+                <img src="images/comments.png" class="img-responsive"/>
                 <h3>探す</h3>
                 <p>
                 ユーザー様が書いたレビューが本検索の際に役立ちます！
@@ -606,7 +591,7 @@ if(empty($error)){
             </div>
 
             <div class="col-md-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">             
-                <img src="images/4.jpg" class="img-responsive"/>
+                <img src="images/avatar_evolution.png" class="img-responsive"/>
                 <h3>アバター育成</h3>
                 <p>
                 １レビューごとにポイントゲット！いいねをもらってさらにポイントゲット！
@@ -623,7 +608,7 @@ if(empty($error)){
                         <h2>Developers</h2>
               <div class="footer">
                 <div class="container">
-                        <!-- <div class="container"> -->
+                        
                   <div class="developers">
                       <div class="col-md-3">
                         <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
@@ -687,11 +672,7 @@ if(empty($error)){
       $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
    });
 </script>
-<!-- <script>
-    $(function() {
-  $('selectors').balloon(options);
-});
-</script> -->
+
 
     
 </body>

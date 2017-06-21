@@ -3,18 +3,13 @@
  
 session_start(); 
 
-
-
-// var_dump($_POST);
-
-// var_dump($_REQUEST);
 $name = '';
 $email = '';
 $password = '';
 $password_2 = '';
 $job= '';
 $hobby = '';
-//$error[] = array();
+
 
 if(!empty($_POST)){
 
@@ -75,20 +70,11 @@ if(empty($_POST['password_2'])){
         // echo 'T';
     }
 
-    // //職業
-    // if(empty($_POST['job'])){
-    //     $error['job'] = 'blank';
-    //     echo 'j';
-    // }else {
         $job = $_POST['job'];
         // echo 'u';
     
 
-    //趣味
-    // if(empty($_POST['hobby'])){
-    //     $error['hobby'] = 'blank';
-    //     echo 'h';
-    // }else {
+    
         $hobby = $_POST['hobby'];
         // echo 'r';
     
@@ -239,7 +225,7 @@ if(empty($_POST['password_2'])){
                     				<a class="iframe" href="images/mon_107.bmp"><img src="images/mon_107.bmp" class="img-responsive img-radio" width="60" height="87"></a>
                     				<!-- <button type="button" class="btn btn-primary btn-radio">dog</button> -->
                     				<input name="avatar_id" type="radio" id="right-item" value="7">
-                                    <p>モンスター</p>
+                                    <p>魔女</p>
                     			</div>
 
                                 <?php
