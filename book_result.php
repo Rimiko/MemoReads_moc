@@ -34,7 +34,7 @@ if(empty($_SESSION['login_member_id'])){
 
      // // 投稿数取得 top
   if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-     $sql = sprintf('SELECT COUNT(*) as cnt FROM `books` INNER JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` INNER JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC',mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']));}
+     $sql = sprintf('SELECT COUNT(*) as cnt FROM `books` INNER JOIN `records` on `books`.`book_id` = `records`.`book_id` INNER JOIN `record_keyword` ON `records`.`record_id` = `record_keyword`.`record_id` INNER JOIN `keywords` ON `record_keyword`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC',mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']));}
      else{
     $sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title` ORDER BY `books`.`created` DESC';
   }
@@ -168,7 +168,7 @@ $user_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 // フリーキーワード検索
 
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` LEFT JOIN `book_keywords` on `books`.`book_id` = `book_keywords`.`book_id` LEFT JOIN `keywords` ON `book_keywords`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC LIMIT %d,%d',
+$sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`category`,`books`.`picture_url`,`books`.`author` FROM `books` LEFT JOIN `records` on `books`.`book_id` = `records`.`book_id` LEFT JOIN `record_keyword` ON `records`.`record_id` = `record_keyword`.`record_id` LEFT JOIN `keywords` on `record_keyword`.`keyword_id` = `keywords`.`keyword_id` WHERE `title` LIKE "%%%s%%" OR `category` LIKE "%%%s%%" OR `author` LIKE "%%%s%%" OR `keyword` LIKE "%%%s%%" ORDER BY `books`.`created` DESC LIMIT %d,%d',
   mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),mysqli_real_escape_string($db,$_REQUEST['search_word']),$topstart,$toprow);
    
 
@@ -278,12 +278,12 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-  	<link rel="stylesheet" href="css/font-awesome.min.css">
-  	<link rel="stylesheet" href="css/animate.css">
-  	<link href="css/prettyPhoto.css" rel="stylesheet">
-  	<link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link href="css/prettyPhoto.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
     
-    <link href="css/memoreads.css" rel="stylesheet"/> 	
+    <link href="css/memoreads.css" rel="stylesheet"/>   
     <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <link href="css/usermystyle.css" rel="stylesheet"/>
     <link href="css/header.css" rel="stylesheet"/>
@@ -316,7 +316,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
   <body>
 
   <?php include('header.php'); ?>
-	
+  
     <!-- サイドバー -->
  <div class="container">
   <div class="row">
@@ -327,7 +327,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 </div>
 <div class="col-lg-9">
 <div class="kabe">
-	<section id="portfolio">	
+  <section id="portfolio">  
         <div class="container">
            <div class="tabbox">
               <ul class="portfolio-filter text-center">
@@ -553,13 +553,13 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                 
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-2.1.1.min.js"></script>	
+  <script src="js/jquery-2.1.1.min.js"></script>  
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
+  <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/jquery.isotope.min.js"></script>  
-	<script src="js/wow.min.js"></script>
-	<script src="js/functions.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/functions.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="colorbox-master/jquery.colorbox-min.js"></script>
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
