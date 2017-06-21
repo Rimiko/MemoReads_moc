@@ -57,15 +57,10 @@
     <link href="css/ayumi_edit.css" rel="stylesheet" /> 
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet" >
-    <!-- <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" /> -->
+    <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
 
 
-    <!-- =======================================================
-        Theme Name: Company
-        Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
+    
   </head>
   <body class="up-back">
     <?php include('header.php'); ?> 
@@ -132,7 +127,7 @@
 
             <div class="col-lg-6 user-rank">
                     
-                <!-- <div class="container"> -->
+                
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
                      <div class="hover"><img src="images/reader_icon.png" title="高ポイントユーザーの順位"></div>
                         <div><img src="images/1white.png" style="margin-right: 440px;"></div>
@@ -167,7 +162,6 @@
                                 </div>
                             </div>
                         </div>
-                 <!-- </div> -->
             </div> 
 
                 <!-- book部門２位 -->
@@ -273,7 +267,7 @@
 
                 <!-- ユーザー部門３位 -->
                 <div class="col-lg-6 user-rank">
-                 <!-- <div class="container"> -->
+            
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
                       <div><img src="images/3white.png" style="margin-right: 440px;"></div>
                         <div class="container">
@@ -305,7 +299,7 @@
                                 </div>
                             </div>
                     </div>
-                   <!-- </div> -->
+                   
                 </div>
 
                     <!-- book部門４位 -->
@@ -342,7 +336,7 @@
 
                     <!-- ユーザー部門４位 -->
                 <div class="col-lg-6 user-rank">
-                 <!-- <div class="container"> -->
+                 
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
                       <div><img src="images/4white.png" style="margin-right: 440px;"></div>
                         <div class="container">
@@ -373,7 +367,7 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- </div> -->
+                    
                 </div>
 
                  <!-- book部門５位 -->
@@ -410,7 +404,7 @@
 
                  <!-- ユーザー部門５位 -->
                 <div class="col-lg-6 user-rank">
-                 <!-- <div class="container"> -->
+                
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
                      <div><img src="images/5white.png" style="margin-right: 440px;"></div>
                         <div class="container">
@@ -503,7 +497,7 @@
             
                    </div>
             </div>        
-        <!-- </div>/.container -->
+
     </section><!--/#partner-->
     
         <!--/.container-->
@@ -536,29 +530,10 @@
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
     <script>
    $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"80%"});
    });
 </script>
 
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
-<script>
- $(function(){
 
-    $('.hover').balloon({
-        // 吹き出しを右に出すと画面の邪魔にならない場合が多いです
-        position: "top",
-        // 吹き出しの CSS 設定です
-        css: {
-            "color": "black",
-            "font-size": "50px",
-            "font-weight": "bold",
-            "padding": "20px",
-            "background-color": "white",
-        }
-    });
-});
-</script>
-     -->
 </body>
 </html>

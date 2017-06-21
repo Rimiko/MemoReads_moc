@@ -465,12 +465,10 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
   
                     
                                       <div class="recent-work-wrap">
-                                          <!-- <img class="img-responsive" src="images/portfolio/recent/item1.png" alt=""> -->
+                                          
                                           <div class="overlay">
                                               <div class="recent-work-inner">
-                                                  <!-- <h3><a href="#">Business theme</a></h3>
-                                                  <p>There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                                  <a class="preview" href="images/portfolio/full/item1.png" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a> -->
+                                                  
                                               </div> 
                                           </div>
                                       </div>
@@ -489,7 +487,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
               <section id="portfolio">    
                   <div class="container">
                       <div class="center">
-                         <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt</p> -->
+                         
                       </div>
                          <div id="tab3" class="tab">
                         　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 1500px;"> 
@@ -575,7 +573,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
 <script>
    $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"80%"});
 
       // window.location.hash = "#tab1"
       // window.location.hash = "#tab2"
