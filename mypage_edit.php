@@ -21,7 +21,7 @@ if(!empty($_SESSION['book'])){
   $bookid=$_SESSION['book']['bookid'];
 
 
-  // unset($_SESSION['book']);
+
 
 
   $sql =sprintf('SELECT * FROM `books` WHERE `api_id` ="%s"',$bookid);
@@ -29,7 +29,7 @@ if(!empty($_SESSION['book'])){
 
   $records = mysqli_query($db,$sql) or die(mysqli_error($db));
   $record = mysqli_fetch_assoc($records);
-  // var_dump($record);
+
 
 
   if(isset($record)){
@@ -49,9 +49,9 @@ exit();
 
   }
 }
-// var_dump($_POST);
+
 if(!empty($_POST)){
-    // var_dump($_POST);
+
 $sql = sprintf('UPDATE `users` SET `name`= "%s" ,`avatar_id`=%d,`hobby`="%s",`job`="%s",`bestbook_id`=%d,`great_man`="%s",`comment`="%s" WHERE `user_id`='.$_SESSION['login_member_id'],
     mysqli_real_escape_string($db,$_POST['name']),
     mysqli_real_escape_string($db,$_POST['avatar_id']),
@@ -81,7 +81,7 @@ unset($_SESSION['book']);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Company-HTML Bootstrap theme</title>
+    <title>編集ページ-MemoReads-</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -93,12 +93,6 @@ unset($_SESSION['book']);
      <link href="css/header.css" rel="stylesheet" />
     <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
 
-    <!-- =======================================================
-        Theme Name: Company
-        Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
   </head>
   <body>
   <?php include('header.php'); ?>
@@ -114,11 +108,13 @@ unset($_SESSION['book']);
         <label for="job" class="cols-sm-2 control-label">あなたの一番好きな本を教えてください</label>
             <div class="cols-sm-10">
 
-   <?php if(empty($_SESSION['book']['title'])): ?>
+   <?php if(empty($_SESSION['book']['title'])&&empty($record)){ ?>
      <input id="a" type="text" name="title" value="">
-    <?php else: ?>
+    <?php }elseif(empty($_SESSION['book']['title'])&&isset($record)){ ?>
+    <input id="a" type="text" name="title" value="<?php echo $record['title']; ?>">
+    <?php }else{ ?>
     <input id="a" type="text" name="title" value="<?php echo $booktitle; ?>">
-    <?php endif; ?>
+    <?php } ?>
      <button>検索</button>
     </div>
     </div>
@@ -202,20 +198,18 @@ unset($_SESSION['book']);
 		</div>
 
 		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    </section><!--/#contact-page-->
+    </section>
 	<section id="partner">
         <div class="container">
             <div class="center wow fadeInDown">
                 <h2>Developers</h2>
                 <div class="footer">
             <div class="container">
-                <!-- <div class="container"> -->
             <div class="developers">
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
                         <div><img class="image-circle" src="images/rimiko.JPG"> </div>    
                         <h2>Rimiko Fukumitsu</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -229,54 +223,19 @@ unset($_SESSION['book']);
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
                         <div><img class="image-circle" src="images/atsushi.JPG"></div>    
                         <h2>Atsushi Miyamoto</h2>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.jpg"></div>    
+                        <div><img class="image-circle" src="images/IMG_1696.jpg"></div>
                         <h2>Ayumi <br>Maeda</h2>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-	<!-- <footer>
-		<div class="footer">
-			<div class="container">
-				<div class="social-icon">
-					<div class="col-md-4">
-						<ul class="social-network">
-							<li><a href="#" class="fb tool-tip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="twitter tool-tip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="gplus tool-tip" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="linkedin tool-tip" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-							<li><a href="#" class="ytube tool-tip" title="You Tube"><i class="fa fa-youtube-play"></i></a></li>
-						</ul>	
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-md-offset-4">
-					<div class="copyright">
-						&copy; Company Theme. All Rights Reserved.
-                        <div class="credits">
-                            <!-- 
-                                All the links in the footer should remain intact. 
-                                You can delete the links only if you purchased the pro version.
-                                Licensing information: https://bootstrapmade.com/license/
-                                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Company
-                            -->
-             <!--                <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
-					</div>
-				</div>						
-			</div>
-			<div class="pull-right">
-				<a href="#home" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>
-			</div>
-		</div>
-	</footer>  -->
-	
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery-2.1.1.min.js"></script>	
     <!-- Include all compiled plugins (below), or include individual files as needed -->

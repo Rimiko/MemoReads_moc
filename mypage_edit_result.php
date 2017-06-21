@@ -17,20 +17,12 @@ if(isset($_REQUEST['book_select'])){
     $_SESSION['book']['author']=$authors[$a][0];
     $_SESSION['book']['description']=$descriptions[$a];
     $_SESSION['book']['bookid']=$bookids[$a];
+    $_SESSION['book']['categorie']=$categories[$a];
 
 
     header("Location:mypage_edit.php");
     exit();
 }
- // if (empty($error)){
- //      // セッションに値を保存
- //     $_SESSION['book'] = $_POST;
-
- //      //$_SESSION['join']['picture_path'] = $picture_path;
- //      //リダイレクト処理を実行する関数header()
- //       header("Location:record.php");
- //       exit();
- //      }
 
 ?>
 
@@ -53,10 +45,12 @@ if(isset($_REQUEST['book_select'])){
 </head>
 <body id="allbox">
 <div>
+
 <h1><img src="images/books.PNG">選択してください</h1>        
 <form method="post" action="">
 <div class="row">
 <?php for ($i=0; $i < 9; $i++): ?>
+
                    
        
                     <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6 serch"  style="width: 380px;height: 225px;">
@@ -67,7 +61,9 @@ if(isset($_REQUEST['book_select'])){
       <input type="radio" name="book_select" id="radios-0" value="<?php echo $i; ?>" checked="checked">
             <div class="well well-sm">
                 <div class="books" style="width:390px; height:170px;">
+
                      <div class="col-sm-6 col-md-6" style="width: 170px;">
+
                     <?php if($pics[$i] == 'なし'): ?>
                       
                       <img src="images/noimage.PNG" style="width: 100px;height:170px;">
@@ -91,22 +87,30 @@ if(isset($_REQUEST['book_select'])){
     
 
                     
+
                     </div>
+
                   </div>
                  </div>
                 </label>     
               </div>
+
 
   <?php endfor; ?>
 
   <input type="submit" value="選択">
   </div>
 
+
+   <button id="choose" style="width:50px; height:30px">選択</button>
+   </div>
   </form>
+
   </div>
 
 
             
+
 
 </body>
 </html>  
