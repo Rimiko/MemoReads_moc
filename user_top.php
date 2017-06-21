@@ -108,7 +108,7 @@
                                                         <?php echo $a[0]['title']; ?></h4>
                                                     <p><?php echo $a[0]['author']; ?></p>
                                                     <P>お気に入り登録数：<?php echo $a[0]['cnt']; ?></P>
-                                                    <br>
+                                                    <!-- <br> -->
                                                     <a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $a[0]['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" style="height: 26px; width: 100px;"></a>
 
                                                     
@@ -186,7 +186,7 @@
                                                     <p><?php echo $a[1]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[1]['cnt']; ?></P>
-                                                    <br>
+                                                    <!-- <br> -->
                                                     <a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $a[1]['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" style="height: 26px; width: 100px;"></a>
                                                     
                                                 </div>
@@ -252,7 +252,7 @@
                                                     <p><?php echo $a[2]['author']; ?>
                                                     </p>
                                                     <P>お気に位入り登録数：<?php echo $a[2]['cnt']; ?></P>
-                                                    <br>
+                                                    <!-- <br> -->
                                                     <a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $a[2]['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" style="height: 26px; width: 100px;"></a>
                                                     
                                                 </div>
@@ -321,7 +321,7 @@
                                                         <?php echo $a[3]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[3]['cnt']; ?></P>
-                                                    <br>
+                                                    <!-- <br> -->
                                                     <a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $a[3]['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" style="height: 26px; width: 100px;"></a>
                                                     
                                                 </div>
@@ -389,7 +389,7 @@
                                                         <?php echo $a[4]['author']; ?>
                                                     </p>
                                                     <P>お気に入り登録数：<?php echo $a[4]['cnt']; ?></P>
-                                                    <br>
+                                                    <!-- <br> -->
                                                     <a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $a[4]['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png" style="height: 26px; width: 100px;"></a>
                                                     
                                                 </div>
@@ -529,8 +529,9 @@
     <script src="colorbox-master/jquery.colorbox-min.js"></script>
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
     <script>
-   $(document).ready(function(){
+   $(document).ready(function()
       $(".iframe").colorbox({iframe:true, width:"90%", height:"80%"});
+  
    });
 </script>
 
