@@ -92,20 +92,7 @@ if($start==-24){
   $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
   $bestbook = mysqli_fetch_assoc($bestbooks);
   // var_dump($bestbook);
-
-
-
-
-
-
-
 ?>
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -127,14 +114,6 @@ if($start==-24){
 
 
 
-<!--    <link href="css/header.css" rel="stylesheet" /> -->
-    <!-- =======================================================
-        Theme Name: Company
-        Theme URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
-
   </head>
   <body>
   <?php include('header.php'); ?>
@@ -144,12 +123,6 @@ if($start==-24){
 
             <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
-
-
-
-
-
-
     <div class="col-lg-12">
         <div class="col-lg-3 profile-sidebar">
         <div class="name">
@@ -194,7 +167,7 @@ if($start==-24){
                   <div class="absolute">
                     <div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 <?php if(empty($bestbook)){?>
-<a href="" class="detail iframe"><img src="images/noimage.png" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
+<a href="" class="detail"><img src="images/noimage.png" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK <br>編集ページで登録してください"></a>
 <?php }else{ ?>
                     <a href="book_detail.php?book_id=<?php echo $bestbook['book_id']; ?>" class="detail iframe"><img src="<?php echo $bestbook['picture_url']?>" class="best img-rounded img-responsive"  width="112" height="175" title="BEST BOOK"></a>
                     <?php } ?>
@@ -209,9 +182,6 @@ if($start==-24){
                   <a href="book_detail.php?book_id=<?php echo $books_each['book_id']; ?>" class="detail iframe"><img src="<?php echo $books_each['picture_url']?>" class="book img-rounded img-responsive" title="<?php echo $start_date;?>~<?php echo $end_date; ?><br><a href='delete.php?record_id=<?php echo $books_each['record_id']; ?>' style='color:black;'>削除</a>" width="112" height="170" ></a>
 <?php } ?>
 <?php } ?>
-
-<!-- <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a> -->
-
                   </div>
                   </div>
                 </div>
@@ -222,7 +192,7 @@ if($start==-24){
             <div class="pageright col-md-6">
                 <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
           </ul>
-      <!--     </div> -->
+
                       </div>
 
 
