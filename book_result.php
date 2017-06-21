@@ -38,7 +38,7 @@ if(empty($_SESSION['login_member_id'])){
      else{
     $sql = 'SELECT  COUNT(*) as cnt FROM `books` WHERE `title` ORDER BY `books`.`created` DESC';
   }
-// var_dump($sql);
+
       $top_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 
       $tops_cnt = mysqli_fetch_assoc($top_cnt);
@@ -97,7 +97,7 @@ $book_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
 
       // ceil() :切り上げする関数
       $bookmaxPage = ceil($books_cnt['cnt'] / $bookrow);
-      // var_dump($sql);
+
  
       // 3.表示する正しいページ数の数値を設定（Max）
       $bookpage = min($bookpage,$bookmaxPage);
@@ -105,7 +105,7 @@ $book_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
      if ($bookpage >= 1) {
         $bookstart = ($bookpage -1) * $bookrow;
       }else{$bookstart = ($bookpage +1) * $bookrow;};
-// var_dump($bookstart);
+
 
 
 
@@ -148,7 +148,7 @@ $user_cnt = mysqli_query($db, $sql) or die(mysqli_error($db));
       // ceil() :切り上げする関数
       $usermaxPage = ceil($users_cnt['cnt'] / $userrow);
 
- // var_dump($usermaxPage);
+
       // 3.表示する正しいページ数の数値を設定（Max）
       $userpage = min($userpage,$usermaxPage);
 
@@ -180,10 +180,10 @@ $sql = sprintf('SELECT DISTINCT`books`.`book_id`,`books`.`title`,`books`.`catego
 
 $tops_array[] = $top;
  
- // var_dump($tops_array);
+ 
 
 }}
-  // var_dump($tops_array);
+  
 
 // 本キーワード検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
@@ -202,16 +202,16 @@ $sql = sprintf('SELECT `book_id`,`title`,`category`,`author`,`picture_url` FROM 
    while ($book = mysqli_fetch_assoc($books)){
 
    $books_array[] = $book;
-   // var_dump($books_array);
+   
 
 
 }}
 
 
-  // var_dump($books_array);
+
 // ユーザー検索
 if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){
-$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`a`.`avatar_path` FROM users u INNER JOIN avatar a ON `u`.`avatar_id` = `a`.`avatar_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `created` DESC LIMIT %d,%d',
+$sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,`u`.`created`,`a`.`avatar_path`,`b`.`picture_url`,`b`.`title` FROM avatar a LEFT JOIN users u ON `a`.`avatar_id` = `u`.`avatar_id` LEFT JOIN books b ON `u`.`bestbook_id` = `b`.`book_id` WHERE `name` LIKE "%%%s%%" OR `age` LIKE "%%%s%%" OR `job` LIKE "%%%s%%" OR `gender` LIKE "%%%s%%" OR `hobby` LIKE "%%%s%%" OR `great_man` LIKE "%%%s%%" OR `comment` LIKE "%%%s%%" ORDER BY `u`.`created` DESC LIMIT %d,%d',
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
     mysqli_real_escape_string($db,$_REQUEST['search_word']),
@@ -225,27 +225,29 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
    $users_array = array();
    while ($user = mysqli_fetch_assoc($users)){
    $users_array[] = $user;
-   // var_dump($users_array);
+   
   
-  $a =count($users_array);
-  for ($i=0; $i < $a ; $i++) { 
+//   $a =count($users_array);
+//   for ($i=0; $i < $a ; $i++) { 
     
   
-  $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`= '.$users_array[$i]['user_id'];
+//   $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`= '.$users_array[$i]['user_id'];
 
     
-$bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
-$bests_array = array();
- while($bestbook = mysqli_fetch_assoc($bestbooks)){
-
-  $bests_array[] = $bestbook;}
- }
+// $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
+// $bestbook = mysqli_fetch_assoc($bestbooks);
 
 
-}}
+
+ 
+
+ 
+}
+
+}
 
 
-// var_dump($users_array);
+
 
 
 
@@ -258,9 +260,6 @@ $bests_array = array();
 
 // if(isset($_GET['tab']) && ($_GET['tab'] == 'tab3')){ $_SESSION['user']=$userpage;}
 
-// var_dump($_SESSION['top']);
-// var_dump($_SESSION['book']);
-// var_dump($_SESSION['user']);
 
 
 ?>
@@ -359,7 +358,7 @@ $bests_array = array();
 
   　<div id="tab1" class="tab">
     <p>
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;"> 
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
      
             <?php $word = '';
           if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
@@ -392,7 +391,7 @@ $bests_array = array();
                            <div class="well well-sm" style="margin-bottom: 0px;">
                               <div class="row">
                                 <div class="col-sm-6 col-md-6" style="width: 180px;">
-                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                                    <a class="iframe" href="book_detail.php?book_id=<?php echo $top_each['book_id'];?>" title="本詳細"><img src="<?php echo $top_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                                 </div>
                                 
                                 <div class="col-sm-6 col-md-6">
@@ -422,7 +421,7 @@ $bests_array = array();
                   <div class="center">
              　　　　<div id="tab2" class="tab">
                       <p>
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;"> 
+                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
                           <?php $word = '';
                             if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                           <?php if ($bookpage > 1){ ?>
@@ -451,7 +450,7 @@ $bests_array = array();
                                           <div class="well well-sm" style="margin-bottom: 0px;">
                                             <div class="row">
                                               <div class="col-sm-6 col-md-6" style="width: 180px;">
-                                                  <a class="iframe" href="book_detail.php?book_id=<?php echo $book_each['book_id'];?>" title="ウィキペディア表紙"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                                                  <a class="iframe" href="book_detail.php?book_id=<?php echo $book_each['book_id'];?>" title="本詳細"><img src="<?php echo $book_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                                                   </div>   
                                               <div class="col-sm-6 col-md-6">
                                                   <h4>title:<?php echo $book_each['title'];?></h4>
@@ -493,7 +492,7 @@ $bests_array = array();
                          <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt</p> -->
                       </div>
                          <div id="tab3" class="tab">
-                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;"> 
+                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 1500px;"> 
                             <?php $word = '';
                               if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                             <?php if ($userpage > 1){ ?>
@@ -519,7 +518,7 @@ $bests_array = array();
                                           <div class="well well-sm" style="margin-bottom: 0px;">
                                               <div class="row">
                                                   <div class="col-sm-2 col-md-2" style="width: 180px;">
-                                                      <a class="iframe" href="mypage.php?user_id=<?php echo $user_each['user_id'];?>"><img src="<?php echo $user_each['avater_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
+                                                      <a href="mypage.php?user_id=<?php echo $user_each['user_id'];?>"><img src="images/<?php echo $user_each['avatar_path'];?>" alt="" class="img-rounded img-responsive" style=" width: 150px;height: 200px;"></a>
                                                   </div>
                                                   <div class="col-sm-2 col-md-2" style="right: 10px;">
                                                       <h4 style="width: 120px;">名前:<?php echo $user_each['name'];?></h4>
@@ -527,21 +526,26 @@ $bests_array = array();
                                                       <h4 style="width: 120px;">趣味;<?php echo $user_each['hobby'];?></h4>
                                                       <h4 style="width: 120px;">職業;<?php echo $user_each['job'];?></h4>
                                                   </div>
+                                      
                                                       
+                                                     
                                                   <div class="col-sm-2 col-md-2" style="width: 120px; width: 120px;left: 45px;">
-                                                      <a class="iframe" href="book_detail.html"><img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;";></a>
-                                                      <p><a class="amazon"><img src="images/assocbutt_or_buy._V371070157_.png"></a></p>   
+                                                      <a class="iframe" href="book_detail.php?book_id=<?php echo $best_each['book_id'];?>"><img src="<?php echo $user_each['picture_url'];?>" alt="" class="img-rounded img-responsive" style="width: 120px;height: 130px;";></a>
+                                                      <p><a href="https://www.amazon.co.jp/s/ref=nb_sb_noss?__mk_ja_JP=%E3%82%AB%E3%82%BF%E3%82%AB%E3%83%8A&url=search-alias%3Dstripbooks&field-keywords=<?php echo $user_each['title'];?>"><img src="images/assocbutt_or_buy._V371070157_.png"></a></p>   
                                                   </div>
+
+                                                  
                                               </div>
                                           </div>
                                       </div>
                                     </div>    
                                   </div><!--/.portfolio-item-->
-                              <?php } ?>
+                                <?php } ?>
                             </div>
                            </div>
                           </div>  
                         </div>
+                                  
                    </section>
                 </div> 
               </div>
