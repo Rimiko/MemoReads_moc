@@ -14,14 +14,9 @@ if(empty($_SESSION['login_member_id'])){
 if (!empty($_POST['title'])) {
   if ($_REQUEST['book_select'] == '') {
     $error['book_select'] == 'blank';
-    # code...
   }
-  
+
 }
-
-
-
-  
 
   //session
 if(!empty($_SESSION['book'])){
@@ -30,7 +25,6 @@ if(!empty($_SESSION['book'])){
   $bookauthor=$_SESSION['book']['author'];
   $bookdescription=$_SESSION['book']['description'];
   $bookid=$_SESSION['book']['bookid'];
-  
 
 
   $sql =sprintf('SELECT * FROM `books` WHERE `api_id` ="%s"',$bookid);
@@ -38,7 +32,7 @@ if(!empty($_SESSION['book'])){
 
   $records = mysqli_query($db,$sql) or die(mysqli_error($db));
   $record = mysqli_fetch_assoc($records);
-  // var_dump($record);
+
 
 
   if(isset($record)){
@@ -64,7 +58,7 @@ exit();
 if (!empty($_POST['record_button'])) {
  if (!isset($_POST)) {
     $error['book_record'] = 'error';
-  
+
 }else{
 
 
@@ -76,7 +70,7 @@ if (!empty($_POST['record_button'])) {
 
  $bookids2 = mysqli_query($db,$sql) or die(mysqli_error($db));
  $recordid2 = mysqli_fetch_assoc($bookids2);
- // var_dump($recordid2['book_id']);
+
 
  $sql=sprintf('INSERT INTO `records` (`record_id`, `user_id`, `stars`, `review`, `start_date`, `end_date`, `book_id`, `created`, `modified`) VALUES(NULL,"%s","%s","%s","%s","%s","%s",now(),now())',
 mysqli_real_escape_string($db,$_SESSION['login_member_id']),
@@ -227,33 +221,12 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 }  
 if (isset($_POST['record_button'])) {
-unset($_SESSION['book']['title']);
+unset($_SESSION['book']);
 }
 header("Location:mypage.php");
 exit();
 
 }
-
-
-
-
-
-
-
-
-// var_dump($_SESSION['book']);
-// var_dump($_SESSION['book']['$categorie']);
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
 
@@ -284,13 +257,13 @@ exit();
   </head>
   <body>
   <?php include('header.php'); ?>
-  
+
   <div id="allbox">
-  
+
 
         <!-- panel preview -->
       <div class="container">
-      
+
         <div id="b-box">
          <img id="icon" src="images/penicon.png">
            <div class="panel panel-default">
@@ -305,14 +278,10 @@ exit();
 
   <label>タイトル/作者</label>
 
-   
 <div class="col-ms-4">
 
-    
 <form method="get" action="record_result.php" name="検索">
-   
-  
-  
+
    <?php if(empty($_SESSION['book']['title'])): ?>
      <input id="serch" type="text" name="title" value="">
     <?php else: ?>
@@ -322,10 +291,7 @@ exit();
 <?php if(isset($error['title'])) { ?>
   <p class="error">*タイトルを入力してください</p>
 <?php } ?>
-
-
                         </div>
-                      
                     </div>
                     <div id="star"><label>評価</label></div>
                   </div>
@@ -337,8 +303,8 @@ exit();
 
  <form method="post" action="record.php" name="book_record">
 
- 
-                 <div class="form-group">
+
+                 <div class="form-group">
                         <label for="status" class="col-sm-4 control-label">感想</label>
                         <div class="col-sm-9">
                         <form class="form-horizontal">
@@ -348,15 +314,11 @@ exit();
 
 <!-- Text input-->
 <div class="form-group">
-  
   <div class="col-ms-4">
   <textarea id="textinput" name="textinput" type="text" class="form-control input-ms" required="">
     </textarea>
   </div>
 </div>
-
-<!-- Button -->
-
 
 <!-- Multiple checkbox (inline) -->
 <div class="form-group">
@@ -385,11 +347,11 @@ exit();
     <label class="checkbox-inline" for="keyword-5">
       <input type="checkbox" name="keyword6" id="keyword-5" value="6">
       怖い
-    </label> 
+    </label>
     <label class="checkbox-inline" for="keyword-6">
       <input type="checkbox" name="keyword7" id="keyword-6" value="7">
       つまらない
-    </label> 
+    </label>
     <label class="checkbox-inline" for="keyword-7">
       <input type="checkbox" name="keyword8" id="keyword-7" value="8">
       びっくり
@@ -397,7 +359,7 @@ exit();
     <label class="checkbox-inline" for="keyword-8">
       <input type="checkbox" name="keyword9" id="keyword-8" value="9">
       とりあえず読め
-    </label> 
+    </label>
     <label class="checkbox-inline" for="keyword-9">
       <input type="checkbox" name="keyword10" id="keyword-9" value="10">
       価値観が変わる
@@ -437,19 +399,16 @@ exit();
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
                             <input type="submit" name="record_button" value="記録">
-                            
+
                         </div>
                     </div>
-                
+
      <!-- / panel preview -->
       </form>
       </div>
       </div>
       </div>
       </div>
-      
-    
-
 
            <section id="partner">
         <div class="container">
@@ -461,44 +420,36 @@ exit();
             <div class="developers">
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
-                        <div><img class="image-circle" src="images/rimiko.JPG"> </div>  
+                        <div><img class="image-circle" src="images/rimiko.JPG"> </div>
                         <h2>Rimiko Fukumitsu</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.JPG"></div> 
+                        <div><img class="image-circle" src="images/naru.JPG"></div>
                         <h2>Naru<br> Nishimura</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.JPG"></div>  
+                        <div><img class="image-circle" src="images/atsushi.JPG"></div>
                         <h2>Atsushi Miyamoto</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle" src="images/IMG_1696.jpg"></div> 
+                        <div><img class="image-circle" src="images/IMG_1696.jpg"></div>
                         <h2>Ayumi <br>Maeda</h2>
-                        
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
-
-            
+    </div>
                    </div>
-            </div>        
+            </div>
         </div><!--/.container-->
     </section>
         </body>
-    
-    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.1.1.min.js"></script>  
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -513,12 +464,9 @@ exit();
 $.fn.raty.defaults.path = "images";
 $('#star').raty({
      number:5,
-    
-
      click: function(score, evt) {
           $.post('./star_result.php',{score:score},
           function(data){
-               
           });
      }
 });
@@ -529,13 +477,8 @@ $('#star').raty({
     <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
     <script>
    $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
    });
 </script>
-
-
-
-
-    
 </body>
 </html>

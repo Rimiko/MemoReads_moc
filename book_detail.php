@@ -5,14 +5,6 @@ require('dbconnect.php');
 // require('like.php');
 // require('unlike.php');
 // 本詳細
-
-
-
-
-
-
-
-
 if (isset($_REQUEST['book_id']) && !empty($_REQUEST['book_id'])){
     $sql = 'SELECT`book_id`,`title`,`category`,`author`,`picture_url`,`detail` FROM `books` WHERE `book_id` ='.$_REQUEST['book_id'];
 
@@ -53,11 +45,7 @@ $sql = 'SELECT COUNT(*) as `like_flag` FROM `likes` WHERE `record_id` ='.$user['
   $likes_cnt = mysqli_query($db,$sql) or die(mysqli_error($db));
   $like_cnt = mysqli_fetch_assoc($likes_cnt);
 
- 
 
-
-
-    
 
   // kキーワード表示
 
@@ -212,6 +200,6 @@ $(function raty() {
 });
 </script>
 
-             </body>
-        </html>
+ </body>
+ </html>
 
