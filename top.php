@@ -232,8 +232,8 @@ if(empty($error)){
                         <!-- rankig -->
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
-                      <div><img src="images/読書アイコン (2) のコピー 2white.png"  title="星５つ評価の多い本のランキング"><!-- <img src="images/読書アイコン (2).png"> --></div> 
-                      <div><img src="images/トロフィーのアイコン素材 その4 のコピー.png" style="margin-right:440px;"></div>
+                      <div><img src="images/reading_icon.png"  title="星５つ評価の多い本のランキング"><!-- <img src="images/読書アイコン (2).png"> --></div> 
+                      <div><img src="images/1white.png" style="margin-right:440px;"></div>
                         
 
                         <!-- book部門１位 -->
@@ -270,8 +270,8 @@ if(empty($error)){
                     
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                     <div><img src="images/勉強アイコン2 のコピーwhite.png"  title="高ポイントユーザーのランキング"><!-- <img src="images/勉強アイコン2.png"> --></div>
-                        <div><img src="images/トロフィーのアイコン素材 その4 のコピー.png" style="margin-right: 440px;"></div>
+                     <div><img src="images/reader_icon.png"  title="高ポイントユーザーのランキング"><!-- <img src="images/勉強アイコン2.png"> --></div>
+                        <div><img src="images/1white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -309,7 +309,7 @@ if(empty($error)){
                 <div class="col-lg-6">
                     
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                    <div><img src="images/2位アイコン のコピーwhite.png" style="margin-right:440px; "></div>
+                    <div><img src="images/2white.png" style="margin-right:440px; "></div>
                         <div class="container">
 
 
@@ -340,7 +340,7 @@ if(empty($error)){
                 <!-- ユーザー部門２位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/2位アイコン のコピーwhite.png" style="margin-right: 440px;"></div>
+                    <div><img src="images/2white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -374,7 +374,7 @@ if(empty($error)){
                 <!-- book部門３位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/3位アイコン (1).png" style="margin-right: 440px;"></div>
+                        <div><img src="images/3white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -403,7 +403,7 @@ if(empty($error)){
                 <!-- ユーザー部門３位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/3位アイコン (1).png" style="margin-right: 440px;"></div>
+                      <div><img src="images/3white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -437,7 +437,7 @@ if(empty($error)){
                     <!-- book部門４位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                    <div><img src="images/4位の無料素材 (1) のコピー.png" style="margin-right:440px;"></div>
+                    <div><img src="images/4white.png" style="margin-right:440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -470,7 +470,7 @@ if(empty($error)){
                     <!-- ユーザー部門４位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                      <div><img src="images/4位の無料素材 (1) のコピー.png" style="margin-right: 440px;"></div>
+                      <div><img src="images/4white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -506,7 +506,7 @@ if(empty($error)){
                  <!-- book部門５位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img src="images/5位アイコン (2).png" style="margin-right: 440px; "></div>
+                        <div><img src="images/5white.png" style="margin-right: 440px; "></div>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -536,7 +536,7 @@ if(empty($error)){
                  <!-- ユーザー部門５位 -->
                 <div class="col-lg-6">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                     <div><img src="images/5位アイコン (2).png" style="margin-right: 440px;"></div>
+                     <div><img src="images/5white.png" style="margin-right: 440px;"></div>
                         <div class="container">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-5 col-md-6">
@@ -634,21 +634,23 @@ if(empty($error)){
                       </div>
                         <div class="col-md-3">
                             <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                                <div><img class="image-circle" src="images/naru.JPG"></div> 
+                                <div>
+                                <a href="https://web.facebook.com/profile.php?id=100010602424436&fref=ts"><img class="image-circle" src="images/naru.JPG"></a>
+                                </div> 
                                 <h2>Naru<br> Nishimura</h2>
                                 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                                <div><img class="image-circle" src="images/atsushi.JPG"></div>  
+                                <div><a href="https://web.facebook.com/profile.php?id=100011551561512"><img class="image-circle" src="images/atsushi.JPG"></a></div>  
                                 <h2>Atsushi Miyamoto</h2>
                                 
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                                <div><img class="image-circle" src="images/IMG_1696.jpg"></div> 
+                                <div><<a href="https://web.facebook.com/ayumi.maeda.3532?_rdc=1&_rdr"><img class="image-circle" src="images/IMG_1696.jpg"></a>
                                 <h2>Ayumi <br>Maeda</h2>
                                 
                             </div>
@@ -663,82 +665,10 @@ if(empty($error)){
         </div><!--/.container-->
     </section><!--/#partner-->
     
-    <!-- <section id="conatcat-info">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="media contact-info wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="pull-left">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="media-body">
-                            <h2>Have a question or need a custom quote?</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation +0123 456 70 80</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!/.container-->    
+   
     </section><!--/#conatcat-info-->
      
-    <!-- <footer>
-        <div class="footer">
-            <div class="container">
-                <! <div class="container"> -->
-            <!-- <div class="developers">
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.JPG">
-                        <div><img class="image-circle" src="images/rimiko.JPG"> </div>  
-                        <h2>Rimiko Fukumitsu</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" >
-                        <div><img class="image-circle" src="images/naru.JPG"></div> 
-                        <h2>Naru Nishimura</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
-                        <div><img class="image-circle" src="images/atsushi.JPG"></div>  
-                        <h2>Atsushi Miyamoto</h2>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
-                        <div><img class="image-circle "src="images/IMG_1696.jpg"></div> 
-                        <h2>Ayumi Maeda</h2>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-                
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="copyright">
-                        &copy; Company Theme. All Rights Reserved.
-                        <div class="credits">
-                            <!
-                                All the links in the footer should remain intact. 
-                                You can delete the links only if you purchased the pro version.
-                                Licensing information: https://bootstrapmade.com/license/
-                                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Company
-                            -->
-                            <!-- <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Business Bootstrap Themes</a> by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        </div>
-                    </div>
-                </div>                      
-            </div>
-            
-            <div class="pull-right">
-                <a href="#home" class="scrollup"><i class="fa fa-angle-up fa-3x"></i></a>
-            </div>      
-        </div>
-    </footer>   -->
-
+    
     
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
