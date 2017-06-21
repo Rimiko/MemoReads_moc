@@ -1,12 +1,7 @@
 <?php 
 session_start();
 require('dbconnect.php');
-// require('api.php');
 
-// if ($_POST['keyword']) {
-//   var_dump($_POST['keyword']);
-//   # code...
-// }
 if(empty($_SESSION['login_member_id'])){
   header('Location:error.php');
   exit();
@@ -23,7 +18,7 @@ if (!empty($_POST['title'])) {
   }
   
 }
-  // var_dump($_SESSION['book']);
+
 
 
   
@@ -436,7 +431,7 @@ exit();
                 </div>
             </div>
         </div>
-            </div>    
+    </div>    
 
             
                    </div>
