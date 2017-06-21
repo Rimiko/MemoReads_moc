@@ -253,7 +253,7 @@ exit();
   <label>タイトル/作者</label>
 
    
-  <div class="col-ms-4">
+<div class="col-ms-4">
 
     
 <form method="get" action="record_result.php" name="検索">
