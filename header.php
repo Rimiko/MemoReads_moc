@@ -1,5 +1,7 @@
 
+
     <header>        
+
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navigation">
 
@@ -13,19 +15,20 @@
                         <div class="navbar-brand">
                           <div class="row">
                             <div class="span12">
-                              <form class="form-search form-horizontal pull-right" action="book_result.php" method="get">
-                                <div class="input-append span12">
-                                  <input type="text" name="search_word" class="mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></i></button>
-                                </div>
-                              </form>
-                             </div>
+
+
+
+                  <form class="form-search form-horizontal pull-right" action="book_result.php" method="get">
+                  <div class="input-append span12">
+                  <input type="text" name="search_word" class="mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></i></button>
+                       </div>
+                                </form>
+
+                            </div>
+
                           </div>
                         </div>
                     </div>
-                   <!--  <div>
-                        <img src="images/logo.png" style="width: 150px; height: 60px;">
-                    </div> -->
-
                     <div class="navbar-collapse collapse">
                         <div class="menu">
 
@@ -41,7 +44,8 @@
                     </div>
                 </div>
         </nav>
+
     </header>
 
 
-   
+

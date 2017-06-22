@@ -246,7 +246,7 @@ unset($_SESSION['book']);
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
 	<script src="js/functions.js"></script>
     <script src="contactform/contactform.js"></script>
-    
+
      <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="colorbox-master/jquery.colorbox-min.js"></script>
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>

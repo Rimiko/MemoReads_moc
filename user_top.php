@@ -528,11 +528,12 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="colorbox-master/jquery.colorbox-min.js"></script>
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
-    <script>
-   $(document).ready(function()
-      $(".iframe").colorbox({iframe:true, width:"90%", height:"80%"});
-  
+<script>
+   $(document).ready(function(){
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
    });
+
+
 </script>
 
 

@@ -21,10 +21,7 @@ if(!empty($_REQUEST['user_id'])){
   $record = mysqli_query($db,$sql) or die(mysqli_error($db));
   $member = mysqli_fetch_assoc($record);
 }
-  // var_dump($member);
-
-  // $record = mysqli_query($db,$sql) or die(mysqli_error($db));
-  //paging処理
+//paging処理
 //ページング処理
 
 //0.ページ番号を取得（ある場合はGET送信、ない場合は１ページ目と認識する）
@@ -82,7 +79,6 @@ if($start==-24){
   while ($book = mysqli_fetch_assoc($books)) {
   $books_array[]=$book;
   }
-  // var_dump($book);
   //ベストブック
   if(isset($_REQUEST['user_id']) && !empty($_REQUEST['user_id'])){
       $sql ='SELECT b.* FROM `books`b INNER JOIN `users`u ON u.`bestbook_id` = b.`book_id` WHERE u.`user_id`='.$_REQUEST['user_id'];
@@ -91,7 +87,7 @@ if($start==-24){
   }
   $bestbooks = mysqli_query($db,$sql) or die(mysqli_error($db));
   $bestbook = mysqli_fetch_assoc($bestbooks);
-  // var_dump($bestbook);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,60 +107,56 @@ if($start==-24){
     <link href="css/memoreads.css" rel="stylesheet" />
     <link href="colorbox-master/example1/colorbox.css" rel="stylesheet" />
     <link href="css/header.css" rel="stylesheet" />
-
-
-
   </head>
   <body>
   <?php include('header.php'); ?>
   <div id="background">
     <div class="aboutus">
         <div class="container">
-
-            <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+          <div class="col-md-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="container">
-    <div class="col-lg-12">
-        <div class="col-lg-3 profile-sidebar">
-        <div class="name">
-        <h3>
-        <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></h3></div>
-            <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="300" height="300">
-          <div class="row ptlv">
-        <div class="text-center date-body" style="width:100px">
-          <label for="" class="date-title">Point</label>
-          <div class="date-content">
-            <p class="dia"><strong><?php echo $member['point']; ?></strong> pt</p>
-          </div>
-        </div>
-            <div class="text-center date-body" style="width:100px">
-          <label for="" class="date-title">Level</label>
-          <div class="date-content">
-            <p class="dia"><strong><?php echo $member['level']; ?></strong> Lv.</p>
-          </div>
-        </div>
-    </div>
-            <div class="col-sm-12 well margin-well">
-            <p>
-            年齢 : <strong><?php echo $member['age'];?>代</strong>
-            <br>
-            職業 :<strong><?php echo $member['job'];?></strong>
-            <br>
-            尊敬する偉人 : <strong><?php echo $member['great_man'];?></strong>
-            <br>
-            趣味 :<strong><?php echo $member['hobby'];?></strong>
-            <br>
-            ひとこと : <strong><?php echo $member['comment'];?></strong>
-            </p>
-            <div class="pull-center">
-            <!-- <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span> -->
-            <?php if($_SESSION['login_member_id'] !== $member['user_id']){
-                  echo ' ';
-                  }else{?>
-              <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span>編集ページ</a>
-              <?php  } ?>
-            </div>
-        </div>
-        </div>
+              <div class="col-lg-12">
+                <div class="col-lg-3 profile-sidebar">
+                  <div class="name">
+                  <h3>
+                  <strong style="color: black;"><?php echo $member['name'];?></strong><small style="color:black;">さんのマイページ</small></h3>
+                  </div>
+                  <img id="img-profile" class="img-thumbnail img-center img-rounded" src="images/<?php echo $member['avatar_path'];?>" width="300" height="300">
+                    <div class="row ptlv">
+                      <div class="text-center date-body" style="width:100px">
+                       <label for="" class="date-title">Point</label>
+                        <div class="date-content">
+                          <p class="dia"><strong><?php echo $member['point']; ?></strong> pt</p>
+                        </div>
+                       </div>
+                    <div class="text-center date-body" style="width:100px">
+                     <label for="" class="date-title">Level</label>
+                      <div class="date-content">
+                      <p class="dia"><strong><?php echo $member['level']; ?></strong> Lv.</p>
+                      </div>
+                    </div>
+                    </div>
+                  <div class="col-sm-12 well margin-well">
+                    <p>
+                    年齢 : <strong><?php echo $member['age'];?>代</strong>
+                    <br>
+                    職業 :<strong><?php echo $member['job'];?></strong>
+                    <br>
+                    尊敬する偉人 : <strong><?php echo $member['great_man'];?></strong>
+                    <br>
+                    趣味 :<strong><?php echo $member['hobby'];?></strong>
+                    <br>
+                    ひとこと : <strong><?php echo $member['comment'];?></strong>
+                    </p>
+                    <div class="pull-center">
+                    <?php if($_SESSION['login_member_id'] !== $member['user_id']){
+                    echo ' ';
+                    }else{?>
+                    <a href="mypage_edit.php" class="btn btn-success" style="color: black;"><span class="glyphicon glyphicon-pencil" ></span>編集ページ</a>
+                    <?php  } ?>
+                    </div>
+                  </div>
+                </div>
             <div class="col-lg-9">
             <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-book" aria-hidden="true"></i>Book Shelf&nbsp;&nbsp;&nbsp;&nbsp;
             <?php if($_SESSION['login_member_id'] !== $member['user_id']){
@@ -204,22 +196,16 @@ if($start==-24){
                 <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
           </ul>
 
-                      </div>
-
-
-
+              </div>
+            </div>
+          </div>
+       </div>
+        <br>
+        <br>
 
     </div>
-</div>
+  </div>
 
-            </div>
-
-        <br>
-        <br>
-
-                              </div>
-                      </div>
-  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://winofsql.jp/js/jquery.balloon.min.051.js"></script>
 <script>
@@ -279,42 +265,37 @@ $(function(){
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="images/rimiko.png">
                         <div>
                         <a href="https://www.facebook.com/profile.php?id=100006744364920&fref=ts"><img class="image-circle" src="images/rimiko.JPG"></a>
-                        </div>    
+                        </div>
                         <h2>Rimiko Fukumitsu</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown data-wow-duration="1000ms" data-wow-delay="600ms" >
                         <div>
                         <a href="https://web.facebook.com/profile.php?id=100010602424436&fref=ts"><img class="image-circle" src="images/naru.JPG"></a>
-                        </div>    
+                        </div>
                         <h2>Naru<br> Nishimura</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" >
                         <div>
                         <a href="https://web.facebook.com/profile.php?id=100011551561512"><img class="image-circle" src="images/atsushi.JPG"></a>
-                        </div>    
+                        </div>
                         <h2>Atsushi Miyamoto</h2>
-                        
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="hi-icon-wrap hi-icon-effect wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" >
                         <div>
                         <a href="https://web.facebook.com/ayumi.maeda.3532?_rdc=1&_rdr"><img class="image-circle" src="images/IMG_1696.jpg"></a>
-                        </div>    
+                        </div>
                         <h2>Ayumi <br>Maeda</h2>
-                        
                     </div>
                 </div>
             </div>
         </div>
 
- 
    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- <script src="js/jquery-2.1.1.min.js"></script>  --> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -327,16 +308,11 @@ $(function(){
 <script src="colorbox-master/i18n/jquery.colorbox-ja.js"></script>
 <script>
    $(document).ready(function(){
-      $(".iframe").colorbox({iframe:true, width:"80%", height:"80%"});
+      $(".iframe").colorbox({iframe:true, width:"90%", height:"90%"});
 
-      // window.location.hash = "#tab1"
-      // window.location.hash = "#tab2"
-      // window.location.hash = "#tab3"
    });
 
 
 </script>
-
-    
 </body>
 </html>

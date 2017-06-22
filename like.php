@@ -22,13 +22,10 @@ mysqli_query($db,$sql) or die(mysqli_error($db));
 
 $sql = sprintf('SELECT * FROM `users` INNER JOIN `records` ON `users`.`user_id` = `records`.`user_id` WHERE `records`.`record_id`=%d',$_REQUEST['record_id']);
 
-
-
 $avatars = mysqli_query($db,$sql) or die(mysqli_error($db));
 $avatar_array = array();
 $avatar = mysqli_fetch_assoc($avatars);
 $avatar_array[] = $avatar;
- var_dump($avatar_array[0]['point']);
 
 //レベルアップ
  if ($avatar_array[0]['point'] == 10 || $avatar_array[0]['point'] == 15){
@@ -84,7 +81,3 @@ exit();
 }
 
 ?>
-
-
-
-

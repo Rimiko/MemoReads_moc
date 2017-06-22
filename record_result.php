@@ -1,4 +1,4 @@
-<?php  
+<?php
 session_start();
 require('api.php');
 
@@ -59,11 +59,8 @@ if(isset($_REQUEST['book_select'])){
 <form method="post" action="">
 <div class="row">
 <?php for ($i=0; $i < 9 ; $i++): ?>
-                   
-       
-                    <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6 serch"  style="width: 380px;height: 225px;">
 
-                   
+                    <div class="portfolio-item bootstrap wordpress col-xs-6 col-sm-6 col-md-6 serch"  style="width: 380px;height: 225px;">
 <label>
 
       <input type="radio" name="book_select" id="radios-0" value="<?php echo $i; ?>" checked="checked">
@@ -92,10 +89,7 @@ if(isset($_REQUEST['book_select'])){
 
    
      <?php endif; ?>
-    
 
-                    
-                   
                    </div>
                   </div>
                  </div>
@@ -112,4 +106,3 @@ if(isset($_REQUEST['book_select'])){
 
 </body>
 </html>  
-    
