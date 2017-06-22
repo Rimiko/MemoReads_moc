@@ -1,6 +1,7 @@
 
-  <!-- ヘッダー -->
-    <header>
+
+    <header>        
+
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navigation">
 
@@ -16,6 +17,7 @@
                             <div class="span12">
 
 
+
                   <form class="form-search form-horizontal pull-right" action="book_result.php" method="get">
                   <div class="input-append span12">
                   <input type="text" name="search_word" class="mac-style" placeholder="Search"><button class="btn btn-success" type="submit"><i class="icon-search"><span class="glyphicon glyphicon-search"></span></i></button>
@@ -23,8 +25,8 @@
                                 </form>
 
                             </div>
-                          </div>
 
+                          </div>
                         </div>
                     </div>
                     <div class="navbar-collapse collapse">
@@ -42,4 +44,8 @@
                     </div>
                 </div>
         </nav>
+
     </header>
+
+
+
