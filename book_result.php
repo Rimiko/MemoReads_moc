@@ -349,8 +349,8 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
 
   　<div id="tab1" class="tab">
-    <!-- <p> -->
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
+    <p>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 900px;"> 
      
             <?php $word = '';
           if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
@@ -404,7 +404,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                   </div>
                  </div> 
                 </div> 
-      　<!-- </p> -->
+      　</p>
       </div>
       </section>
       </div>
@@ -416,7 +416,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                   <div class="center">
              <div id="tab2" class="tab">
                       <p>
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
+                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 900px;"> 
                           <?php $word = '';
                             if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                           <?php if ($bookpage > 1){ ?>
@@ -484,7 +484,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                          
                       </div>
                          <div id="tab3" class="tab">
-                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 1500px;"> 
+                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 900px;"> 
                             <?php $word = '';
                               if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                             <?php if ($userpage > 1){ ?>
