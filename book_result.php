@@ -261,7 +261,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Company-HTML Bootstrap theme</title>
+    <title>検索結果ページ</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -310,13 +310,13 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
     <div class="col-lg-3">
    <?php include('sideber.php'); ?>
     </div>
-  </div>
-</div>
+
+
 <div class="col-lg-9">
 <div class="kabe">
   <section id="portfolio">  
-        <div class="container">
-           <div class="tabbox">
+ <!--        <div class="container">
+ -->           <div class="tabbox">
               <ul class="portfolio-filter text-center">
                 <?php if(isset($_GET['tab']) && ($_GET['tab'] == 'tab1')){ ?>
                 <li style="margin-top:78px;"><a class="btn btn-default active" href="#tab1"
@@ -341,11 +341,16 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                 <?php } ?>
               </ul><!--/#portfolio-filter-->
             </div>
-          </div>
+            <!-- </section> -->
+             <!--  </div> -->
+
+          <!-- </div> -->
+          <!-- </div> -->
+
 
   　<div id="tab1" class="tab">
     <p>
-        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
+        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 900px;"> 
      
             <?php $word = '';
           if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
@@ -368,7 +373,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
         <div class="container">
             <div class="">
-              <div class="portfolio-items" style="left: 400px;">
+              <div class="portfolio-items" style="left: 40px;">
                
                   <?php foreach ($tops_array as $top_each) { ?>
                     <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
@@ -400,7 +405,10 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                  </div> 
                 </div> 
       　</p>
+      </div>
       </section>
+      </div>
+    
 
              <div class="kabe">
               <section id="portfolio">
@@ -408,7 +416,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                   <div class="center">
              <div id="tab2" class="tab">
                       <p>
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 1500px;"> 
+                        <div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 300px;position: absolute;top: 1300px;left: 900px;"> 
                           <?php $word = '';
                             if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                           <?php if ($bookpage > 1){ ?>
@@ -429,7 +437,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
 
                         <div class="container">
                           <div class="">
-                              <div class="portfolio-items" style="left: 400px; margin-bottom: 0px;bottom: 50px;">
+                              <div class="portfolio-items" style="left: 40px; margin-bottom: 0px;bottom: 50px;">
                                 <?php foreach ($books_array as $book_each) { ?>
                                   <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6"  style="width: 400px;height: 225px">
                                       <div class="row">
@@ -476,7 +484,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                          
                       </div>
                          <div id="tab3" class="tab">
-                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 1500px;"> 
+                        　<div class="col-xs-12 col-sm-8 col-md-8 col-md-push-10" style="bottom: 330px;position: absolute;top: 1300px;left: 900px;"> 
                             <?php $word = '';
                               if (isset($_REQUEST['search_word']) && !empty($_REQUEST['search_word'])){$word = '&search_word='.$_REQUEST['search_word'];}?>
                             <?php if ($userpage > 1){ ?>
@@ -494,7 +502,7 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                             <?php } ?>
                         　</div>
                           <div class="container">  
-                            <div class="portfolio-items" style="left:400px; margin-bottom: 0px;bottom: 20px;">
+                            <div class="portfolio-items" style="left:40px; margin-bottom: 0px;bottom: 20px;">
                               <?php foreach ($users_array as $user_each) { ?>
                                   <div class="portfolio-item apps col-xs-6 col-sm-6 col-md-6" style="width: 400px;height: 225px">
                                     <div class="row">
@@ -534,6 +542,8 @@ $sql = sprintf('SELECT `u`.`user_id`,`u`.`name`,`u`.`age`,`u`.`hobby`,`u`.`job`,
                    </section>
                 </div> 
               </div>
+              </div>
+                        </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="js/jquery-2.1.1.min.js"></script>  
