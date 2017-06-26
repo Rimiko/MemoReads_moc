@@ -188,13 +188,21 @@ if($start==-24){
                   </div>
                   </div>
                 </div>
-
+                <?php if(isset($_REQUEST['user_id'])){ ?>
+            <ul class="paging">
+            <div class="pageleft col-md-6">
+                <li><?php if ($page > 1){ ?><a href="mypage.php?page=<?php echo $page-1; ?>&user_id=<?php echo $_REQUEST['user_id'];?>" class="btn btn-default left">前</a><?php }else{ ?><?php } ?></li></div>
+            <div class="pageright col-md-6">
+                <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>&user_id=<?php echo $_REQUEST['user_id'];?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
+          </ul>
+          <?php }else{ ?>
             <ul class="paging">
             <div class="pageleft col-md-6">
                 <li><?php if ($page > 1){ ?><a href="mypage.php?page=<?php echo $page-1 ?>" class="btn btn-default left">前</a><?php }else{ ?><?php } ?></li></div>
             <div class="pageright col-md-6">
                 <li><?php if ($page < $maxPage){ ?><a href="mypage.php?page=<?php echo $page+1; ?>" class="btn btn-default right">次</a><?php }else{ ?><?php } ?></li></div>
           </ul>
+          <?php } ?>
 
               </div>
             </div>
